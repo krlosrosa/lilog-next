@@ -1,103 +1,99 @@
-import Image from "next/image";
+import { auth } from '@/auth';
+import { fetchUser } from '@/_shared/utils/fetchMock';
+import { redirect } from 'next/navigation';
+import defineAbilityFor from '@/_shared/utils/defineAbility';
+import { subject } from '@casl/ability';
+import ModulesGrid from '@/_shared/_components/dashboard/modules-grid';
+import UserInfoCard from '@/_shared/_components/dashboard/user-info-card';
+import { Home as HomeIcon, Settings, Users, Building2 } from 'lucide-react';
 
-export default function Home() {
+const allModules = [
+  {
+    title: 'Produtividade',
+    description: 'Funcionários e métricas',
+    url: '/produtividade/funcionarios',
+    icon: HomeIcon,
+    recurso: 'produtividade',
+    color: 'text-blue-600 dark:text-blue-400',
+    bgColor: 'bg-blue-50 dark:bg-blue-950',
+  },
+  {
+    title: 'Centros',
+    description: 'Gerenciar centros',
+    url: '/center',
+    icon: Building2,
+    recurso: 'configuracoes',
+    color: 'text-green-600 dark:text-green-400',
+    bgColor: 'bg-green-50 dark:bg-green-950',
+  },
+  {
+    title: 'Usuários',
+    description: 'Gerenciar usuários',
+    url: '/users',
+    icon: Users,
+    recurso: 'pessoal',
+    color: 'text-purple-600 dark:text-purple-400',
+    bgColor: 'bg-purple-50 dark:bg-purple-950',
+  },
+  {
+    title: 'Roles',
+    description: 'Permissões e acessos',
+    url: '/roles',
+    icon: Settings,
+    recurso: 'pessoal',
+    color: 'text-orange-600 dark:text-orange-400',
+    bgColor: 'bg-orange-50 dark:bg-orange-950',
+  },
+];
+
+export default async function Home() {
+  const session = await auth();
+
+  if (!session || !session.user) {
+    redirect('/login');
+  }
+
+  const user = await fetchUser({
+    id: session.user.id || '',
+    name: session.user.name || '',
+    roles: session.user.roles || [],
+    empresa: session.user.empresa || null,
+  });
+
+  // Verifica permissões diretamente usando os dados do usuário
+  const ability = defineAbilityFor(user.roles);
+  const centro = user.centerSelect || '';
+
+  const allowedModules = allModules.filter((module) => {
+    const subjectToTest = centro
+      ? subject(module.recurso, { centro })
+      : module.recurso;
+    return ability.can('leitura', subjectToTest);
+  });
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="container mx-auto space-y-6 p-6">
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
+          <p className="text-muted-foreground">
+            Bem-vindo ao sistema de gestão
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <UserInfoCard
+          name={user.name}
+          id={user.id}
+          centers={user.centers}
+          centerSelect={user.centerSelect}
+          roles={user.roles}
+        />
+
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold">Módulos Disponíveis</h2>
+          <ModulesGrid modules={allowedModules} />
+        </div>
+      </div>
     </div>
   );
 }
