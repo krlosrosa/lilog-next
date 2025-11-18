@@ -56,23 +56,33 @@ export const ConfiguracoesConferencia = ({
         <FormField
           control={control}
           name="tipoImpressaoConferencia"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Tipo de Impressão Conferência</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o tipo" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="CLIENTE">Cliente</SelectItem>
-                  <SelectItem value="TRANSPORTE">Transporte</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field }) => {
+            // Garante que o valor seja uma string válida ou undefined
+            // O Select do Radix UI precisa de undefined (não string vazia) quando não há valor
+            const value = field.value && String(field.value).trim() !== '' ? String(field.value) : undefined;
+            
+            return (
+              <FormItem>
+                <FormLabel>Tipo de Impressão Conferência</FormLabel>
+                <Select 
+                  onValueChange={field.onChange} 
+                  value={value}
+                  key={`tipoImpressaoConferencia-${value || 'empty'}`} // Força re-render quando o valor mudar
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione o tipo" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="CLIENTE">Cliente</SelectItem>
+                    <SelectItem value="TRANSPORTE">Transporte</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
         />
       </div>
 

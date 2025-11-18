@@ -7,7 +7,6 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
-  SelectLabel,
 } from '@/_shared/_components/ui/select';
 import { Label } from './label';
 
@@ -27,6 +26,10 @@ export function SelectWithLabel({
   onChange,
 }: SimpleSelectProps) {
   const [selected, setSelected] = React.useState(value ?? '');
+
+  React.useEffect(() => {
+    setSelected(value ?? '');
+  }, [value]);
 
   const handleChange = (val: string) => {
     setSelected(val);

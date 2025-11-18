@@ -91,7 +91,6 @@ export const HeaderSeparacaoMapa = memo(
         <div className="flex items-center justify-between bg-gray-800 px-3 py-1.5 text-xl text-white print:bg-black">
           <h1 className="font-bold tracking-wide">
             MAPA DE SEPARAÇÃO - {mapa.transportId}
-            {tipo === "CLIENTE" && ` [${mapa.codClientes[0]}]`}
             {idSeg && ` [${idSeg}]`} | {mapa.segmento}
           </h1>
           <h1 className="font-bold tracking-wide">{typeLabel}</h1>

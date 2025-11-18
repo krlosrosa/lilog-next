@@ -60,11 +60,6 @@ export function useCriarConfiguracaoCentro() {
     form.setValue('empresa', empresa);
   }, [empresa, form]);
 
-  // Preenche o formulário quando a configuração chegar do backend
-  useEffect(() => {
-    form.reset();
-  }, [form]);
-
   const onSubmit = (data: FormValues) => {
     // Garante que a empresa do state seja usada
     const dataToSend = {
@@ -96,15 +91,41 @@ export function useCriarConfiguracaoCentro() {
       }
       if (configuracaoImpressa) {
         // Se retornou dados do backend, usa os dados retornados
+        // Normaliza os valores de tipoImpressao e tipoImpressaoConferencia para maiúsculas
+        // para garantir compatibilidade mesmo se vierem em minúsculas do backend
+        const tipoImpressaoNormalizado = configuracaoImpressa.tipoImpressao 
+          ? (String(configuracaoImpressa.tipoImpressao).toUpperCase() as 'TRANSPORTE' | 'CLIENTE')
+          : 'CLIENTE';
+        
+        const tipoImpressaoConferenciaNormalizado = configuracaoImpressa.tipoImpressaoConferencia
+          ? (String(configuracaoImpressa.tipoImpressaoConferencia).toUpperCase() as 'TRANSPORTE' | 'CLIENTE')
+          : 'CLIENTE';
+        
         const formData = {
           ...configuracaoImpressa,
           empresa: empresa, // Garante que usa a empresa do state
           updatedAt: new Date().toISOString(),
+          tipoImpressao: tipoImpressaoNormalizado,
+          tipoImpressaoConferencia: tipoImpressaoConferenciaNormalizado,
         } as FormValues;
-        form.reset(formData);
+        
+        console.log('Configuração do backend:', configuracaoImpressa);
+        console.log('tipoImpressao original:', configuracaoImpressa.tipoImpressao);
+        console.log('tipoImpressao normalizado:', tipoImpressaoNormalizado);
+        console.log('FormData completo:', formData);
+        
+        // Usa reset com keepDefaultValues: false para garantir que os valores sejam aplicados
+        form.reset(formData, { keepDefaultValues: false });
+        
+        // Força a atualização dos campos tipoImpressao e tipoImpressaoConferencia
+        // para garantir que o Select reflita os valores corretamente
+        form.setValue('tipoImpressao', tipoImpressaoNormalizado, { shouldValidate: true, shouldDirty: false });
+        form.setValue('tipoImpressaoConferencia', tipoImpressaoConferenciaNormalizado, { shouldValidate: true, shouldDirty: false });
+        
+        console.log('Valor do form após setValue:', form.getValues('tipoImpressao'));
       }
     }
-  }, [configuracaoImpressa, isLoadingConfiguracaoImpressa, empresa, form]);
+  }, [configuracaoImpressa, isLoadingConfiguracaoImpressa, error, empresa]);
 
 
   const queryClient = useQueryClient();

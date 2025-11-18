@@ -1,9 +1,5 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
-import { useCentroOperations } from '../../hooks/useCenterOperations';
 import { useUser } from '@/_shared/providers/UserContext';
 import { criarConfiguracaoImpressaoBody } from '@/_services/api/schema/center/center.zod';
 import { Button } from '@/_shared/_components/ui/button';
@@ -22,8 +18,6 @@ import { OpcoesSeparacao } from './sections/opcoes-separacao';
 import { OutrasConfiguracoes } from './sections/outras-configuracoes';
 import { ConfiguracoesConferencia } from './sections/configuracoes-conferencia';
 import { CamposSistema } from './sections/campos-sistema';
-import { FormValues, Empresa, OrdemOpenState } from './types';
-import { useDragSensors } from '../../hooks/use-drag-sensors';
 import { useCriarConfiguracaoCentro } from '../../hooks/mutation/useCriarConfiguracaoCentro';
 
 export function ConfigCenter() {

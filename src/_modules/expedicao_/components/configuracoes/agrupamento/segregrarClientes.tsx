@@ -15,6 +15,22 @@ type SegregrarClientesProps = {
 
 export function SegregrarClientes({ handleSegregedClientes, clientesSegregados, setClientesSegregados }: SegregrarClientesProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleAddCliente = () => {
+    const cliente = inputValue.trim();
+    if (cliente && !clientesSegregados.includes(cliente)) {
+      const novosClientes = [...clientesSegregados, cliente];
+      setClientesSegregados(novosClientes);
+      setInputValue('');
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleAddCliente();
+    }
+  };
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
@@ -43,12 +59,15 @@ export function SegregrarClientes({ handleSegregedClientes, clientesSegregados, 
           <div className="flex gap-2 items-end">
             <div className="flex-1">
               <Input 
-                placeholder="Digite o nome do cliente" 
+                placeholder="Digite o código do cliente" 
                 className="h-9"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
             </div>
             
-            <Button size="sm">
+            <Button size="sm" onClick={handleAddCliente} disabled={!inputValue.trim()}>
               <Plus className="h-4 w-4" />
             </Button>
             
@@ -68,11 +87,10 @@ export function SegregrarClientes({ handleSegregedClientes, clientesSegregados, 
                   {cliente}
                   <button
                     type="button"
-                    onClick={() =>
-                      setClientesSegregados(
-                        clientesSegregados.filter((_, i) => i !== index),
-                      )
-                    }
+                    onClick={() => {
+                      const novosClientes = clientesSegregados.filter((_, i) => i !== index);
+                      setClientesSegregados(novosClientes);
+                    }}
                     className="hover:text-destructive transition-colors"
                   >
                     <X className="h-3 w-3" />

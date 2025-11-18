@@ -40,7 +40,6 @@ export function TipoEmpresa({ setEmpresa, empresa }: TipoEmpresaProps) {
         <h4 className="text-base font-semibold mb-1">Tipo de Impressão</h4>
         <p className="text-sm text-muted-foreground">Configure os tipos de impressão e empresa</p>
       </div>
-      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <SelectWithLabel
           label="Tipo de Impressão"

@@ -62,6 +62,7 @@ export const HeaderSeparacao = memo(
             {tipo === 'CLIENTE' && `[${mapa.codClientes[0]}]`}
             {idSegregado && `[${idSegregado[1]}]`} | {mapa.segmento}
           </h1>
+          <pre>{JSON.stringify(mapa, null, 2)}</pre>
           <h1 className="font-bold tracking-wide">{getTypeLabel(mapa.tipo)}</h1>
         </div>
 
