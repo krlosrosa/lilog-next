@@ -1,5 +1,6 @@
 import { AppSidebar } from '@/_shared/_components/sidebar/siderBar';
 import {
+  SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from '@/_shared/_components/ui/sidebar';
@@ -45,7 +46,14 @@ export default async function RootLayout({
         <QueryProviderReact>
           <SidebarProvider>
             <AppSidebar />
-            <div className="w-full">{children}</div>
+            <SidebarInset>
+              <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 md:hidden">
+                <SidebarTrigger className="-ml-1" />
+              </header>
+              <div className="flex flex-1 flex-col gap-4 p-4 md:p-6">
+                {children}
+              </div>
+            </SidebarInset>
           </SidebarProvider>
         </QueryProviderReact>
       </AbilityProvider>

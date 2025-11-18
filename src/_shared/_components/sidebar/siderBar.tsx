@@ -33,14 +33,17 @@ export function AppSidebar() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <div>
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <SidebarTrigger />
+                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg md:hidden">
+                  <Truck className="h-5 w-5" />
+                </div>
+                <div className="bg-sidebar-primary text-sidebar-primary-foreground hidden aspect-square size-8 items-center justify-center rounded-lg md:flex">
+                  <SidebarTrigger className="text-sidebar-primary-foreground" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">Lilog</span>
                   <span className="truncate text-xs">Soluções logisticas</span>
                 </div>
-                <Truck />
+                <Truck className="hidden md:block" />
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
