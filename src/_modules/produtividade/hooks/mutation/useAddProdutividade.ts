@@ -25,6 +25,7 @@ export const useAddProdutividade = () => {
     resolver: zodResolver(criarDemandaProdutividadeBody),
     defaultValues: {
       centerId: user?.centerSelect as string,
+      dataExpedicao: new Date(filters.dataRegistro as string).toISOString(),
       processo: filters.processo as
         | 'SEPARACAO'
         | 'CARREGAMENTO'
@@ -60,7 +61,8 @@ export const useAddProdutividade = () => {
           forms.reset();
           forms.setValue('centerId', user?.centerSelect as string);
           forms.setValue('processo', filters.processo as 'SEPARACAO' | 'CARREGAMENTO' | 'CONFERENCIA');
-      },
+          forms.setValue('dataExpedicao', new Date(filters.dataRegistro as string).toISOString());
+        },
     },
   });
 

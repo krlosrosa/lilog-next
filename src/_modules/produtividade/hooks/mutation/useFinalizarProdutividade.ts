@@ -18,7 +18,6 @@ export const useFinalizarProdutividade = () => {
         return error.message.includes('500') && failureCount < 3
       },    
       onSuccess: () => {
-        alert('Demanda salva com sucesso!');
         clientQuery.invalidateQueries({ queryKey: ['produtividade'] });
         setPaletes([]);
       },  

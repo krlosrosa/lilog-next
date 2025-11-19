@@ -15,7 +15,11 @@ export const useBuscarCortesPendentesOp = () => {
     },
     {
       query: {
-        queryKey: ['buscarCortesPendentesOp'],
+        queryKey: [
+          'buscarCortesPendentesOp',
+          `/api/corte-produto/buscar-todos-os-cortes-de-produto/${user?.centerSelect}`,
+          user?.centerSelect,
+        ],
         refetchInterval: 10000,
       },
     },

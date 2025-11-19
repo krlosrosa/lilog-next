@@ -20,6 +20,9 @@ export const useGetProdutividade = () => {
           !!user?.centerSelect && !!filters.dataRegistro && !!filters.processo,
         queryKey: [
           'produtividade',
+          `/api/gestao-produtividade/get-produtividade/${user?.centerSelect}/${filters.dataRegistro}/${filters.processo}`,
+          search,
+          filters,
         ],
       },
       request: {

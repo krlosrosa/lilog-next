@@ -7,7 +7,11 @@ export default function useBuscarProdutividadePorDemanda(demandaId: string) {
   const { data: produtividade, isLoading: isBuscandoProdutividade } = useGetProdutividadeById(demandaId, {
     query: {
       enabled: !!demandaId,
-      queryKey: [`/api/gestao-produtividade/get-produtividade-by-id/${demandaId}`],
+      queryKey: [
+        'produtividade',
+        `/api/gestao-produtividade/get-produtividade-by-id/${demandaId}`,
+        demandaId,
+      ],
     },
   });
 
