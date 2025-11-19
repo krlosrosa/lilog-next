@@ -75,7 +75,7 @@ export const itemsSideBar = [
     recurso: 'configuracoes',
     child: [
       {
-        title: 'Cortes',
+        title: 'Relatório de Cortes',
         url: '/estoque/cortes',
         icon: Scissors,
       },
