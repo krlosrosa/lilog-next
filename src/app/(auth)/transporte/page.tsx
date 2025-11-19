@@ -28,7 +28,6 @@ export default function TransportePage() {
           <GraficoHoraHora />
         </TabsContent>
         <TabsContent value="overview">
-          <CardDashboard />
           <ListaTransportePorDia />
         </TabsContent>
       </Tabs>

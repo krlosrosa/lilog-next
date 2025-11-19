@@ -4,6 +4,7 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   useReactTable,
 } from '@tanstack/react-table';
 import { Inbox } from 'lucide-react';
@@ -20,16 +21,26 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  globalFilter: string;
+  setGlobalFilter: (globalFilter: string) => void;
 }
 
 export function DataTableTransporte<TData, TValue>({
   columns,
   data,
+  globalFilter,
+  setGlobalFilter,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      globalFilter,
+    },
+    globalFilterFn: 'includesString',
+    onGlobalFilterChange: setGlobalFilter,
   });
 
   return (
