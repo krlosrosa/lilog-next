@@ -18,6 +18,7 @@ function getAlocacaoDefault(
     pesoCaixas: 0,
     pesoUnidades: peso,
     percentualProximoPalete: 0,
+    totalCaixas: 0,
   };
 }
 // Helper para criar um objeto de alocação 100% vazio
@@ -56,6 +57,7 @@ export const splitPalete = ({
           paletesCompletos: alocacao.paletesCompletos,
           pesoPaletes: alocacao.pesoPaletes,
           pesoTotalCalculado: alocacao.pesoPaletes,
+          totalCaixas: alocacao.totalCaixas,
         };
         lista.push({ ...item, tipo: 'palete', alocacao: paleteAlocacao });
       }
@@ -69,6 +71,7 @@ export const splitPalete = ({
           pesoTotalCalculado: alocacao.pesoCaixas,
           // A "sobra" (caixas) carrega o percentual original
           percentualProximoPalete: alocacao.percentualProximoPalete,
+          totalCaixas: alocacao.totalCaixas,
         };
         lista.push({ ...item, tipo: 'picking', alocacao: caixaAlocacao });
       }
@@ -80,6 +83,7 @@ export const splitPalete = ({
           unidadesSoltas: alocacao.unidadesSoltas,
           pesoUnidades: alocacao.pesoUnidades,
           pesoTotalCalculado: alocacao.pesoUnidades,
+          totalCaixas: alocacao.totalCaixas,
         };
         lista.push({ ...item, tipo: 'unidade', alocacao: unidadeAlocacao });
       }
@@ -95,6 +99,7 @@ export const splitPalete = ({
           unidadesSoltas: alocacao.unidadesSoltas,
           pesoUnidades: alocacao.pesoUnidades,
           pesoTotalCalculado: alocacao.pesoUnidades,
+          totalCaixas: alocacao.totalCaixas,
         };
         lista.push({ ...item, tipo: 'unidade', alocacao: unidadeAlocacao });
       }
@@ -109,6 +114,7 @@ export const splitPalete = ({
           pesoCaixas: alocacao.pesoCaixas,
           pesoTotalCalculado: alocacao.pesoPaletes + alocacao.pesoCaixas,
           percentualProximoPalete: alocacao.percentualProximoPalete,
+          totalCaixas: alocacao.totalCaixas,
         };
         lista.push({ ...item, tipo: 'picking', alocacao: restanteAlocacao });
       }
@@ -124,6 +130,7 @@ export const splitPalete = ({
           paletesCompletos: alocacao.paletesCompletos,
           pesoPaletes: alocacao.pesoPaletes,
           pesoTotalCalculado: alocacao.pesoPaletes,
+          totalCaixas: alocacao.totalCaixas,
         };
         lista.push({ ...item, tipo: 'palete', alocacao: paleteAlocacao });
       }
@@ -134,6 +141,7 @@ export const splitPalete = ({
           ...alocacaoVazia,
           caixasSoltas: alocacao.caixasSoltas,
           unidadesSoltas: alocacao.unidadesSoltas,
+          totalCaixas: alocacao.totalCaixas,
           pesoCaixas: alocacao.pesoCaixas,
           pesoUnidades: alocacao.pesoUnidades,
           pesoTotalCalculado: alocacao.pesoCaixas + alocacao.pesoUnidades,

@@ -37,6 +37,7 @@ export function enriquecerItems(
         pesoCaixas: 0,
         pesoUnidades: 0,
         percentualProximoPalete: 0,
+        totalCaixas: 0,
       },
     };
   });

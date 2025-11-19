@@ -13,6 +13,8 @@ export function parseCadastrarPalete(mapasCombinados: ImpressaoMapa[]): PaleteCr
       quantidadePaletes: parseInt(palete.paletes.toFixed(0)),
       enderecoVisitado: parseInt(palete.linhasVisitadas.toFixed(0)),
       tipoProcesso: palete.processo as PaleteCreateDataDtoTipoProcesso,
+      totalCaixas: parseInt(palete.totalCaixas.toFixed(0)),
+      pesoLiquido: parseFloat(palete.pesoLiquido.toFixed(2)),
     };
   });
 }

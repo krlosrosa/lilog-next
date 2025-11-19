@@ -43,4 +43,14 @@ export interface PaleteCreateDataDto {
   validado?: boolean;
   fim?: PaleteCreateDataDtoFim;
   inicio?: PaleteCreateDataDtoInicio;
+  /**
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  totalCaixas?: number;
+  /**
+   * @minimum -140737488355328
+   * @maximum 140737488355327
+   */
+  pesoLiquido?: number;
 }

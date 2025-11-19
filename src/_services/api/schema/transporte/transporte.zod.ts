@@ -163,7 +163,9 @@ export const adicionarPaletesAoTransporteBodyQuantidadeCaixasMax = 2147483647;ex
 export const adicionarPaletesAoTransporteBodyQuantidadeUnidadesMax = 2147483647;export const adicionarPaletesAoTransporteBodyQuantidadePaletesMin = -2147483648;
 export const adicionarPaletesAoTransporteBodyQuantidadePaletesMax = 2147483647;export const adicionarPaletesAoTransporteBodyEnderecoVisitadoMin = -2147483648;
 export const adicionarPaletesAoTransporteBodyEnderecoVisitadoMax = 2147483647;export const adicionarPaletesAoTransporteBodyDemandaIdMinOne = -2147483648;
-export const adicionarPaletesAoTransporteBodyDemandaIdMaxOne = 2147483647;
+export const adicionarPaletesAoTransporteBodyDemandaIdMaxOne = 2147483647;export const adicionarPaletesAoTransporteBodyTotalCaixasMin = -2147483648;
+export const adicionarPaletesAoTransporteBodyTotalCaixasMax = 2147483647;export const adicionarPaletesAoTransporteBodyPesoLiquidoMin = -140737488355328;
+export const adicionarPaletesAoTransporteBodyPesoLiquidoMax = 140737488355327;
 
 export const adicionarPaletesAoTransporteBodyItem = zod.object({
   "id": zod.string(),
@@ -180,7 +182,9 @@ export const adicionarPaletesAoTransporteBodyItem = zod.object({
   "status": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),
   "validado": zod.boolean().optional(),
   "fim": zod.union([zod.string(),zod.null()]).optional(),
-  "inicio": zod.union([zod.string(),zod.null()]).optional()
+  "inicio": zod.union([zod.string(),zod.null()]).optional(),
+  "totalCaixas": zod.number().min(adicionarPaletesAoTransporteBodyTotalCaixasMin).max(adicionarPaletesAoTransporteBodyTotalCaixasMax).optional(),
+  "pesoLiquido": zod.number().min(adicionarPaletesAoTransporteBodyPesoLiquidoMin).max(adicionarPaletesAoTransporteBodyPesoLiquidoMax).optional()
 })
 export const adicionarPaletesAoTransporteBody = zod.array(adicionarPaletesAoTransporteBodyItem)
 
@@ -198,7 +202,9 @@ export const buscarTransportePorNumeroTransporteResponsePaletesItemQuantidadeCai
 export const buscarTransportePorNumeroTransporteResponsePaletesItemQuantidadeUnidadesMax = 2147483647;export const buscarTransportePorNumeroTransporteResponsePaletesItemQuantidadePaletesMin = -2147483648;
 export const buscarTransportePorNumeroTransporteResponsePaletesItemQuantidadePaletesMax = 2147483647;export const buscarTransportePorNumeroTransporteResponsePaletesItemEnderecoVisitadoMin = -2147483648;
 export const buscarTransportePorNumeroTransporteResponsePaletesItemEnderecoVisitadoMax = 2147483647;export const buscarTransportePorNumeroTransporteResponsePaletesItemDemandaIdMinOne = -2147483648;
-export const buscarTransportePorNumeroTransporteResponsePaletesItemDemandaIdMaxOne = 2147483647;export const buscarTransportePorNumeroTransporteResponsePaletesDefault = [];export const buscarTransportePorNumeroTransporteResponseCortesItemIdMin = -2147483648;
+export const buscarTransportePorNumeroTransporteResponsePaletesItemDemandaIdMaxOne = 2147483647;export const buscarTransportePorNumeroTransporteResponsePaletesItemTotalCaixasMin = -2147483648;
+export const buscarTransportePorNumeroTransporteResponsePaletesItemTotalCaixasMax = 2147483647;export const buscarTransportePorNumeroTransporteResponsePaletesItemPesoLiquidoMin = -140737488355328;
+export const buscarTransportePorNumeroTransporteResponsePaletesItemPesoLiquidoMax = 140737488355327;export const buscarTransportePorNumeroTransporteResponsePaletesDefault = [];export const buscarTransportePorNumeroTransporteResponseCortesItemIdMin = -2147483648;
 export const buscarTransportePorNumeroTransporteResponseCortesItemIdMax = 2147483647;export const buscarTransportePorNumeroTransporteResponseCortesItemCaixasMin = -2147483648;
 export const buscarTransportePorNumeroTransporteResponseCortesItemCaixasMax = 2147483647;export const buscarTransportePorNumeroTransporteResponseCortesItemUnidadesMin = -2147483648;
 export const buscarTransportePorNumeroTransporteResponseCortesItemUnidadesMax = 2147483647;export const buscarTransportePorNumeroTransporteResponseCortesDefault = [];export const buscarTransportePorNumeroTransporteResponseHistoricoTransporteItemIdMin = -2147483648;
@@ -239,7 +245,10 @@ export const buscarTransportePorNumeroTransporteResponse = zod.object({
   "validado": zod.boolean(),
   "criadoPorId": zod.string(),
   "fim": zod.union([zod.string(),zod.null()]),
-  "inicio": zod.union([zod.string(),zod.null()])
+  "inicio": zod.union([zod.string(),zod.null()]),
+  "totalCaixas": zod.number().min(buscarTransportePorNumeroTransporteResponsePaletesItemTotalCaixasMin).max(buscarTransportePorNumeroTransporteResponsePaletesItemTotalCaixasMax),
+  "pesoLiquido": zod.number().min(buscarTransportePorNumeroTransporteResponsePaletesItemPesoLiquidoMin).max(buscarTransportePorNumeroTransporteResponsePaletesItemPesoLiquidoMax),
+  "dataTransporte": zod.string().optional()
 })).default(buscarTransportePorNumeroTransporteResponsePaletesDefault),
   "cortes": zod.array(zod.object({
   "id": zod.number().min(buscarTransportePorNumeroTransporteResponseCortesItemIdMin).max(buscarTransportePorNumeroTransporteResponseCortesItemIdMax),

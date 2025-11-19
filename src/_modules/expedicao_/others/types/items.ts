@@ -117,11 +117,13 @@ export interface ImpressaoMapaHeader {
   codClientes: string[];
   nomeClientes: string[];
   caixas: number;
+  totalCaixas: number;
   paletes: number;
   unidades: number;
   pesoUnidade: number;
   pesoPalete: number;
   pesoCaixa: number;
+  pesoLiquido: number;
   linhasVisitadas: number;
   tipo: 'picking' | 'unidade' | 'palete' | 'fifo';
   processo: string;

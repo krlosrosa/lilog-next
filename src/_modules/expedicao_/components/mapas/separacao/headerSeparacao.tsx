@@ -87,6 +87,7 @@ export const HeaderSeparacaoMapa = memo(
 
     return (
       <div className="mb-0 w-full border border-slate-300 bg-white">
+        <p>totalCaixas: {mapa.pesoLiquido}</p>
         {/* Header Superior */}
         <div className="flex items-center justify-between bg-gray-800 px-3 py-1.5 text-xl text-white print:bg-black">
           <h1 className="font-bold tracking-wide">

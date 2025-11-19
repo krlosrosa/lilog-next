@@ -17,6 +17,7 @@ function getAlocacaoDefault(
     pesoCaixas: 0,
     pesoUnidades: peso,
     percentualProximoPalete: 0,
+    totalCaixas: 0,
   };
 }
 
@@ -26,20 +27,6 @@ export function alocarCaixasEPaletes(
 ): EnrichedPickingMapItem[] {
   return items.map((item) => {
     const { produto, quantidade, pesoLiquido } = item;
-
-    
-    if(item.codItem === '630042007' && item.transportId === '53055627') {
-      console.log('item', item);
-      console.log('pesoLiquido', pesoLiquido);
-      console.log('produto', produto);
-      console.log('quantidade', quantidade);
-      console.log('unPorCaixa', produto.unPorCaixa);
-      console.log('cxPorPallet', produto.cxPorPallet);
-      console.log('pesoCaixa', produto.pesoCaixa);
-      console.log('pesoUnidade', produto.pesoUnidade);
-      console.log('pesoTotal', pesoLiquido * quantidade);
-    }
-
     // --- 1. Validação e Casos de Borda ---
     if (
       !produto ||
@@ -64,7 +51,7 @@ export function alocarCaixasEPaletes(
 
     // Nível 1: De Unidades para Caixas (sempre acontece)
     const totalCaixas = Math.floor(totalUnidades / unPorCaixa);
-    const unidadesSoltas = totalUnidades % unPorCaixa;
+    const unidadesSoltas = Math.floor(totalUnidades % unPorCaixa);
 
     // Nível 2: De Caixas para Paletes (agora é condicional)
 
@@ -97,6 +84,8 @@ export function alocarCaixasEPaletes(
 
     const percentualProximoPalete = (caixasSoltas / cxPorPallet) * 100;
 
+    console.log('totalCaixas', totalCaixas);
+    const totalCaixasAgrupar = (paletesCompletos > 0 ? (paletesCompletos * cxPorPallet ): 0);
     // --- 6. Retorno Não-Destrutivo ---
     return {
       ...item,
@@ -109,6 +98,7 @@ export function alocarCaixasEPaletes(
         pesoCaixas,
         pesoUnidades,
         percentualProximoPalete,
+        totalCaixas: totalCaixasAgrupar,
       },
     };
   });

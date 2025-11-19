@@ -17,6 +17,7 @@ export interface AlocacaoHierarquica {
   pesoCaixas: number; // Peso total das caixas soltas
   pesoUnidades: number; // Peso total das unidades soltas
   percentualProximoPalete: number;
+  totalCaixas: number;
 }
 
 export interface RoutingPickingMapItem {
@@ -117,11 +118,13 @@ export interface ImpressaoMapaHeader {
   codClientes: string[];
   nomeClientes: string[];
   caixas: number;
+  totalCaixas: number;
   paletes: number;
   unidades: number;
   pesoUnidade: number;
   pesoPalete: number;
   pesoCaixa: number;
+  pesoLiquido: number;
   linhasVisitadas: number;
   tipo: 'picking' | 'unidade' | 'palete' | 'fifo';
   processo: string;
@@ -134,8 +137,10 @@ export interface ImpressaoMapaItem {
   pesoLiquido: number;
   pesoPalete: number;
   pesoCaixa: number;
+  pesoLiquidoTotal: number;
   quantidadeCaixas: number;
   quantidadePaletes: number;
+  totalCaixas: number;
   lote: string;
   dtFabricacao: Date;
   dtMaxima: Date;

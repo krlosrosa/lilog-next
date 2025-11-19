@@ -35,10 +35,12 @@ export function gerarSeparacao(
     // Renomeadas para clareza (ex: totalCaixas)
     let totalCaixas = 0,
       totalPaletes = 0,
-      totalUnidades = 0;
+      totalUnidades = 0,
+      somaTotalCaixas = 0;
     let totalPesoCaixa = 0,
       totalPesoPalete = 0,
-      totalPesoUnidade = 0;
+      totalPesoUnidade = 0,
+      totalPesoLiquido = 0;
 
     // --- CORREÇÃO: Mapeamento de Itens e Cálculo de Totais ---
     const itensDoMapa = grupo.map((item): ImpressaoMapaItem => {
@@ -46,6 +48,8 @@ export function gerarSeparacao(
       // A função 'splitPalete' já garantiu que este 'alocacao'
       // representa apenas a parte deste item (ex: só paletes).
       const aloc = item.alocacao;
+
+      console.log('aloc', aloc);
 
       // Extrai os valores do local correto
       const unidades = aloc?.unidadesSoltas ?? 0;
@@ -55,6 +59,8 @@ export function gerarSeparacao(
       const pesoCaixa = aloc?.pesoCaixas ?? 0;
       const pesoPalete = aloc?.pesoPaletes ?? 0;
       const percentual = aloc?.percentualProximoPalete ?? 0;
+      const totalCaixasAgrupar = aloc?.totalCaixas ?? 0;
+      const pesoLiquidoSomar = aloc?.pesoTotalCalculado ?? 0;
 
       // Acumula os totais para o cabeçalho (Header)
       totalUnidades += unidades;
@@ -63,7 +69,8 @@ export function gerarSeparacao(
       totalPesoUnidade += pesoUnidade;
       totalPesoCaixa += pesoCaixa;
       totalPesoPalete += pesoPalete;
-
+      somaTotalCaixas += totalCaixasAgrupar;
+      totalPesoLiquido += pesoLiquidoSomar;
       // Retorna o item do mapa (ImpressaoMapaItem)
       return {
         sku: item.codItem,
@@ -76,6 +83,7 @@ export function gerarSeparacao(
         pesoCaixa: pesoCaixa,
         quantidadeCaixas: caixas,
         quantidadePaletes: paletes,
+        totalCaixas: totalCaixasAgrupar,
         lote: item.lote,
         dtFabricacao: item.dtFabricacao,
         percentualPallete: percentual,
@@ -87,6 +95,7 @@ export function gerarSeparacao(
         pickWay: item.produto?.pickWay ?? 0,
         faixa: item.faixa ?? 'verde',
         empresa: item.produto?.empresa ?? '',
+        pesoLiquidoTotal: pesoLiquidoSomar,
       };
     });
 
@@ -117,9 +126,11 @@ export function gerarSeparacao(
       pesoCaixa: totalPesoCaixa,
       pesoPalete: totalPesoPalete,
       pesoUnidade: totalPesoUnidade,
+      totalCaixas: somaTotalCaixas,
       tipo: primeiro.tipo,
       itens: itensDoMapa,
       processo: 'SEPARACAO',
+      pesoLiquido: totalPesoLiquido,
     });
   }
 
