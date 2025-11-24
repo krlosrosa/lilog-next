@@ -4,4 +4,5 @@ export enum ProcessoAcesso {
   ESTOQUE = 'estoque',
   RELATORIOS = 'relatorios',
   PESSOAL = 'pessoal',
+  PRODUTIVIDADE = 'produtividade',
 }

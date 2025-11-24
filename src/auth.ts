@@ -103,6 +103,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             signal: AbortSignal.timeout(3000), // 3 segundos
           });
 
+          console.log('res', res);
+
           if (!res.ok) {
             throw new Error(`Backend /info-me respondeu com ${res.status}`);
           }
@@ -115,6 +117,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.empresa = userInfo.empresa;
           delete token.error; // Limpa qualquer erro anterior
         } catch (error) {
+          console.log('error', token);
           console.error('Erro ao buscar /info-me no login:', error);
           token.id = null;
           token.roles = null;

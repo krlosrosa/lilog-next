@@ -35,8 +35,8 @@ const processDefinitions = [
   },
   {
     id: 4,
-    name: ProcessoAcesso.RELATORIOS,
-    label: 'Relatórios',
+    name: ProcessoAcesso.PRODUTIVIDADE,
+    label: 'Produtividade',
     icon: '📊',
   },
   {
