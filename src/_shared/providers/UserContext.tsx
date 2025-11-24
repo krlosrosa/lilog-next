@@ -104,18 +104,6 @@ export function UserProvider({ initialUser, children }: UserProviderProps) {
 
   // 3. EFEITO DE REDIRECIONAMENTO (NUNCA chama setUser)
   // Roda quando o estado 'user' (já hidratado) ou a rota mudam
-  useEffect(() => {
-    if (
-      user &&
-      user.centers.length > 1 &&
-      !user.centerSelect &&
-      pathName !== '/selecionar-centro'
-    ) {
-      // Se tem >1 centro, nenhum foi selecionado, e NÃO estamos na
-      // página de seleção, então força o redirecionamento.
-      redirect('/selecionar-centro');
-    }
-  }, [user, pathName]);
 
   // 4. HANDLER (Simples, só atualiza o estado)
   // O Efeito 2 (Persistência) vai cuidar de salvar e cachear.

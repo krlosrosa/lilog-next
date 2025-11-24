@@ -112,11 +112,6 @@ export function UserProvider({ initialUser, children }: UserProviderProps) {
       // Se não há usuário (deslogado), não faz nada
       if (!user) return;
 
-      // AGORA sim lemos o estado 'user', que já foi hidratado
-      if (user.centers.length > 1 && !user.centerSelect) {
-        redirect('selecionar-centro');
-      }
-
       if (user.centers.length === 1) {
         setUser({ ...user, centerSelect: user.centers[0] });
         salvarCache('centerId', user.centers[0]);
