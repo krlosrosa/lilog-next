@@ -38,8 +38,6 @@ async function refreshAccessToken(token: any) {
       );
     }
 
-    console.log('Token renovado com sucesso');
-
     // Atualiza o token com os novos valores
     return {
       ...token, // Preserva dados antigos (como id, roles)
@@ -81,7 +79,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user, account }) {
       // Bloco 1: Login Inicial (quando account e user existem)
       if (account && user) {
-        console.log('Bloco JWT: Login Inicial');
         token.accessToken = account.access_token as string;
         // Corrigido: Salvar o TIMESTAMP de expiração, não a duração
         token.accessTokenExpires =
@@ -138,9 +135,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // console.log('Bloco JWT: Token ainda válido');
         return token;
       }
-
-      // Bloco 3: Refresh Token (token expirou)
-      console.log('Bloco JWT: Token expirado, tentando renovar...');
 
       if (!token.refreshToken) {
         console.error('Bloco JWT: Refresh token não encontrado.');

@@ -22,7 +22,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function DataTableErrorExpedicao<TData, TValue>({
+export function DataTableError<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {

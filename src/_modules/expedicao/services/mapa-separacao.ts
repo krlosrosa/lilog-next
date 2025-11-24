@@ -33,16 +33,7 @@ export async function gerarMapaSeparacao(
   const filtrarItens = itens.filter((item) => item.codItem === '610401262' && item.transportId === '53055627');
   const fitlrarBrutos = shipments.filter((item) => item.codItem === '610401262' && item.transportId === '53055627');
 
-  console.log('filtrarItens', filtrarItens);
-  console.log('fitlrarBrutos', fitlrarBrutos);
-
-  console.log(
-    '[MAPA-SEPARACAO] Total de itens antes de transformar:',
-    itens.length,
-  );
-  console.log('[MAPA-SEPARACAO] Procurando item com codItem 610502158...');
   itens = transformarQuantidadeEmUnidade(itens);
-  console.log('[MAPA-SEPARACAO] Itens transformados:', itens.length);
   itens = definirFaixaERange(itens, config.dataMaximaPercentual || 0);
 
   // --- Etapa 2: Agrupamento e Sumarização ---

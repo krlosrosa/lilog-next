@@ -25,7 +25,6 @@ export const useFinalizarProdutividade = () => {
   });
 
   function finalizarProdutividade() {
-    console.log('Dados enviados:', paletes);
     const promise = finalizarProdutividadeMutation({ data: paletes });
     toast.promise(promise, {
       loading: 'Salvando demanda...',

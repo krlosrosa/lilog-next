@@ -31,9 +31,11 @@ export function gerarMinuta(
 
     // --- CORREÇÃO: Variáveis de Totalização ---
     let totalCaixas = 0,
-      totalUnidades = 0;
+      totalUnidades = 0,
+      somaTotalCaixas = 0;
     let totalPesoCaixa = 0,
-      totalPesoUnidade = 0;
+      totalPesoUnidade = 0,
+      totalPesoLiquido = 0;
 
     // **NOTA DE NEGÓCIO:** Conforme sua observação,
     // os totais de paletes não são somados aqui.
@@ -50,6 +52,8 @@ export function gerarMinuta(
       const pesoUnidade = aloc?.pesoUnidades ?? 0;
       const pesoCaixa = aloc?.pesoCaixas ?? 0;
       // const pesoPalete = aloc?.pesoPaletes ?? 0; // Pega o valor, mas não soma no total
+      const totalCaixasAgrupar = aloc?.totalCaixas ?? 0;
+      const pesoLiquidoSomar = aloc?.pesoTotalCalculado ?? 0;
 
       // Acumula apenas os totais de carregamento
       totalUnidades += unidades;
@@ -69,6 +73,8 @@ export function gerarMinuta(
         quantidadePaletes: paletes, // O item individual ainda mostra seus paletes
         id: item.id ?? '',
         visitas: item.visitas,
+        pesoLiquidoTotal: pesoLiquidoSomar,
+        totalCaixas: totalCaixasAgrupar,
       };
     });
 
@@ -104,6 +110,8 @@ export function gerarMinuta(
       tipo: primeiro.tipo,
       itens: itensDaMinuta,
       processo: 'CARREGAMENTO', // Processo correto
+      pesoLiquido: totalPesoLiquido,
+      totalCaixas: somaTotalCaixas,
     });
   }
 

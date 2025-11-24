@@ -32,10 +32,12 @@ export function gerarMinutaConferencia(
     // --- CORREÇÃO: Variáveis de Totalização ---
     let totalCaixas = 0,
       totalPaletes = 0,
-      totalUnidades = 0;
+      totalUnidades = 0,
+      somaTotalCaixas = 0;
     let totalPesoCaixa = 0,
       totalPesoPalete = 0,
-      totalPesoUnidade = 0;
+      totalPesoUnidade = 0,
+      totalPesoLiquido = 0;
 
     // --- CORREÇÃO: Mapeamento de Itens e Cálculo de Totais ---
     const itensDoMapa = grupo.map((item): ImpressaoMapaItem => {
@@ -48,6 +50,8 @@ export function gerarMinutaConferencia(
       const pesoCaixa = aloc?.pesoCaixas ?? 0;
       const pesoPalete = aloc?.pesoPaletes ?? 0;
       const percentual = aloc?.percentualProximoPalete ?? 0;
+      const totalCaixasAgrupar = aloc?.totalCaixas ?? 0;
+      const pesoLiquidoSomar = aloc?.pesoTotalCalculado ?? 0;
 
       // Acumula os totais para o cabeçalho
       totalUnidades += unidades;
@@ -56,6 +60,8 @@ export function gerarMinutaConferencia(
       totalPesoUnidade += pesoUnidade;
       totalPesoCaixa += pesoCaixa;
       totalPesoPalete += pesoPalete; // Mantendo a soma
+      somaTotalCaixas += totalCaixasAgrupar;
+      totalPesoLiquido += pesoLiquidoSomar;
 
       return {
         sku: item.codItem,
@@ -77,6 +83,8 @@ export function gerarMinutaConferencia(
         pickWay: item.produto?.pickWay ?? 0,
         faixa: item.faixa ?? 'verde',
         empresa: item.produto?.empresa ?? '',
+        pesoLiquidoTotal: pesoLiquidoSomar,
+        totalCaixas: totalCaixasAgrupar,
       };
     });
 
@@ -110,6 +118,8 @@ export function gerarMinutaConferencia(
       tipo: primeiro.tipo,
       itens: itensDoMapa,
       processo: 'CARREGAMENTO', // Processo correto
+      pesoLiquido: totalPesoLiquido,
+      totalCaixas: somaTotalCaixas,
     });
   }
 

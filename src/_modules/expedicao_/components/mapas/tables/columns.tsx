@@ -76,7 +76,7 @@ export const columnsMapa: ColumnDef<ImpressaoMapaItem>[] = [
     header: 'Und',
     cell: ({ row }) => {
       const quantidade = Number(row.getValue('quantidade'));
-      const quantidadeFormatada = quantidade.toFixed(2);
+      const quantidadeFormatada = quantidade.toFixed(0);
       return <div className="">{quantidadeFormatada}</div>;
     },
   },

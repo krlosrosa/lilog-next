@@ -10,7 +10,7 @@ import { transformarQuantidadeEmUnidade } from './pipeline/2-transformarQuantida
 import { gerarGrupos, Groups } from './pipeline/4-gerarGrupos';
 import { sumarizar } from './pipeline/5-sumarizar';
 import { alocarCaixasEPaletes } from './pipeline/6-alocarCaixasEPaletes';
-import { gerarMinutaConferencia as gerarMinutaConferenciaPipeline } from './pipeline/12-gerarConferenciaTeste';
+import { gerarMinutaConferencia as gerarMinutaConferenciaPipeline } from './pipeline/12-gerarMinutaCarregamento';
 
 export async function gerarMinutaConferencia(
   input: ValidationSuccess,
@@ -41,6 +41,8 @@ export async function gerarMinutaConferencia(
   itens = alocarCaixasEPaletes(itens, false);
 
   const minuta = gerarMinutaConferenciaPipeline(itens);
+
+  console.log('minuta', minuta[0])
 
   // MELHORIA: 'async' functions já retornam Promises.
   return minuta;

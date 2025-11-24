@@ -96,6 +96,8 @@ export interface ItemMinutaCarregamento {
   quantidade: number;
   quantidadeCaixas: number;
   quantidadePaletes: number;
+  pesoLiquidoTotal: number;
+  totalCaixas: number;
   visitas: number;
 }
 

@@ -46,10 +46,9 @@ export const HeaderSeparacaoMapa = memo(
     const showCliente =
       tipo === "CLIENTE" ||
       (tipo === "TRANSPORTE" &&
-        exibirCliente !== "NENHUM" &&
-        (exibirCliente === "TODOS" ||
-          exibirCliente === "PRIMEIRO" ||
-          segregados?.includes(mapa.codClientes[0])));
+        exibirCliente === "PRIMEIRO") ||
+      (tipo === "TRANSPORTE" &&
+        segregados?.includes(mapa.codClientes[0]));
 
     // Função para formatar números no padrão brasileiro
     const formatNumber = (value: number, decimals: number = 0) => {
@@ -63,31 +62,30 @@ export const HeaderSeparacaoMapa = memo(
       {
         palete: [
           `${formatNumber(mapa.paletes || 0)} PLT`,
-          `${formatNumber(pesoTotal, 2)}kg PESO TOTAL`,
+          `${formatNumber(pesoTotal, 3)}kg PESO TOTAL`,
         ],
         unidade: [
           `${formatNumber(mapa.unidades || 0)} UN`,
-          `${formatNumber(pesoTotal, 2)}kg PESO TOTAL`,
+          `${formatNumber(pesoTotal, 3)}kg PESO TOTAL`,
         ],
         picking: [
           `${formatNumber(mapa.caixas || 0)} CXS`,
           `${formatNumber(mapa.paletes || 0)} PLT`,
           `${formatNumber(mapa.unidades || 0)} UN`,
           `${formatNumber(mapa.linhasVisitadas || 0)} LINHAS`,
-          `${formatNumber(pesoTotal, 2)}kg PESO TOTAL`,
+          `${formatNumber(pesoTotal, 3)}kg PESO TOTAL`,
         ],
         fifo: [
           `${formatNumber(mapa.caixas || 0)} CXS`,
           `${formatNumber(mapa.paletes || 0)} PLT`,
           `${formatNumber(mapa.unidades || 0)} UN`,
           `${formatNumber(mapa.linhasVisitadas || 0)} LINHAS`,
-          `${formatNumber(pesoTotal, 2)}kg PESO TOTAL`,
+          `${formatNumber(pesoTotal, 3)}kg PESO TOTAL`,
         ],
       }[mapa.tipo] ?? [];
 
     return (
       <div className="mb-0 w-full border border-slate-300 bg-white">
-        <p>totalCaixas: {mapa.pesoLiquido}</p>
         {/* Header Superior */}
         <div className="flex items-center justify-between bg-gray-800 px-3 py-1.5 text-xl text-white print:bg-black">
           <h1 className="font-bold tracking-wide">

@@ -44,6 +44,8 @@ export async function gerarMapaConferencia(
     'produto.pickWay',
   ]);
 
+
+  console.log('itens', itens[0])
   // --- Etapa 4: Distribuição (Quebra de Paletes) ---
 
   // --- Etapa 5: Geração do Mapa Final ---

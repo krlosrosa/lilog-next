@@ -109,11 +109,6 @@ export function useCriarConfiguracaoCentro() {
           tipoImpressaoConferencia: tipoImpressaoConferenciaNormalizado,
         } as FormValues;
         
-        console.log('Configuração do backend:', configuracaoImpressa);
-        console.log('tipoImpressao original:', configuracaoImpressa.tipoImpressao);
-        console.log('tipoImpressao normalizado:', tipoImpressaoNormalizado);
-        console.log('FormData completo:', formData);
-        
         // Usa reset com keepDefaultValues: false para garantir que os valores sejam aplicados
         form.reset(formData, { keepDefaultValues: false });
         
@@ -122,7 +117,6 @@ export function useCriarConfiguracaoCentro() {
         form.setValue('tipoImpressao', tipoImpressaoNormalizado, { shouldValidate: true, shouldDirty: false });
         form.setValue('tipoImpressaoConferencia', tipoImpressaoConferenciaNormalizado, { shouldValidate: true, shouldDirty: false });
         
-        console.log('Valor do form após setValue:', form.getValues('tipoImpressao'));
       }
     }
   }, [configuracaoImpressa, isLoadingConfiguracaoImpressa, error, empresa]);
@@ -140,7 +134,6 @@ export function useCriarConfiguracaoCentro() {
   });
 
   function criarConfiguracaoCentroMutation(data: z.infer<typeof criarConfiguracaoImpressaoBody>) {
-    console.log('data', data);
     const promise = criarConfiguracaoCentro({ centerId: data.centerId, data: data });
     toast.promise(promise, {
       loading: 'Salvando configuração de centro...',

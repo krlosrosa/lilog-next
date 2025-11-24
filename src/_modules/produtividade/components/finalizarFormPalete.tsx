@@ -76,7 +76,6 @@ export const FinalizarFormPalete = () => {
 
     // Sucesso
     setError(null);
-    console.log('finalizar demanda');
     onSubmit?.(paletes);
     setOpenDialog(false); // Fecha o dialog (o 'onOpenChange' cuidará do reset)
   };

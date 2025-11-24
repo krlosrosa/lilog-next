@@ -32,9 +32,7 @@ export function UploadTab({ setValueTab }: UploadTabProps) {
       {validationFailure && validationFailure.errors.length > 0 && <TableErrorExpedicao errors={validationFailure?.errors} />}
       {validationFailure?.produtosNaoEncontrados
         && validationFailure.produtosNaoEncontrados.length > 0
-        && validationFailure.produtosNaoEncontrados.map((produto) => (
-          <ProdNaoEncontrado key={produto.id} produto={produto} />
-        ))}
+        && <ProdNaoEncontrado produto={validationFailure.produtosNaoEncontrados} />}
       {validationFailure?.divergenciaConversao
         && validationFailure.divergenciaConversao.length > 0
         &&

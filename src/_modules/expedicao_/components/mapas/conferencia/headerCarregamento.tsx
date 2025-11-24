@@ -72,18 +72,18 @@ export const HeaderCarregamento = memo(({ mapa }: HeaderCarregamentoProps) => {
                 if (mapa.tipo === 'palete') {
                   items.push(
                     `${formatNumber(mapa.paletes || 0)} PLT`,
-                    `${formatNumber(pesoTotal, 0)}kg PESO TOTAL`,
+                    `${formatNumber(pesoTotal, 3)}kg PESO TOTAL`,
                   );
                 } else if (mapa.tipo === 'unidade') {
                   items.push(
                     `${formatNumber(mapa.unidades || 0)} UN`,
-                    `${formatNumber(pesoTotal, 2)}kg PESO TOTAL`,
+                    `${formatNumber(pesoTotal, 3)}kg PESO TOTAL`,
                   );
                 } else {
                   items.push(
                     `${formatNumber(mapa.caixas || 0)} CXS`,
                     `${formatNumber(mapa.unidades || 0)} UN`,
-                    `${formatNumber(pesoTotal, 2)}kg PESO TOTAL`,
+                    `${formatNumber(pesoTotal, 3)}kg PESO TOTAL`,
                   );
                 }
                 return items.map((item, index) => (

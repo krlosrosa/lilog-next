@@ -46,7 +46,6 @@ export async function verifyRules(facts: Record<string, any>) {
   });
 
   return engine.run(facts).then(({ events, results, almanac, failureEvents, failureResults}) => {
-    console.log({ events, results, almanac, failureEvents, failureResults });
     events.map((event) => console.log(event?.params?.message || 'No message'));
   });
 }

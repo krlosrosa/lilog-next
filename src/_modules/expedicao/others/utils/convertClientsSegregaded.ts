@@ -7,11 +7,9 @@ export interface ClienteSegregado {
 export async function convertFileToClientesSegregados(
   file: File,
 ): Promise<ClienteSegregado[]> {
-  console.log('convertFileToClientesSegregados called with file:', file);
 
   try {
     const data: any[] = (await processExcelFile(file)) as any[];
-    console.log('Excel data processed:', data);
 
     const convertedData = data
       .map((item: any) => {

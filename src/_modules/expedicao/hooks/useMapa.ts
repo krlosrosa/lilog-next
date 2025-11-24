@@ -53,7 +53,6 @@ export function useMapa() {
     }
 
     setIsLoading(true);
-    console.log('isLoading definido como true', isLoading);
 
     try {
       let mapasGerados = [];
@@ -106,7 +105,6 @@ export function useMapa() {
       });
 
       // Atualiza o estado
-      console.log(todosOsMapas);
       setMapasCombinados(todosOsMapas);
     } catch (error) {
       console.error('Falha ao gerar mapas:', error);

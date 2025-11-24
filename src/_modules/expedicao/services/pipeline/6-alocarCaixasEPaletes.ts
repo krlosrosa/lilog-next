@@ -84,7 +84,6 @@ export function alocarCaixasEPaletes(
 
     const percentualProximoPalete = (caixasSoltas / cxPorPallet) * 100;
 
-    console.log('totalCaixas', totalCaixas);
     const totalCaixasAgrupar = (paletesCompletos > 0 ? (paletesCompletos * cxPorPallet ): 0);
     // --- 6. Retorno Não-Destrutivo ---
     return {

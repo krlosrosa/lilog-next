@@ -1,5 +1,6 @@
 import {
   AlertCircle,
+  ArrowLeftRight,
   Calendar,
   FileText,
   Home,
@@ -97,6 +98,20 @@ export const itemsSideBar = [
         url: '/transporte',
         icon: Truck,
         recurso: 'configuracoes',
+      },
+    ],
+  },
+  {
+    title: 'Devolução',
+    url: '/devolucao',
+    icon: Package,
+    recurso: 'configuracoes',
+    child: [
+      {
+        title: 'Devolucao',
+        url: '/devolucao',
+        icon: ArrowLeftRight,
+        recurso: 'devolucao',
       },
     ],
   },
