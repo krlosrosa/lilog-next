@@ -45,6 +45,12 @@ const processDefinitions = [
     label: 'Pessoal',
     icon: '👥',
   },
+  {
+    id: 6,
+    name: ProcessoAcesso.TRANSPORTE,
+    label: 'Transporte',
+    icon: '�',
+  },
 ];
 
 const masterLevel = {

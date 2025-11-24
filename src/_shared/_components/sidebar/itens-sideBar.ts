@@ -91,13 +91,13 @@ export const itemsSideBar = [
     title: 'Transporte',
     url: '/transporte',
     icon: Truck,
-    recurso: 'configuracoes',
+    recurso: 'transporte',
     child: [
       {
         title: 'Overview',
         url: '/transporte',
         icon: Truck,
-        recurso: 'configuracoes',
+        recurso: 'transporte',
       },
     ],
   },
@@ -105,7 +105,7 @@ export const itemsSideBar = [
     title: 'Devolução',
     url: '/devolucao',
     icon: Package,
-    recurso: 'configuracoes',
+    recurso: 'devolucao',
     child: [
       {
         title: 'Devolucao',
