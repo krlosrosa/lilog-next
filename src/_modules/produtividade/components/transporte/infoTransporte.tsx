@@ -75,7 +75,7 @@ export default function InfoTransporte({ transporte }: InfoTransporteProps) {
 
         {/* Rota */}
         <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-          <MapPin className="h-4 w-4 text-green-600 flex-shrink-0" />
+          <MapPin className="h-4 w-4 text-green-600 shrink-0" />
           <div className="flex-1 min-w-0">
             <div className="text-xs font-medium text-gray-600">Rota</div>
             <div className="text-sm font-semibold text-gray-900 truncate">
@@ -87,7 +87,7 @@ export default function InfoTransporte({ transporte }: InfoTransporteProps) {
         {/* Informações principais em grid */}
         <div className="grid grid-cols-2 gap-3">
           <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-blue-600 flex-shrink-0" />
+            <Calendar className="h-4 w-4 text-blue-600 shrink-0" />
             <div className="min-w-0">
               <div className="text-xs font-medium text-gray-600">Expedição</div>
               <div className="text-sm font-semibold text-gray-900">
@@ -97,7 +97,7 @@ export default function InfoTransporte({ transporte }: InfoTransporteProps) {
           </div>
           
           <div className="flex items-center gap-2">
-            <Car className="h-4 w-4 text-purple-600 flex-shrink-0" />
+            <Car className="h-4 w-4 text-purple-600 shrink-0" />
             <div className="min-w-0">
               <div className="text-xs font-medium text-gray-600">Veículo</div>
               <div className="text-sm font-semibold text-gray-900 truncate">
@@ -110,7 +110,7 @@ export default function InfoTransporte({ transporte }: InfoTransporteProps) {
         {/* Transportadora */}
         {transporte.nomeTransportadora && (
           <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-            <Package className="h-4 w-4 text-orange-600 flex-shrink-0" />
+            <Package className="h-4 w-4 text-orange-600 shrink-0" />
             <div className="flex-1 min-w-0">
               <div className="text-xs font-medium text-gray-600">Transportadora</div>
               <div className="text-sm font-semibold text-gray-900 truncate">
