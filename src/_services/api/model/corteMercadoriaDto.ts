@@ -13,20 +13,20 @@ import type { CorteMercadoriaDtoRealizadoPorId } from './corteMercadoriaDtoReali
 export interface CorteMercadoriaDto {
   produto: string;
   lote: string;
-  motivo: CorteMercadoriaDtoMotivo;
-  realizado?: boolean;
-  transporteId: string;
-  /**
-   * @minimum -2147483648
-   * @maximum 2147483647
-   */
-  caixas: number;
-  direcao?: CorteMercadoriaDtoDirecao;
   /**
    * @minimum -2147483648
    * @maximum 2147483647
    */
   unidades: number;
+  motivo: CorteMercadoriaDtoMotivo;
+  realizado?: boolean;
+  transporteId: string;
+  direcao?: CorteMercadoriaDtoDirecao;
+  /**
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  caixas: number;
   descricao?: CorteMercadoriaDtoDescricao;
   realizadoPorId?: CorteMercadoriaDtoRealizadoPorId;
 }

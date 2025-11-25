@@ -10,6 +10,7 @@ import type { CreateTransporteItemDtoObs } from './createTransporteItemDtoObs';
 import type { CreateTransporteItemDtoCarregamento } from './createTransporteItemDtoCarregamento';
 import type { CreateTransporteItemDtoConferencia } from './createTransporteItemDtoConferencia';
 import type { CreateTransporteItemDtoSeparacao } from './createTransporteItemDtoSeparacao';
+import type { CreateTransporteItemDtoCargaParada } from './createTransporteItemDtoCargaParada';
 
 export interface CreateTransporteItemDto {
   numeroTransporte: string;
@@ -28,4 +29,5 @@ export interface CreateTransporteItemDto {
   carregamento: CreateTransporteItemDtoCarregamento;
   conferencia: CreateTransporteItemDtoConferencia;
   separacao: CreateTransporteItemDtoSeparacao;
+  cargaParada: CreateTransporteItemDtoCargaParada;
 }

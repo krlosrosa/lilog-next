@@ -26,9 +26,21 @@ export const criarTransporteEmMassaBodyItem = zod.object({
   "prioridade": zod.number().min(criarTransporteEmMassaBodyPrioridadeMin).max(criarTransporteEmMassaBodyPrioridadeMax),
   "carregamento": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']),
   "conferencia": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']),
-  "separacao": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA'])
+  "separacao": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']),
+  "cargaParada": zod.union([zod.boolean(),zod.null()])
 })
 export const criarTransporteEmMassaBody = zod.array(criarTransporteEmMassaBodyItem)
+
+/**
+ * @summary Criar carga parada
+ */
+export const criarCargaParadaBody = zod.object({
+  "motivo": zod.union([zod.string(),zod.null()]),
+  "dataExpedicao": zod.union([zod.string(),zod.null()]).optional(),
+  "transportId": zod.union([zod.string(),zod.null()]).optional(),
+  "userId": zod.union([zod.string(),zod.null()]).optional(),
+  "observacao": zod.union([zod.string(),zod.null()]).optional()
+})
 
 /**
  * @summary Buscar todos os transportes
@@ -131,6 +143,37 @@ export const buscarTodosTransportesSemTransporteResponseItem = zod.object({
 export const buscarTodosTransportesSemTransporteResponse = zod.array(buscarTodosTransportesSemTransporteResponseItem)
 
 /**
+ * @summary Buscar informações do transporte
+ */
+export const buscarInfoTransportePorTransportIdParams = zod.object({
+  "transportId": zod.string()
+})
+
+export const buscarInfoTransportePorTransportIdResponseIdMin = -2147483648;
+export const buscarInfoTransportePorTransportIdResponseIdMax = 2147483647;export const buscarInfoTransportePorTransportIdResponsePrioridadeMin = -2147483648;
+export const buscarInfoTransportePorTransportIdResponsePrioridadeMax = 2147483647;
+
+export const buscarInfoTransportePorTransportIdResponse = zod.object({
+  "id": zod.number().min(buscarInfoTransportePorTransportIdResponseIdMin).max(buscarInfoTransportePorTransportIdResponseIdMax),
+  "numeroTransporte": zod.string(),
+  "status": zod.enum(['AGUARDANDO_SEPARACAO', 'EM_SEPARACAO', 'SEPARACAO_CONCLUIDA', 'EM_CONFERENCIA', 'CONFERENCIA_CONCLUIDA', 'EM_CARREGAMENTO', 'CARREGAMENTO_CONCLUIDO', 'FATURADO', 'LIBERADO_PORTARIA', 'CANCELADO']),
+  "nomeRota": zod.string(),
+  "nomeTransportadora": zod.string(),
+  "placa": zod.string(),
+  "criadoEm": zod.string(),
+  "atualizadoEm": zod.string(),
+  "cadastradoPorId": zod.string(),
+  "dataExpedicao": zod.string(),
+  "centerId": zod.string(),
+  "obs": zod.union([zod.string(),zod.null()]),
+  "prioridade": zod.number().min(buscarInfoTransportePorTransportIdResponsePrioridadeMin).max(buscarInfoTransportePorTransportIdResponsePrioridadeMax),
+  "carregamento": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']),
+  "conferencia": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']),
+  "separacao": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']),
+  "cargaParada": zod.union([zod.boolean(),zod.null()])
+})
+
+/**
  * @summary Buscar a hora a hora de transportes
  */
 export const buscarHoraAHoraTransportesParams = zod.object({
@@ -206,9 +249,9 @@ export const buscarTransportePorNumeroTransporteResponsePaletesItemEnderecoVisit
 export const buscarTransportePorNumeroTransporteResponsePaletesItemDemandaIdMaxOne = 2147483647;export const buscarTransportePorNumeroTransporteResponsePaletesItemTotalCaixasMin = -2147483648;
 export const buscarTransportePorNumeroTransporteResponsePaletesItemTotalCaixasMax = 2147483647;export const buscarTransportePorNumeroTransporteResponsePaletesItemPesoLiquidoMin = -140737488355328;
 export const buscarTransportePorNumeroTransporteResponsePaletesItemPesoLiquidoMax = 140737488355327;export const buscarTransportePorNumeroTransporteResponsePaletesDefault = [];export const buscarTransportePorNumeroTransporteResponseCortesItemIdMin = -2147483648;
-export const buscarTransportePorNumeroTransporteResponseCortesItemIdMax = 2147483647;export const buscarTransportePorNumeroTransporteResponseCortesItemCaixasMin = -2147483648;
-export const buscarTransportePorNumeroTransporteResponseCortesItemCaixasMax = 2147483647;export const buscarTransportePorNumeroTransporteResponseCortesItemUnidadesMin = -2147483648;
-export const buscarTransportePorNumeroTransporteResponseCortesItemUnidadesMax = 2147483647;export const buscarTransportePorNumeroTransporteResponseCortesDefault = [];export const buscarTransportePorNumeroTransporteResponseHistoricoTransporteItemIdMin = -2147483648;
+export const buscarTransportePorNumeroTransporteResponseCortesItemIdMax = 2147483647;export const buscarTransportePorNumeroTransporteResponseCortesItemUnidadesMin = -2147483648;
+export const buscarTransportePorNumeroTransporteResponseCortesItemUnidadesMax = 2147483647;export const buscarTransportePorNumeroTransporteResponseCortesItemCaixasMin = -2147483648;
+export const buscarTransportePorNumeroTransporteResponseCortesItemCaixasMax = 2147483647;export const buscarTransportePorNumeroTransporteResponseCortesDefault = [];export const buscarTransportePorNumeroTransporteResponseHistoricoTransporteItemIdMin = -2147483648;
 export const buscarTransportePorNumeroTransporteResponseHistoricoTransporteItemIdMax = 2147483647;export const buscarTransportePorNumeroTransporteResponseHistoricoTransporteDefault = [];export const buscarTransportePorNumeroTransporteResponseImpressaoMapaItemIdMin = -2147483648;
 export const buscarTransportePorNumeroTransporteResponseImpressaoMapaItemIdMax = 2147483647;export const buscarTransportePorNumeroTransporteResponseImpressaoMapaDefault = [];export const buscarTransportePorNumeroTransporteResponseClientesDefault = [];
 
@@ -229,6 +272,7 @@ export const buscarTransportePorNumeroTransporteResponse = zod.object({
   "carregamento": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']),
   "conferencia": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']),
   "separacao": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']),
+  "cargaParada": zod.union([zod.boolean(),zod.null()]),
   "paletes": zod.array(zod.object({
   "id": zod.string(),
   "empresa": zod.string(),
@@ -255,15 +299,15 @@ export const buscarTransportePorNumeroTransporteResponse = zod.object({
   "id": zod.number().min(buscarTransportePorNumeroTransporteResponseCortesItemIdMin).max(buscarTransportePorNumeroTransporteResponseCortesItemIdMax),
   "produto": zod.string(),
   "lote": zod.string(),
+  "unidades": zod.number().min(buscarTransportePorNumeroTransporteResponseCortesItemUnidadesMin).max(buscarTransportePorNumeroTransporteResponseCortesItemUnidadesMax),
   "motivo": zod.enum(['FALTA_MERCADORIA', 'FALTA_ESPACO', 'RECUSA_SEFAZ']),
   "realizado": zod.boolean(),
   "criadoEm": zod.string(),
   "atualizadoEm": zod.string(),
   "criadoPorId": zod.string(),
   "transporteId": zod.string(),
-  "caixas": zod.number().min(buscarTransportePorNumeroTransporteResponseCortesItemCaixasMin).max(buscarTransportePorNumeroTransporteResponseCortesItemCaixasMax),
   "direcao": zod.union([zod.enum(['OPERACIONAL', 'ADMINISTRATIVO']),zod.null()]),
-  "unidades": zod.number().min(buscarTransportePorNumeroTransporteResponseCortesItemUnidadesMin).max(buscarTransportePorNumeroTransporteResponseCortesItemUnidadesMax),
+  "caixas": zod.number().min(buscarTransportePorNumeroTransporteResponseCortesItemCaixasMin).max(buscarTransportePorNumeroTransporteResponseCortesItemCaixasMax),
   "centerId": zod.string(),
   "descricao": zod.union([zod.string(),zod.null()]),
   "realizadoPorId": zod.union([zod.string(),zod.null()])

@@ -6,4 +6,4 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ConfiguracaoImpressaoMapaDtoExibirInfoCabecalho = 'PRIMEIRO' | 'TODOS' | 'NENHUM' | null;
+export type CreateCargaParadaDtoUserId = string | null;

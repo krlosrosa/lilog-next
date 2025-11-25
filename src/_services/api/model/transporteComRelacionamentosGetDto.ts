@@ -10,6 +10,7 @@ import type { TransporteComRelacionamentosGetDtoObs } from './transporteComRelac
 import type { TransporteComRelacionamentosGetDtoCarregamento } from './transporteComRelacionamentosGetDtoCarregamento';
 import type { TransporteComRelacionamentosGetDtoConferencia } from './transporteComRelacionamentosGetDtoConferencia';
 import type { TransporteComRelacionamentosGetDtoSeparacao } from './transporteComRelacionamentosGetDtoSeparacao';
+import type { TransporteComRelacionamentosGetDtoCargaParada } from './transporteComRelacionamentosGetDtoCargaParada';
 import type { TransporteComRelacionamentosGetDtoPaletesItem } from './transporteComRelacionamentosGetDtoPaletesItem';
 import type { TransporteComRelacionamentosGetDtoCortesItem } from './transporteComRelacionamentosGetDtoCortesItem';
 import type { TransporteComRelacionamentosGetDtoHistoricoTransporteItem } from './transporteComRelacionamentosGetDtoHistoricoTransporteItem';
@@ -41,6 +42,7 @@ export interface TransporteComRelacionamentosGetDto {
   carregamento: TransporteComRelacionamentosGetDtoCarregamento;
   conferencia: TransporteComRelacionamentosGetDtoConferencia;
   separacao: TransporteComRelacionamentosGetDtoSeparacao;
+  cargaParada: TransporteComRelacionamentosGetDtoCargaParada;
   paletes?: TransporteComRelacionamentosGetDtoPaletesItem[];
   cortes?: TransporteComRelacionamentosGetDtoCortesItem[];
   historicoTransporte?: TransporteComRelacionamentosGetDtoHistoricoTransporteItem[];

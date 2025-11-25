@@ -18,23 +18,23 @@ export interface CorteMercadoriaGetDto {
   id: number;
   produto: string;
   lote: string;
+  /**
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  unidades: number;
   motivo: CorteMercadoriaGetDtoMotivo;
   realizado: boolean;
   criadoEm: string;
   atualizadoEm: string;
   criadoPorId: string;
   transporteId: string;
-  /**
-   * @minimum -2147483648
-   * @maximum 2147483647
-   */
-  caixas: number;
   direcao: CorteMercadoriaGetDtoDirecao;
   /**
    * @minimum -2147483648
    * @maximum 2147483647
    */
-  unidades: number;
+  caixas: number;
   centerId: string;
   descricao: CorteMercadoriaGetDtoDescricao;
   realizadoPorId: CorteMercadoriaGetDtoRealizadoPorId;

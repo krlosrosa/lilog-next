@@ -21,6 +21,7 @@ export interface AnomaliaProdutividadeGetDataDto {
   demandaId: number;
   centerId: string;
   funcionarioId: string;
+  criadoPorId: string;
   inicio: string;
   fim: AnomaliaProdutividadeGetDataDtoFim;
   /**
@@ -50,7 +51,6 @@ export interface AnomaliaProdutividadeGetDataDto {
   produtividade: number;
   motivoAnomalia: string;
   motivoAnomaliaDescricao: AnomaliaProdutividadeGetDataDtoMotivoAnomaliaDescricao;
-  criadoPorId: string;
   /**
    * @minimum -2147483648
    * @maximum 2147483647

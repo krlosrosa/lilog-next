@@ -30,6 +30,7 @@ export const getAnomaliasResponseItem = zod.object({
   "demandaId": zod.number().min(getAnomaliasResponseDemandaIdMin).max(getAnomaliasResponseDemandaIdMax),
   "centerId": zod.string(),
   "funcionarioId": zod.string(),
+  "criadoPorId": zod.string(),
   "inicio": zod.string(),
   "fim": zod.union([zod.string(),zod.null()]),
   "caixas": zod.number().min(getAnomaliasResponseCaixasMin).max(getAnomaliasResponseCaixasMax),
@@ -39,7 +40,6 @@ export const getAnomaliasResponseItem = zod.object({
   "produtividade": zod.number().min(getAnomaliasResponseProdutividadeMin).max(getAnomaliasResponseProdutividadeMax),
   "motivoAnomalia": zod.string(),
   "motivoAnomaliaDescricao": zod.union([zod.string(),zod.null()]),
-  "criadoPorId": zod.string(),
   "paletesNaDemanda": zod.number().min(getAnomaliasResponsePaletesNaDemandaMin).max(getAnomaliasResponsePaletesNaDemandaMax)
 })
 export const getAnomaliasResponse = zod.array(getAnomaliasResponseItem)

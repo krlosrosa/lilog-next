@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
 } from '@/_shared/_components/ui/dropdown-menu';
 import { Button } from '@/_shared/_components/ui/button';
-import { MoreVertical, Pause, Users, CheckCircle2, Trash2, Scissors } from 'lucide-react';
+import { MoreVertical, Pause, Users, CheckCircle2, Trash2, Scissors, Truck } from 'lucide-react';
 import { useState } from 'react';
 import AddPausaIndividual from './addPausaIndividual';
 import AddPausaGeral from './addPausaGeral';
@@ -16,6 +16,7 @@ import FinalizarPausaIndividual from './finalizarPausaIndividual';
 import FinalizarPausaGeral from './finalizarPausaGeral';
 import DeletarDemanda from './deletarDemanda';
 import { useRouter } from 'next/navigation';
+import ModalAddCargaParada from './transporte';
 
 export default function ListaSuspensaAcoes() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function ListaSuspensaAcoes() {
     useState(false);
   const [openFinalizarPausaGeral, setOpenFinalizarPausaGeral] = useState(false);
   const [openDeletarDemanda, setOpenDeletarDemanda] = useState(false);
-
+  const [openAddCargaParada, setOpenAddCargaParada] = useState(false);
   const [corteMaterial, setCorteMaterial] = useState(false);
 
   const handleOpenPausaIndividual = () => {
@@ -55,6 +56,12 @@ export default function ListaSuspensaAcoes() {
   const handleOpenDeletarDemanda = () => {
     setTimeout(() => {
       setOpenDeletarDemanda(true);
+    }, 0);
+  };
+
+  const handleOpenAddCargaParada = () => {
+    setTimeout(() => {
+      setOpenAddCargaParada(true);
     }, 0);
   };
 
@@ -88,6 +95,11 @@ export default function ListaSuspensaAcoes() {
         open={openDeletarDemanda}
         onOpenChange={setOpenDeletarDemanda}
       />
+      <ModalAddCargaParada
+        open={openAddCargaParada}
+        onOpenChange={setOpenAddCargaParada}
+      />
+
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon">
@@ -131,6 +143,13 @@ export default function ListaSuspensaAcoes() {
           >
             <Scissors className="text-muted-foreground h-4 w-4" />
             <span>Corte Material</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="cursor-pointer gap-3"
+            onSelect={handleOpenAddCargaParada}
+          >
+            <Truck className="text-muted-foreground h-4 w-4" />
+            <span>Informar Carga Parada</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem

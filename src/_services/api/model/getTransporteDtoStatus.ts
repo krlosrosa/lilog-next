@@ -6,11 +6,11 @@
  * OpenAPI spec version: 1.0
  */
 
-export type BuscarTodosTransportesStatus = typeof BuscarTodosTransportesStatus[keyof typeof BuscarTodosTransportesStatus];
-
+export type GetTransporteDtoStatus =
+  (typeof GetTransporteDtoStatus)[keyof typeof GetTransporteDtoStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const BuscarTodosTransportesStatus = {
+export const GetTransporteDtoStatus = {
   AGUARDANDO_SEPARACAO: 'AGUARDANDO_SEPARACAO',
   EM_SEPARACAO: 'EM_SEPARACAO',
   SEPARACAO_CONCLUIDA: 'SEPARACAO_CONCLUIDA',

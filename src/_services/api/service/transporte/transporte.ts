@@ -25,8 +25,10 @@ import type {
   AddItemsTransporteDto,
   BuscarTodosTransportesParams,
   BuscarTodosTransportesSemTransporteParams,
+  CreateCargaParadaDto,
   CreateTransporteItemDto,
   GetAllTransportesDto,
+  GetTransporteDto,
   PaleteCreateDataDto,
   ResultTransporteDtoOutput,
   ResultadoHoraHoraDtoOutput,
@@ -130,6 +132,99 @@ export const useCriarTransporteEmMassa = <
   TContext
 > => {
   const mutationOptions = getCriarTransporteEmMassaMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
+ * @summary Criar carga parada
+ */
+export const criarCargaParada = (
+  createCargaParadaDto: BodyType<CreateCargaParadaDto>,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<void>(
+    {
+      url: `/api/transporte/create-carga-parada`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: createCargaParadaDto,
+      signal,
+    },
+    options,
+  );
+};
+
+export const getCriarCargaParadaMutationOptions = <
+  TError = ErrorType<void | void | void | void | void | void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof criarCargaParada>>,
+    TError,
+    { data: BodyType<CreateCargaParadaDto> },
+    TContext
+  >;
+  request?: SecondParameter<typeof axiosFetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof criarCargaParada>>,
+  TError,
+  { data: BodyType<CreateCargaParadaDto> },
+  TContext
+> => {
+  const mutationKey = ['criarCargaParada'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof criarCargaParada>>,
+    { data: BodyType<CreateCargaParadaDto> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return criarCargaParada(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CriarCargaParadaMutationResult = NonNullable<
+  Awaited<ReturnType<typeof criarCargaParada>>
+>;
+export type CriarCargaParadaMutationBody = BodyType<CreateCargaParadaDto>;
+export type CriarCargaParadaMutationError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+/**
+ * @summary Criar carga parada
+ */
+export const useCriarCargaParada = <
+  TError = ErrorType<void | void | void | void | void | void>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof criarCargaParada>>,
+      TError,
+      { data: BodyType<CreateCargaParadaDto> },
+      TContext
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof criarCargaParada>>,
+  TError,
+  { data: BodyType<CreateCargaParadaDto> },
+  TContext
+> => {
+  const mutationOptions = getCriarCargaParadaMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
@@ -428,6 +523,189 @@ export function useBuscarTodosTransportesSemTransporte<
   const queryOptions = getBuscarTodosTransportesSemTransporteQueryOptions(
     centerId,
     params,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * @summary Buscar informações do transporte
+ */
+export const buscarInfoTransportePorTransportId = (
+  transportId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<GetTransporteDto>(
+    {
+      url: `/api/transporte/get-info-transporte-by-transport-id/${transportId}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getBuscarInfoTransportePorTransportIdQueryKey = (
+  transportId?: string,
+) => {
+  return [
+    `/api/transporte/get-info-transporte-by-transport-id/${transportId}`,
+  ] as const;
+};
+
+export const getBuscarInfoTransportePorTransportIdQueryOptions = <
+  TData = Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  transportId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getBuscarInfoTransportePorTransportIdQueryKey(transportId);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>
+  > = ({ signal }) =>
+    buscarInfoTransportePorTransportId(transportId, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!transportId,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type BuscarInfoTransportePorTransportIdQueryResult = NonNullable<
+  Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>
+>;
+export type BuscarInfoTransportePorTransportIdQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+export function useBuscarInfoTransportePorTransportId<
+  TData = Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  transportId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+          TError,
+          Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useBuscarInfoTransportePorTransportId<
+  TData = Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  transportId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+          TError,
+          Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useBuscarInfoTransportePorTransportId<
+  TData = Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  transportId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar informações do transporte
+ */
+
+export function useBuscarInfoTransportePorTransportId<
+  TData = Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  transportId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof buscarInfoTransportePorTransportId>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getBuscarInfoTransportePorTransportIdQueryOptions(
+    transportId,
     options,
   );
 

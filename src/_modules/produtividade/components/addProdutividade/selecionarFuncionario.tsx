@@ -4,7 +4,7 @@ import { Input } from '@/_shared/_components/ui/input';
 import { Button } from '@/_shared/_components/ui/button';
 import { Avatar, AvatarFallback } from '@/_shared/_components/ui/avatar';
 import { useState } from 'react';
-import { Check, X, UserPlus } from 'lucide-react';
+import { X, UserPlus } from 'lucide-react';
 import type { UserDto } from '@/_services/api/model';
 import { useFormContext } from 'react-hook-form';
 import AddNewFuncionario from '../funcionario/addNewFuncionario';
@@ -28,32 +28,33 @@ export default function SelecionarFuncionario({
 }: SelecionarFuncionarioProps) {
   const form = useFormContext();
   const funcionarioId = form.watch('funcionarioId');
-
   const { operations } = useProdutividadeOperations();
   const [searchTerm, setSearchTerm] = useState('');
+
 
   const { data: listUsers, isLoading: isLoadingUsers } =
     operations.useListarUsuariosQuery();
 
-  // 5. Derivar o usuário selecionado a partir do ID do formulário
-  const selectedUser = listUsers?.find((user) => user.id === funcionarioId);
+  // Lógica de filtragem: Retorna a lista completa se a busca estiver vazia
+  const filteredUsers = searchTerm.length > 0 ? listUsers?.filter((user) => user.name.toLowerCase().includes(searchTerm.toLowerCase()) || user.id.toLowerCase().includes(searchTerm.toLowerCase())) : listUsers;
 
-  const filteredUsers = listUsers?.filter((user) => {
-    const searchLower = searchTerm.toLowerCase();
-    return (
-      user.name.toLowerCase().includes(searchLower) ||
-      user.id.toLowerCase().includes(searchLower)
-    );
-  });
+  // Usuário selecionado
+  const selectedUser = listUsers?.find((user) => user.id === funcionarioId);
 
   const handleSelectUser = (user: UserDto) => {
     form.setValue('funcionarioId', user.id, { shouldValidate: true });
     form.setValue('turno', user.turno, { shouldValidate: true });
+    // Limpa a busca após selecionar para que a seção de "Selecionado" seja prioritária
+    setSearchTerm('');
   };
 
   const handleRemoveSelection = () => {
     form.setValue('funcionarioId', undefined, { shouldValidate: true });
     form.setValue('turno', undefined, { shouldValidate: true });
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
   };
 
   if (isLoadingUsers) {
@@ -80,18 +81,20 @@ export default function SelecionarFuncionario({
             </AddNewFuncionario>
           )}
         </div>
+        
         <div className="flex gap-2">
           <Input
             id="funcionario"
             type="text"
             placeholder="Digite o nome ou ID do funcionário"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleSearchChange}
             className="flex-1"
           />
         </div>
       </div>
 
+      {/* Funcionário Selecionado: Aparece se houver um usuário selecionado */}
       {selectedUser && (
         <div className="space-y-2">
           <Label>Funcionário Selecionado</Label>
@@ -120,71 +123,41 @@ export default function SelecionarFuncionario({
         </div>
       )}
 
-      {filteredUsers && filteredUsers.length > 0 ? (
+      {/* Lista de Funcionários Filtrados: 
+        Aparece SOMENTE se: 
+        1. NÃO HOUVER um funcionário selecionado. 
+        2. HOUVER resultados filtrados.
+      */}
+      {!selectedUser && filteredUsers && filteredUsers?.length > 0 && (
         <div className="space-y-2">
-          <Label>Funcionários ({filteredUsers.length})</Label>
-          <div
-            className={`bg-muted/20 flex flex-col gap-1.5 overflow-y-auto rounded-md border p-2 ${selectedUser ? 'max-h-48' : 'max-h-64'
-              }`}
-          >
-            {filteredUsers.map((user) => {
-              const isSelected = selectedUser?.id === user.id;
-              return (
-                <div
-                  key={user.id}
-                  onClick={() => handleSelectUser(user)}
-                  className={`flex w-full cursor-pointer items-center justify-between gap-2 rounded-md border p-2 transition-colors ${isSelected
-                    ? 'bg-primary/10 border-primary'
-                    : 'bg-background hover:bg-muted/50'
-                    }`}
-                >
-                  <div className="flex flex-1 items-center gap-2">
-                    <Avatar className="h-8 w-8">
-                      <AvatarFallback className="text-xs">
-                        {getInitials(user.name)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium">{user.name}</span>
-                      <span className="text-muted-foreground text-xs">
-                        ID: {user.id}
-                      </span>
-                    </div>
+          <Label>Funcionários ({filteredUsers?.length})</Label>
+          <div className="bg-muted/20 flex max-h-64 flex-col gap-1.5 overflow-y-auto rounded-md border p-2">
+            {filteredUsers?.map((user) => (
+              <div
+                key={user.id}
+                onClick={() => handleSelectUser(user)}
+                className="flex w-full cursor-pointer items-center justify-between gap-2 rounded-md border bg-background p-2 transition-colors hover:bg-muted/50"
+              >
+                <div className="flex flex-1 items-center gap-2">
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback className="text-xs">
+                      {getInitials(user.name)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">{user.name}</span>
+                    <span className="text-muted-foreground text-xs">
+                      ID: {user.id}
+                    </span>
                   </div>
-                  {isSelected && <Check className="text-primary h-4 w-4" />}
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
-      ) : (
-        listUsers &&
-        listUsers.length > 0 &&
-        searchTerm && (
-          <div className="space-y-2">
-            <Label>Nenhum funcionário encontrado</Label>
-            <div className="bg-muted/20 flex flex-col items-center justify-center rounded-md border p-6">
-              <p className="text-muted-foreground mb-3 text-sm">
-                Não encontramos funcionários com "{searchTerm}"
-              </p>
-              {onAddNewFuncionario && (
-                <AddNewFuncionario>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={onAddNewFuncionario}
-                  >
-                    <UserPlus className="mr-2 h-4 w-4" />
-                    Cadastrar novo funcionário
-                  </Button>
-                </AddNewFuncionario>
-              )}
-            </div>
-          </div>
-        )
       )}
-
+      
+      {/* Botão de submit */}
       <div className="pt-2">
         <Button type="submit" disabled={!selectedUser} className="w-full">
           Adicionar Demanda

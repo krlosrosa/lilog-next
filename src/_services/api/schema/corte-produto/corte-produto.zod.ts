@@ -43,19 +43,19 @@ export const criarCorteDeProdutoParams = zod.object({
   "centerId": zod.string()
 })
 
-export const criarCorteDeProdutoBodyCaixasMin = -2147483648;
-export const criarCorteDeProdutoBodyCaixasMax = 2147483647;export const criarCorteDeProdutoBodyUnidadesMin = -2147483648;
-export const criarCorteDeProdutoBodyUnidadesMax = 2147483647;
+export const criarCorteDeProdutoBodyUnidadesMin = -2147483648;
+export const criarCorteDeProdutoBodyUnidadesMax = 2147483647;export const criarCorteDeProdutoBodyCaixasMin = -2147483648;
+export const criarCorteDeProdutoBodyCaixasMax = 2147483647;
 
 export const criarCorteDeProdutoBodyItem = zod.object({
   "produto": zod.string(),
   "lote": zod.string(),
+  "unidades": zod.number().min(criarCorteDeProdutoBodyUnidadesMin).max(criarCorteDeProdutoBodyUnidadesMax),
   "motivo": zod.enum(['FALTA_MERCADORIA', 'FALTA_ESPACO', 'RECUSA_SEFAZ']),
   "realizado": zod.boolean().optional(),
   "transporteId": zod.string(),
-  "caixas": zod.number().min(criarCorteDeProdutoBodyCaixasMin).max(criarCorteDeProdutoBodyCaixasMax),
   "direcao": zod.union([zod.enum(['OPERACIONAL', 'ADMINISTRATIVO']),zod.null()]).optional(),
-  "unidades": zod.number().min(criarCorteDeProdutoBodyUnidadesMin).max(criarCorteDeProdutoBodyUnidadesMax),
+  "caixas": zod.number().min(criarCorteDeProdutoBodyCaixasMin).max(criarCorteDeProdutoBodyCaixasMax),
   "descricao": zod.union([zod.string(),zod.null()]).optional(),
   "realizadoPorId": zod.union([zod.string(),zod.null()]).optional()
 })
@@ -84,23 +84,23 @@ export const buscarTodosOsCortesDeProdutoQueryParams = zod.object({
 })
 
 export const buscarTodosOsCortesDeProdutoResponseIdMin = -2147483648;
-export const buscarTodosOsCortesDeProdutoResponseIdMax = 2147483647;export const buscarTodosOsCortesDeProdutoResponseCaixasMin = -2147483648;
-export const buscarTodosOsCortesDeProdutoResponseCaixasMax = 2147483647;export const buscarTodosOsCortesDeProdutoResponseUnidadesMin = -2147483648;
-export const buscarTodosOsCortesDeProdutoResponseUnidadesMax = 2147483647;
+export const buscarTodosOsCortesDeProdutoResponseIdMax = 2147483647;export const buscarTodosOsCortesDeProdutoResponseUnidadesMin = -2147483648;
+export const buscarTodosOsCortesDeProdutoResponseUnidadesMax = 2147483647;export const buscarTodosOsCortesDeProdutoResponseCaixasMin = -2147483648;
+export const buscarTodosOsCortesDeProdutoResponseCaixasMax = 2147483647;
 
 export const buscarTodosOsCortesDeProdutoResponseItem = zod.object({
   "id": zod.number().min(buscarTodosOsCortesDeProdutoResponseIdMin).max(buscarTodosOsCortesDeProdutoResponseIdMax),
   "produto": zod.string(),
   "lote": zod.string(),
+  "unidades": zod.number().min(buscarTodosOsCortesDeProdutoResponseUnidadesMin).max(buscarTodosOsCortesDeProdutoResponseUnidadesMax),
   "motivo": zod.enum(['FALTA_MERCADORIA', 'FALTA_ESPACO', 'RECUSA_SEFAZ']),
   "realizado": zod.boolean(),
   "criadoEm": zod.string(),
   "atualizadoEm": zod.string(),
   "criadoPorId": zod.string(),
   "transporteId": zod.string(),
-  "caixas": zod.number().min(buscarTodosOsCortesDeProdutoResponseCaixasMin).max(buscarTodosOsCortesDeProdutoResponseCaixasMax),
   "direcao": zod.union([zod.enum(['OPERACIONAL', 'ADMINISTRATIVO']),zod.null()]),
-  "unidades": zod.number().min(buscarTodosOsCortesDeProdutoResponseUnidadesMin).max(buscarTodosOsCortesDeProdutoResponseUnidadesMax),
+  "caixas": zod.number().min(buscarTodosOsCortesDeProdutoResponseCaixasMin).max(buscarTodosOsCortesDeProdutoResponseCaixasMax),
   "centerId": zod.string(),
   "descricao": zod.union([zod.string(),zod.null()]),
   "realizadoPorId": zod.union([zod.string(),zod.null()])
