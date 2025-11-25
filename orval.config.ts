@@ -20,7 +20,6 @@ export default defineConfig({
           name: 'axiosFetcher',
         },
       },
-      mock: true,
     },
   },
 

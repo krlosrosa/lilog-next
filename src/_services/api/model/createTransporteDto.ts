@@ -28,4 +28,5 @@ export interface CreateTransporteDto {
   carregamento: CreateTransporteDtoCarregamento;
   conferencia: CreateTransporteDtoConferencia;
   separacao: CreateTransporteDtoSeparacao;
+  cargaParada: boolean;
 }

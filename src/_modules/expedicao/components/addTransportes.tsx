@@ -63,6 +63,7 @@ export function AddTransportes({
         carregamento: 'NAO_INICIADO',
         conferencia: 'NAO_INICIADO',
         separacao: 'NAO_INICIADO',
+        cargaParada: false,
       });
     }
     operations.adicionarTransportes({
