@@ -119,7 +119,7 @@ export function gerarMinutaConferencia(
       itens: itensDoMapa,
       processo: 'CARREGAMENTO', // Processo correto
       pesoLiquido: totalPesoLiquido,
-      totalCaixas: somaTotalCaixas,
+      totalCaixas: totalCaixas,
     });
   }
 

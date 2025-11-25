@@ -7,10 +7,6 @@
  */
 
 export type TransporteComRelacionamentosGetDtoCortesItemDirecao =
-  (typeof TransporteComRelacionamentosGetDtoCortesItemDirecao)[keyof typeof TransporteComRelacionamentosGetDtoCortesItemDirecao];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const TransporteComRelacionamentosGetDtoCortesItemDirecao = {
-  OPERACIONAL: 'OPERACIONAL',
-  ADMINISTRATIVO: 'ADMINISTRATIVO',
-} as const;
+  | 'OPERACIONAL'
+  | 'ADMINISTRATIVO'
+  | null;

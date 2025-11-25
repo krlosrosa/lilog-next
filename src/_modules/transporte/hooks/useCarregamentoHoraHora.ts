@@ -6,7 +6,8 @@ import { useTransporteFilter } from "./useTransporteFilter";
 export default function useCarregamentoHoraHora() {
   const { user } = useUser()
   const { filters } = useTransporteFilter();
-  const { data: carregamentoHoraHora, isLoading } = useBuscarHoraAHoraTransportes(filters.dataRegistro || new Date('2025-11-14').toISOString().split('T')[0], user?.centerSelect as string, {
+  const [tipoEvento, setTipoEvento] = useState<string>('TERMINO_CARREGAMENTO');
+  const { data: carregamentoHoraHora, isLoading } = useBuscarHoraAHoraTransportes(filters.dataRegistro || new Date('2025-11-14').toISOString().split('T')[0], user?.centerSelect as string, tipoEvento, {
     query: {
       enabled: !!filters.dataRegistro,
       refetchInterval: 1000 * 60, // 1 minuto
@@ -14,10 +15,16 @@ export default function useCarregamentoHoraHora() {
         'carregamentoHoraHora',
         'buscarHoraAHoraTransportes',
         filters.dataRegistro,
+        tipoEvento, 
         user?.centerSelect,
       ],
     },
   });
 
-  return { carregamentoHoraHora, isLoading };
+  return { 
+    carregamentoHoraHora, 
+    isLoading,
+    tipoEvento,
+    setTipoEvento,
+  };
 }

@@ -135,7 +135,8 @@ export const buscarTodosTransportesSemTransporteResponse = zod.array(buscarTodos
  */
 export const buscarHoraAHoraTransportesParams = zod.object({
   "data": zod.string(),
-  "centerId": zod.string()
+  "centerId": zod.string(),
+  "tipoEvento": zod.string()
 })
 
 export const buscarHoraAHoraTransportesResponse = zod.object({
@@ -261,7 +262,7 @@ export const buscarTransportePorNumeroTransporteResponse = zod.object({
   "criadoPorId": zod.string(),
   "transporteId": zod.string(),
   "caixas": zod.number().min(buscarTransportePorNumeroTransporteResponseCortesItemCaixasMin).max(buscarTransportePorNumeroTransporteResponseCortesItemCaixasMax),
-  "direcao": zod.enum(['OPERACIONAL', 'ADMINISTRATIVO']),
+  "direcao": zod.union([zod.enum(['OPERACIONAL', 'ADMINISTRATIVO']),zod.null()]),
   "unidades": zod.number().min(buscarTransportePorNumeroTransporteResponseCortesItemUnidadesMin).max(buscarTransportePorNumeroTransporteResponseCortesItemUnidadesMax),
   "centerId": zod.string(),
   "descricao": zod.union([zod.string(),zod.null()]),

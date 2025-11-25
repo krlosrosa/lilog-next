@@ -6,11 +6,4 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CorteMercadoriaDtoDirecao =
-  (typeof CorteMercadoriaDtoDirecao)[keyof typeof CorteMercadoriaDtoDirecao];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const CorteMercadoriaDtoDirecao = {
-  OPERACIONAL: 'OPERACIONAL',
-  ADMINISTRATIVO: 'ADMINISTRATIVO',
-} as const;
+export type CorteMercadoriaDtoDirecao = 'OPERACIONAL' | 'ADMINISTRATIVO' | null;

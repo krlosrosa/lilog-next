@@ -9,6 +9,7 @@ const DEFAULT_FILTERS = {
   separacao: '',
   conferencia: '',
   carregamento: '',
+  tipoEvento: '',
 };
 
 export function useTransporteFilter() {
@@ -27,6 +28,8 @@ export function useTransporteFilter() {
         searchParams.get('conferencia') || DEFAULT_FILTERS.conferencia,
       carregamento:
         searchParams.get('carregamento') || DEFAULT_FILTERS.carregamento,
+      tipoEvento:
+        searchParams.get('tipoEvento') || DEFAULT_FILTERS.tipoEvento,
     };
   }, [searchParams]);
 

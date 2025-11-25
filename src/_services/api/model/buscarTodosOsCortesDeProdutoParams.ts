@@ -6,7 +6,6 @@
  * OpenAPI spec version: 1.0
  */
 import type { BuscarTodosOsCortesDeProdutoMotivo } from './buscarTodosOsCortesDeProdutoMotivo';
-import type { BuscarTodosOsCortesDeProdutoDirecao } from './buscarTodosOsCortesDeProdutoDirecao';
 
 export type BuscarTodosOsCortesDeProdutoParams = {
   produto?: string;
@@ -15,7 +14,7 @@ export type BuscarTodosOsCortesDeProdutoParams = {
   realizado?: boolean;
   criadoPorId?: string;
   transporteId?: string;
-  direcao?: BuscarTodosOsCortesDeProdutoDirecao;
+  direcao?: 'OPERACIONAL' | 'ADMINISTRATIVO' | null;
   centerId?: string;
   descricao?: string | null;
   realizadoPorId?: string | null;

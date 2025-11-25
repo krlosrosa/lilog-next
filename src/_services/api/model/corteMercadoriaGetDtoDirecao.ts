@@ -7,10 +7,6 @@
  */
 
 export type CorteMercadoriaGetDtoDirecao =
-  (typeof CorteMercadoriaGetDtoDirecao)[keyof typeof CorteMercadoriaGetDtoDirecao];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const CorteMercadoriaGetDtoDirecao = {
-  OPERACIONAL: 'OPERACIONAL',
-  ADMINISTRATIVO: 'ADMINISTRATIVO',
-} as const;
+  | 'OPERACIONAL'
+  | 'ADMINISTRATIVO'
+  | null;

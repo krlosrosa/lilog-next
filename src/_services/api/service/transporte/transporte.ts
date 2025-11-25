@@ -447,12 +447,13 @@ export function useBuscarTodosTransportesSemTransporte<
 export const buscarHoraAHoraTransportes = (
   data: string,
   centerId: string,
+  tipoEvento: string,
   options?: SecondParameter<typeof axiosFetcher>,
   signal?: AbortSignal,
 ) => {
   return axiosFetcher<ResultadoHoraHoraDtoOutput>(
     {
-      url: `/api/transporte/hora-a-hora-transporte/${data}/${centerId}`,
+      url: `/api/transporte/hora-a-hora-transporte/${data}/${centerId}/${tipoEvento}`,
       method: 'GET',
       signal,
     },
@@ -463,9 +464,10 @@ export const buscarHoraAHoraTransportes = (
 export const getBuscarHoraAHoraTransportesQueryKey = (
   data?: string,
   centerId?: string,
+  tipoEvento?: string,
 ) => {
   return [
-    `/api/transporte/hora-a-hora-transporte/${data}/${centerId}`,
+    `/api/transporte/hora-a-hora-transporte/${data}/${centerId}/${tipoEvento}`,
   ] as const;
 };
 
@@ -475,6 +477,7 @@ export const getBuscarHoraAHoraTransportesQueryOptions = <
 >(
   data: string,
   centerId: string,
+  tipoEvento: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -490,17 +493,23 @@ export const getBuscarHoraAHoraTransportesQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getBuscarHoraAHoraTransportesQueryKey(data, centerId);
+    getBuscarHoraAHoraTransportesQueryKey(data, centerId, tipoEvento);
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof buscarHoraAHoraTransportes>>
   > = ({ signal }) =>
-    buscarHoraAHoraTransportes(data, centerId, requestOptions, signal);
+    buscarHoraAHoraTransportes(
+      data,
+      centerId,
+      tipoEvento,
+      requestOptions,
+      signal,
+    );
 
   return {
     queryKey,
     queryFn,
-    enabled: !!(data && centerId),
+    enabled: !!(data && centerId && tipoEvento),
     ...queryOptions,
   } as UseQueryOptions<
     Awaited<ReturnType<typeof buscarHoraAHoraTransportes>>,
@@ -522,6 +531,7 @@ export function useBuscarHoraAHoraTransportes<
 >(
   data: string,
   centerId: string,
+  tipoEvento: string,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -550,6 +560,7 @@ export function useBuscarHoraAHoraTransportes<
 >(
   data: string,
   centerId: string,
+  tipoEvento: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -578,6 +589,7 @@ export function useBuscarHoraAHoraTransportes<
 >(
   data: string,
   centerId: string,
+  tipoEvento: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -602,6 +614,7 @@ export function useBuscarHoraAHoraTransportes<
 >(
   data: string,
   centerId: string,
+  tipoEvento: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -619,6 +632,7 @@ export function useBuscarHoraAHoraTransportes<
   const queryOptions = getBuscarHoraAHoraTransportesQueryOptions(
     data,
     centerId,
+    tipoEvento,
     options,
   );
 
