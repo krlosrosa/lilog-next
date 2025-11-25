@@ -1,3 +1,4 @@
+'use client';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/_shared/_components/ui/dialog";
 import { Badge } from "@/_shared/_components/ui/badge";
 import useBuscarProdutividadePorDemanda from "../../hooks/queries/useBuscarProdutividadePorDemanda";
@@ -5,6 +6,7 @@ import { Loader2, PlayCircle, Package, PauseCircle, CheckCircle2, User, Trending
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { getStatusColor } from "../../utils/getSatusColor";
+import { useState } from "react";
 
 type CardStatusDemandaProps = {
   demandaId: number;
@@ -59,10 +61,13 @@ const calculatePauseDuration = (inicio: string, fim: string | null | undefined) 
 
 export default function CardStatusDemanda({ demandaId, children }: CardStatusDemandaProps) {
 
-  const { produtividade, isBuscandoProdutividade } = useBuscarProdutividadePorDemanda(demandaId.toString())
+  const [isOpen, setIsOpen] = useState(false);
+  const { produtividade, isBuscandoProdutividade } = useBuscarProdutividadePorDemanda(demandaId.toString(), isOpen)
+
+
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
