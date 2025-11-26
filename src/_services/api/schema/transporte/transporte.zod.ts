@@ -35,7 +35,7 @@ export const criarTransporteEmMassaBody = zod.array(criarTransporteEmMassaBodyIt
  * @summary Criar carga parada
  */
 export const criarCargaParadaBody = zod.object({
-  "motivo": zod.union([zod.string(),zod.null()]),
+  "motivo": zod.union([zod.string(),zod.null()]).optional(),
   "dataExpedicao": zod.union([zod.string(),zod.null()]).optional(),
   "transportId": zod.union([zod.string(),zod.null()]).optional(),
   "userId": zod.union([zod.string(),zod.null()]).optional(),
@@ -60,6 +60,7 @@ export const buscarTodosTransportesQueryParams = zod.object({
   "centerId": zod.string().min(1).optional(),
   "obs": zod.union([zod.string(),zod.null()]).optional(),
   "prioridade": zod.number().optional(),
+  "cargaParada": zod.boolean().optional(),
   "carregamento": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),
   "conferencia": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),
   "separacao": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),
@@ -85,6 +86,7 @@ export const buscarTodosTransportesResponseItem = zod.object({
   "centerId": zod.string().min(1),
   "obs": zod.union([zod.string(),zod.null()]),
   "prioridade": zod.number().optional(),
+  "cargaParada": zod.boolean().optional(),
   "carregamento": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),
   "conferencia": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),
   "separacao": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),
@@ -114,6 +116,7 @@ export const buscarTodosTransportesSemTransporteQueryParams = zod.object({
   "centerId": zod.string().min(1).optional(),
   "obs": zod.union([zod.string(),zod.null()]).optional(),
   "prioridade": zod.number().optional(),
+  "cargaParada": zod.boolean().optional(),
   "carregamento": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),
   "conferencia": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),
   "separacao": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),
@@ -135,6 +138,7 @@ export const buscarTodosTransportesSemTransporteResponseItem = zod.object({
   "centerId": zod.string().min(1),
   "obs": zod.union([zod.string(),zod.null()]),
   "prioridade": zod.number().optional(),
+  "cargaParada": zod.boolean().optional(),
   "carregamento": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),
   "conferencia": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),
   "separacao": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA']).optional(),

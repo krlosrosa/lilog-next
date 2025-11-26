@@ -10,6 +10,8 @@ const DEFAULT_FILTERS = {
   conferencia: '',
   carregamento: '',
   tipoEvento: '',
+  cargaParada: '',
+
 };
 
 export function useTransporteFilter() {
@@ -30,6 +32,8 @@ export function useTransporteFilter() {
         searchParams.get('carregamento') || DEFAULT_FILTERS.carregamento,
       tipoEvento:
         searchParams.get('tipoEvento') || DEFAULT_FILTERS.tipoEvento,
+      cargaParada:
+        searchParams.get('cargaParada') || DEFAULT_FILTERS.cargaParada,
     };
   }, [searchParams]);
 

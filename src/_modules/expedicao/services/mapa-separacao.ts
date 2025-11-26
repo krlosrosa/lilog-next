@@ -29,10 +29,6 @@ export async function gerarMapaSeparacao(
   // --- Etapa 1: Enriquecimento e Definições Básicas ---
   let itens = enriquecerItems(shipments, products, routes);
 
-
-  const filtrarItens = itens.filter((item) => item.codItem === '610401262' && item.transportId === '53055627');
-  const fitlrarBrutos = shipments.filter((item) => item.codItem === '610401262' && item.transportId === '53055627');
-
   itens = transformarQuantidadeEmUnidade(itens);
   itens = definirFaixaERange(itens, config.dataMaximaPercentual || 0);
 
@@ -48,7 +44,7 @@ export async function gerarMapaSeparacao(
   itens = sumarizar(itens);
 
   // --- Etapa 3: Alocação e Classificação ---
-  itens = alocarCaixasEPaletes(itens, config.separarPaleteFull);
+  itens = alocarCaixasEPaletes(itens, true);
   itens = marcarItensFifo(itens, config.segregarFifo || []);
   itens = splitPalete({
     items: itens,

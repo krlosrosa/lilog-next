@@ -10,9 +10,6 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
-import { Badge } from "@/_shared/_components/ui/badge";
-
-type StatusType = 'NAO_INICIADO' | 'EM_PROGRESSO' | 'CONCLUIDO';
 
 export default function FiltrosTransporte() {
   const { filters, setFilters } = useTransporteFilter();
@@ -26,40 +23,13 @@ export default function FiltrosTransporte() {
     });
   }, [date, setFilters]);
 
-  const handleStatusChange = (field: 'separacao' | 'conferencia' | 'carregamento', value: string) => {
+  const handleStatusChange = (field: 'separacao' | 'conferencia' | 'carregamento' | 'cargaParada', value: string) => {
     setFilters({
       [field]: value === 'all' ? null : value,
     });
   };
 
-  const clearFilters = () => {
-    setDate(undefined);
-    setFilters({
-      dataRegistro: null,
-      separacao: null,
-      conferencia: null,
-      carregamento: null,
-    });
-  };
-
-  // Contar quantos filtros estão ativos
-  const activeFiltersCount = [
-    filters.dataRegistro ? 1 : 0,
-    filters.separacao ? 1 : 0,
-    filters.conferencia ? 1 : 0,
-    filters.carregamento ? 1 : 0,
-  ].reduce((sum, count) => sum + count, 0);
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'NAO_INICIADO': return 'bg-gray-100 text-gray-800 border-gray-200';
-      case 'EM_PROGRESSO': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'CONCLUIDO': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
-  };
-
-  const getStatusIcon = (type: 'separacao' | 'conferencia' | 'carregamento') => {
+  const getStatusIcon = (type: 'separacao' | 'conferencia' | 'carregamento' | 'cargaParada') => {
     switch (type) {
       case 'separacao': return <Package className="h-3.5 w-3.5" />;
       case 'conferencia': return <CheckSquare className="h-3.5 w-3.5" />;

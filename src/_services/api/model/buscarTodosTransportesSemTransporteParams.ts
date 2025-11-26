@@ -47,6 +47,7 @@ export type BuscarTodosTransportesSemTransporteParams = {
   centerId?: string;
   obs?: string | null;
   prioridade?: number;
+  cargaParada?: boolean;
   carregamento?: BuscarTodosTransportesSemTransporteCarregamento;
   conferencia?: BuscarTodosTransportesSemTransporteConferencia;
   separacao?: BuscarTodosTransportesSemTransporteSeparacao;

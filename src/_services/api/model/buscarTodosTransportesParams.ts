@@ -11,44 +11,45 @@ import type { BuscarTodosTransportesConferencia } from './buscarTodosTransportes
 import type { BuscarTodosTransportesSeparacao } from './buscarTodosTransportesSeparacao';
 
 export type BuscarTodosTransportesParams = {
-  numeroTransporte?: string;
-  status?: BuscarTodosTransportesStatus;
-  /**
-   * @minLength 1
-   */
-  nomeRota?: string;
-  /**
-   * @minLength 1
-   */
-  nomeTransportadora?: string;
-  /**
-   * @minLength 1
-   */
-  placa?: string;
-  /**
-   * @minLength 1
-   */
-  criadoEm?: string;
-  /**
-   * @minLength 1
-   */
-  atualizadoEm?: string;
-  /**
-   * @minLength 1
-   */
-  cadastradoPorId?: string;
-  /**
-   * @minLength 1
-   */
-  dataExpedicao?: string;
-  /**
-   * @minLength 1
-   */
-  centerId?: string;
-  obs?: string | null;
-  prioridade?: number;
-  carregamento?: BuscarTodosTransportesCarregamento;
-  conferencia?: BuscarTodosTransportesConferencia;
-  separacao?: BuscarTodosTransportesSeparacao;
-  qtdImpressoes?: number;
+numeroTransporte?: string;
+status?: BuscarTodosTransportesStatus;
+/**
+ * @minLength 1
+ */
+nomeRota?: string;
+/**
+ * @minLength 1
+ */
+nomeTransportadora?: string;
+/**
+ * @minLength 1
+ */
+placa?: string;
+/**
+ * @minLength 1
+ */
+criadoEm?: string;
+/**
+ * @minLength 1
+ */
+atualizadoEm?: string;
+/**
+ * @minLength 1
+ */
+cadastradoPorId?: string;
+/**
+ * @minLength 1
+ */
+dataExpedicao?: string;
+/**
+ * @minLength 1
+ */
+centerId?: string;
+obs?: string | null;
+prioridade?: number;
+cargaParada?: boolean;
+carregamento?: BuscarTodosTransportesCarregamento;
+conferencia?: BuscarTodosTransportesConferencia;
+separacao?: BuscarTodosTransportesSeparacao;
+qtdImpressoes?: number;
 };

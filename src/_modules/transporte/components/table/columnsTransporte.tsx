@@ -7,6 +7,7 @@ import { ptBR } from 'date-fns/locale';
 import { CheckCheck, Repeat, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import ModalDetalhamentoTransporte from '../cardDetalhamentoTransporte';
+import { Badge } from '@/_shared/_components/ui/badge';
 
 type StatusType = 'NAO_INICIADO' | 'EM_PROGRESSO' | 'CONCLUIDO';
 
@@ -108,6 +109,22 @@ export const columnsTransporte: ColumnDef<ResultTransporteDtoOutput>[] = [
           <StatusIcon status={row.getValue('carregamento') as StatusType} />
         </div>
       );
+    },
+  },
+  {
+    accessorKey: 'cargaParada',
+    header: 'Carga Parada',
+    cell: ({ row }) => {
+      const cargaParada = row.getValue('cargaParada') as boolean;
+      if (cargaParada) {
+        return (
+          <div className="flex items-center justify-center font-medium">
+            <Badge variant="secondary" className="bg-red-50 text-red-700 border-red-200 text-xs">
+              Carga Parada
+            </Badge>
+          </div>
+        );
+      }
     },
   },
   {

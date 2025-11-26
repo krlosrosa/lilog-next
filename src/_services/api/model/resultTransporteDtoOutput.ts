@@ -32,6 +32,7 @@ export interface ResultTransporteDtoOutput {
   centerId: string;
   obs: ResultTransporteDtoOutputObs;
   prioridade?: number;
+  cargaParada?: boolean;
   carregamento?: ResultTransporteDtoOutputCarregamento;
   conferencia?: ResultTransporteDtoOutputConferencia;
   separacao?: ResultTransporteDtoOutputSeparacao;
