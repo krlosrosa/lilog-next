@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig, AxiosError } from 'axios';
 import { getSession } from 'next-auth/react';
 
 export const AXIOS_INSTANCE = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: '/api/proxy/',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
