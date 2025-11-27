@@ -8,16 +8,16 @@
 import type { BuscarTodosOsCortesDeProdutoMotivo } from './buscarTodosOsCortesDeProdutoMotivo';
 
 export type BuscarTodosOsCortesDeProdutoParams = {
-produto?: string;
-lote?: string;
-motivo?: BuscarTodosOsCortesDeProdutoMotivo;
-realizado?: boolean;
-criadoPorId?: string;
-transporteId?: string;
-direcao?: 'OPERACIONAL' | 'ADMINISTRATIVO' | null;
-centerId?: string;
-descricao?: string | null;
-realizadoPorId?: string | null;
-inicio?: string;
-fim?: string;
+  produto?: string;
+  lote?: string;
+  motivo?: BuscarTodosOsCortesDeProdutoMotivo;
+  realizado?: boolean;
+  criadoPorId?: string;
+  transporteId?: string;
+  direcao?: 'OPERACIONAL' | 'ADMINISTRATIVO' | null;
+  centerId?: string;
+  descricao?: string | null;
+  realizadoPorId?: string | null;
+  inicio?: string;
+  fim?: string;
 };

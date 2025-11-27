@@ -6,6 +6,5 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ProdutividadeWithPausaAndPaleteDtoListaPaletesItemFim =
-  | string
-  | null;
+export type ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemFuncionarioid =
+  string | null;

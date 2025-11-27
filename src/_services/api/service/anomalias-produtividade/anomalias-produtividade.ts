@@ -5,9 +5,7 @@
  * Documentação da API responsável por: gestão de produtividade, montagem e impressão de mapas de separação, sistema de devolução de estoque e contagem de inventário.
  * OpenAPI spec version: 1.0
  */
-import {
-  useQuery
-} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
@@ -17,109 +15,161 @@ import type {
   QueryKey,
   UndefinedInitialDataOptions,
   UseQueryOptions,
-  UseQueryResult
+  UseQueryResult,
 } from '@tanstack/react-query';
 
-import type {
-  AnomaliaProdutividadeGetDataDto
-} from '../../model';
+import type { AnomaliaProdutividadeGetDataDto } from '../../model';
 
 import { axiosFetcher } from '../../../http/axios.http';
 import type { ErrorType } from '../../../http/axios.http';
 
-
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
 
 /**
  * @summary Buscar todas as anomalias de produtividade
  */
 export const getAnomalias = (
-    centerId: string,
- options?: SecondParameter<typeof axiosFetcher>,signal?: AbortSignal
+  centerId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return axiosFetcher<AnomaliaProdutividadeGetDataDto[]>(
-      {url: `/api/anomalias-produtividade/${centerId}`, method: 'GET', signal
-    },
-      options);
-    }
-  
+  return axiosFetcher<AnomaliaProdutividadeGetDataDto[]>(
+    { url: `/api/anomalias-produtividade/${centerId}`, method: 'GET', signal },
+    options,
+  );
+};
 
+export const getGetAnomaliasQueryKey = (centerId?: string) => {
+  return [`/api/anomalias-produtividade/${centerId}`] as const;
+};
 
-
-export const getGetAnomaliasQueryKey = (centerId?: string,) => {
-    return [
-    `/api/anomalias-produtividade/${centerId}`
-    ] as const;
-    }
-
-    
-export const getGetAnomaliasQueryOptions = <TData = Awaited<ReturnType<typeof getAnomalias>>, TError = ErrorType<void | void | void | void | void | void>>(centerId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnomalias>>, TError, TData>>, request?: SecondParameter<typeof axiosFetcher>}
+export const getGetAnomaliasQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAnomalias>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getAnomalias>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
 ) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryKey = queryOptions?.queryKey ?? getGetAnomaliasQueryKey(centerId);
 
-  const queryKey =  queryOptions?.queryKey ?? getGetAnomaliasQueryKey(centerId);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAnomalias>>> = ({
+    signal,
+  }) => getAnomalias(centerId, requestOptions, signal);
 
-  
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!centerId,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAnomalias>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAnomalias>>> = ({ signal }) => getAnomalias(centerId, requestOptions, signal);
+export type GetAnomaliasQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAnomalias>>
+>;
+export type GetAnomaliasQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
 
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(centerId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAnomalias>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type GetAnomaliasQueryResult = NonNullable<Awaited<ReturnType<typeof getAnomalias>>>
-export type GetAnomaliasQueryError = ErrorType<void | void | void | void | void | void>
-
-
-export function useGetAnomalias<TData = Awaited<ReturnType<typeof getAnomalias>>, TError = ErrorType<void | void | void | void | void | void>>(
- centerId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnomalias>>, TError, TData>> & Pick<
+export function useGetAnomalias<
+  TData = Awaited<ReturnType<typeof getAnomalias>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  centerId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getAnomalias>>, TError, TData>
+    > &
+      Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getAnomalias>>,
           TError,
           Awaited<ReturnType<typeof getAnomalias>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof axiosFetcher>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAnomalias<TData = Awaited<ReturnType<typeof getAnomalias>>, TError = ErrorType<void | void | void | void | void | void>>(
- centerId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnomalias>>, TError, TData>> & Pick<
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetAnomalias<
+  TData = Awaited<ReturnType<typeof getAnomalias>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getAnomalias>>, TError, TData>
+    > &
+      Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getAnomalias>>,
           TError,
           Awaited<ReturnType<typeof getAnomalias>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof axiosFetcher>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAnomalias<TData = Awaited<ReturnType<typeof getAnomalias>>, TError = ErrorType<void | void | void | void | void | void>>(
- centerId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnomalias>>, TError, TData>>, request?: SecondParameter<typeof axiosFetcher>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetAnomalias<
+  TData = Awaited<ReturnType<typeof getAnomalias>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getAnomalias>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary Buscar todas as anomalias de produtividade
  */
 
-export function useGetAnomalias<TData = Awaited<ReturnType<typeof getAnomalias>>, TError = ErrorType<void | void | void | void | void | void>>(
- centerId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAnomalias>>, TError, TData>>, request?: SecondParameter<typeof axiosFetcher>}
- , queryClient?: QueryClient 
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+export function useGetAnomalias<
+  TData = Awaited<ReturnType<typeof getAnomalias>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getAnomalias>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetAnomaliasQueryOptions(centerId, options);
 
-  const queryOptions = getGetAnomaliasQueryOptions(centerId,options)
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
+  query.queryKey = queryOptions.queryKey;
 
   return query;
 }
-
-
-

@@ -3,12 +3,20 @@ import axios, { AxiosRequestConfig, AxiosError } from 'axios';
 import { getSession } from 'next-auth/react';
 
 export const AXIOS_INSTANCE = axios.create({
-  baseURL: '/api/proxy/',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+/*export const AXIOS_INSTANCE = axios.create({
+  baseURL: '/api/proxy/',
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});*/
 
 // cliente compatível com a assinatura do customInstance
 export const axiosFetcher = async <T>(

@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type PaleteCreateDataDtoTipoProcesso =
-  (typeof PaleteCreateDataDtoTipoProcesso)[keyof typeof PaleteCreateDataDtoTipoProcesso];
+export type PaleteCreateDataDtoTipoProcesso = typeof PaleteCreateDataDtoTipoProcesso[keyof typeof PaleteCreateDataDtoTipoProcesso];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PaleteCreateDataDtoTipoProcesso = {

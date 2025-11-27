@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type PaleteCreateDataDtoStatus =
-  (typeof PaleteCreateDataDtoStatus)[keyof typeof PaleteCreateDataDtoStatus];
+export type PaleteCreateDataDtoStatus = typeof PaleteCreateDataDtoStatus[keyof typeof PaleteCreateDataDtoStatus];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PaleteCreateDataDtoStatus = {
