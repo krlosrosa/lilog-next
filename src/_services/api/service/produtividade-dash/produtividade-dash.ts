@@ -18,7 +18,10 @@ import type {
   UseQueryResult,
 } from '@tanstack/react-query';
 
-import type { ProdutividadeDiaDiaGetDataDto } from '../../model';
+import type {
+  PaleteGetDataTransporteDto,
+  ProdutividadeDiaDiaGetDataDto,
+} from '../../model';
 
 import { axiosFetcher } from '../../../http/axios.http';
 import type { ErrorType } from '../../../http/axios.http';
@@ -148,6 +151,203 @@ export function useDashDiaDia<
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
   const queryOptions = getDashDiaDiaQueryOptions(options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * @summary Buscar paletes em aberto
+ */
+export const getPaletesEmAberto = (
+  centerId: string,
+  data: string,
+  processo: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<PaleteGetDataTransporteDto[]>(
+    {
+      url: `/api/produtividade-dash/paletes-em-aberto/${centerId}/${data}/${processo}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getGetPaletesEmAbertoQueryKey = (
+  centerId?: string,
+  data?: string,
+  processo?: string,
+) => {
+  return [
+    `/api/produtividade-dash/paletes-em-aberto/${centerId}/${data}/${processo}`,
+  ] as const;
+};
+
+export const getGetPaletesEmAbertoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getPaletesEmAberto>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  data: string,
+  processo: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getPaletesEmAberto>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getGetPaletesEmAbertoQueryKey(centerId, data, processo);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getPaletesEmAberto>>
+  > = ({ signal }) =>
+    getPaletesEmAberto(centerId, data, processo, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(centerId && data && processo),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getPaletesEmAberto>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetPaletesEmAbertoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getPaletesEmAberto>>
+>;
+export type GetPaletesEmAbertoQueryError = ErrorType<unknown>;
+
+export function useGetPaletesEmAberto<
+  TData = Awaited<ReturnType<typeof getPaletesEmAberto>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  data: string,
+  processo: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getPaletesEmAberto>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getPaletesEmAberto>>,
+          TError,
+          Awaited<ReturnType<typeof getPaletesEmAberto>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetPaletesEmAberto<
+  TData = Awaited<ReturnType<typeof getPaletesEmAberto>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  data: string,
+  processo: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getPaletesEmAberto>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getPaletesEmAberto>>,
+          TError,
+          Awaited<ReturnType<typeof getPaletesEmAberto>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetPaletesEmAberto<
+  TData = Awaited<ReturnType<typeof getPaletesEmAberto>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  data: string,
+  processo: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getPaletesEmAberto>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar paletes em aberto
+ */
+
+export function useGetPaletesEmAberto<
+  TData = Awaited<ReturnType<typeof getPaletesEmAberto>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  data: string,
+  processo: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getPaletesEmAberto>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetPaletesEmAbertoQueryOptions(
+    centerId,
+    data,
+    processo,
+    options,
+  );
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<
     TData,

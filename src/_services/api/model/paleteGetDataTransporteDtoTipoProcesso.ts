@@ -6,12 +6,12 @@
  * OpenAPI spec version: 1.0
  */
 
-export type PaleteCreateDataDtoTipoProcesso =
-  (typeof PaleteCreateDataDtoTipoProcesso)[keyof typeof PaleteCreateDataDtoTipoProcesso];
+export type PaleteGetDataTransporteDtoTipoProcesso =
+  (typeof PaleteGetDataTransporteDtoTipoProcesso)[keyof typeof PaleteGetDataTransporteDtoTipoProcesso];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PaleteCreateDataDtoTipoProcesso = {
+export const PaleteGetDataTransporteDtoTipoProcesso = {
   SEPARACAO: 'SEPARACAO',
-  CARREGAMENTO: 'CARREGAMENTO',
   CONFERENCIA: 'CONFERENCIA',
+  CARREGAMENTO: 'CARREGAMENTO',
 } as const;

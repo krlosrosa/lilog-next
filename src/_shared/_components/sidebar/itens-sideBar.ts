@@ -42,6 +42,12 @@ export const itemsSideBar = [
         recurso: 'produtividade',
       },
       {
+        title: 'Paletes Em Aberto',
+        url: '/produtividade/paletes/em-aberto',
+        icon: Inbox,
+        recurso: 'produtividade',
+      },
+      {
         title: 'Relatório',
         url: '/produtividade/relatorio',
         icon: FileText,

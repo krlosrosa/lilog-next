@@ -148,6 +148,8 @@ export * from './paleteCreateDataDtoFim';
 export * from './paleteCreateDataDtoInicio';
 export * from './paleteCreateDataDtoStatus';
 export * from './paleteCreateDataDtoTipoProcesso';
+export * from './paleteGetDataTransporteDto';
+export * from './paleteGetDataTransporteDtoTipoProcesso';
 export * from './paleteInputDto';
 export * from './pausaCreateDataDto';
 export * from './pausaCreateDataDtoDescricao';

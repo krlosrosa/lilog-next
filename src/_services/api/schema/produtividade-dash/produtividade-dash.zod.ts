@@ -62,3 +62,28 @@ export const dashDiaDiaResponse = zod.object({
 }))
 })
 
+/**
+ * @summary Buscar paletes em aberto
+ */
+export const getPaletesEmAbertoParams = zod.object({
+  "centerId": zod.string(),
+  "data": zod.string(),
+  "processo": zod.string()
+})
+
+export const getPaletesEmAbertoResponseItem = zod.object({
+  "palete_id": zod.string(),
+  "empresa": zod.string(),
+  "quantidadeCaixas": zod.number(),
+  "quantidadeUnidades": zod.number(),
+  "quantidadePaletes": zod.number(),
+  "enderecoVisitado": zod.number(),
+  "segmento": zod.string(),
+  "tipoProcesso": zod.enum(['SEPARACAO', 'CONFERENCIA', 'CARREGAMENTO']),
+  "status_palete": zod.string(),
+  "transporteId": zod.string(),
+  "centerId": zod.string(),
+  "data_expedicao": zod.string()
+})
+export const getPaletesEmAbertoResponse = zod.array(getPaletesEmAbertoResponseItem)
+
