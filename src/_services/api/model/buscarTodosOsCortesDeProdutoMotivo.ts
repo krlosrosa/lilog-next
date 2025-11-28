@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type BuscarTodosOsCortesDeProdutoMotivo = typeof BuscarTodosOsCortesDeProdutoMotivo[keyof typeof BuscarTodosOsCortesDeProdutoMotivo];
-
+export type BuscarTodosOsCortesDeProdutoMotivo =
+  (typeof BuscarTodosOsCortesDeProdutoMotivo)[keyof typeof BuscarTodosOsCortesDeProdutoMotivo];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const BuscarTodosOsCortesDeProdutoMotivo = {

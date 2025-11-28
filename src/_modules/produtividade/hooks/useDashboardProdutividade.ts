@@ -4,7 +4,7 @@ import { useDashProdutividade } from "./queries/useDashProdutividade";
 export function useDashboardProdutividade() {
   const [dataInicio, setDataInicio] = useState<string>('');
   const [dataFim, setDataFim] = useState<string>('');
-  const { produtividadeDiaDia, top5ProdutividadeDiaDia, bottom5ProdutividadeDiaDia, isLoading: isBuscandoDashDiaDia } = useDashProdutividade(dataInicio, dataFim);
+  const { produtividadeDiaDia, porTurnoEProcesso,top5ProdutividadeDiaDia, bottom5ProdutividadeDiaDia, isLoading: isBuscandoDashDiaDia } = useDashProdutividade(dataInicio, dataFim);
 
   return {
     dataInicio,
@@ -15,5 +15,6 @@ export function useDashboardProdutividade() {
     top5ProdutividadeDiaDia,
     bottom5ProdutividadeDiaDia,
     isBuscandoDashDiaDia,
+    porTurnoEProcesso
   }
 }

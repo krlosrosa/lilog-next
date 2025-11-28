@@ -8,15 +8,9 @@ import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { useEngineAnomaliaStore } from "../../stores/engineAnomalia.store";
 
-
 export default function DefinicaoRegra() {
   const [tab, setTab] = useState<string>('1-definicao');
   const { processo, event, query } = useEngineAnomaliaStore();
-
-
-  function handleSave() {
-    console.log(processo, event, query);
-  }
 
   return (
     <Sheet>

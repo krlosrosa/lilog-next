@@ -31,6 +31,26 @@ const typeReturnRules = [
     name: 'Tempo Longo de Aguardando Produto',
     processo: 'PAUSA',
   },
+  {
+    type: 'ANOMALIA_CARGA_PARADA_COM_CARREGAMENTO_ATIVO',
+    name: 'Carga Parada com Carregamento Ativo',
+    processo: 'TRANSPORTE',
+  },
+  {
+    type: 'ANOMALIA_SEPARACAO_NAO_FINALIZADA_AO_INICIAR_CARREGAMENTO',
+    name: 'Separação Não Finalizada ao Iniciar Carregamento',
+    processo: 'TRANSPORTE',
+  },
+  {
+    type: 'ANOMALIA_CONFERENCIA_NAO_FINALIZADA_AO_INICIAR_CARREGAMENTO',
+    name: 'Conferência Não Finalizada ao Iniciar Carregamento',
+    processo: 'TRANSPORTE',
+  },
+  {
+    type: 'ANOMALIA_SEPARACAO_NAO_FINALIZADA_COM_CONFERENCIA_FINALIZADA',
+    name: 'Separação Não Finalizada com Conferência Finalizada',
+    processo: 'TRANSPORTE',
+  },
 ]
 
 

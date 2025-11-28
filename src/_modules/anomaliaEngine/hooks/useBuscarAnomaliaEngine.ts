@@ -7,12 +7,12 @@ import { useUser } from "@/_shared/providers/UserContext";
 
 export const useBuscarAnomaliaEngine = () => {
   const { user } = useUser();
-  const { event, query, processo } = useEngineAnomaliaStore()
+  const { event, query, processo, fields } = useEngineAnomaliaStore()
   const { regras, isBuscandoRegras } = useBuscarAnomaliasEngineQuery();
   const { handleAddAnomaliaEngine, isAddingAnomaliaEngine } = useAddAnomaliaEngine();
 
   function handleSave() {
-    if (!event.type || !query.rules.length) {
+    if (!event.type || !query.rules.length || !fields) {
       return;
     }
     const convertedRule = convertQueryBuilderToJsonRulesEngine(query, event);

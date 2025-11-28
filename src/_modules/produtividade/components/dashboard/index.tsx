@@ -9,6 +9,7 @@ import { Button } from "@/_shared/_components/ui/button";
 import ProdutividadeDiaDia from "./produtividadeDiaDia";
 import RankingFuncionarioT5 from "./rankingFuncionarioT5";
 import RankingFuncionariosB5 from "./rankingFunctionariosB5";
+import PorTurno from "./porTurno";
 
 export default function Dashboard() {
   const {
@@ -20,6 +21,7 @@ export default function Dashboard() {
     produtividadeDiaDia,
     top5ProdutividadeDiaDia,
     bottom5ProdutividadeDiaDia,
+    porTurnoEProcesso
   } = useDashboardProdutividade();
   return (
     <div>
@@ -61,6 +63,7 @@ export default function Dashboard() {
       <RankingFuncionarioT5 topFuncionarios={top5ProdutividadeDiaDia || []} />
       <RankingFuncionariosB5 topFuncionarios={bottom5ProdutividadeDiaDia || []} tipo="piores" titulo="Top 5 Piores Desempenhos" descricao="Colaboradores com menor produtividade no período" />
       </div>
+      <PorTurno porTurnoEProcesso={porTurnoEProcesso || []} />
     </div>
   )
 }

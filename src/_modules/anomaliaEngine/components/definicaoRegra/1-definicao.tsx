@@ -52,6 +52,8 @@ export default function DefinicaoRegra1Nome() {
               Nome da Regra *
             </Label>
             <Input
+              value={processo.nomeRegra}
+              onChange={(e) => setProcesso({ ...processo, nomeRegra: e.target.value })}
               id="nome"
               placeholder="Ex: Regra de Produtividade Matinal"
               className="w-full"
@@ -66,6 +68,8 @@ export default function DefinicaoRegra1Nome() {
               Descrição
             </Label>
             <Input
+              value={processo.descricao}
+              onChange={(e) => setProcesso({ ...processo, descricao: e.target.value })}
               id="descricao"
               placeholder="Ex: Regra aplicada durante o turno da manhã"
               className="w-full"

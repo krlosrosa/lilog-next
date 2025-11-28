@@ -20,7 +20,9 @@ export function renumerarMapasPorTransporte(
   
   mapasPorTransporte.forEach((mapasDoTransporte, transportId) => {
     // Ordenar os mapas do transporte (manter ordem original ou ordenar por algum critério)
-    const mapasOrdenados = [...mapasDoTransporte].sort((a, b) => {
+    const mapasOrdenados = [...mapasDoTransporte]
+    
+    /*.sort((a, b) => {
       // Ordenar por: processo, tipo, id (ou outro critério)
       if (a.processo !== b.processo) {
         return b.processo.localeCompare(a.processo);
@@ -29,7 +31,7 @@ export function renumerarMapasPorTransporte(
         return a.tipo.localeCompare(b.tipo);
       }
       return a.id.localeCompare(b.id);
-    });
+    });*/
 
     const totalTransportes = mapasDoTransporte.filter(mapa => mapa.transportId === transportId).length;
 

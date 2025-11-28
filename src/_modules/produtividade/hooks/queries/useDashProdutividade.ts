@@ -22,5 +22,6 @@ export function useDashProdutividade(dataInicio: string, dataFim: string) {
     top5ProdutividadeDiaDia: dashDiaDia?.top5Produtividade,
     bottom5ProdutividadeDiaDia: dashDiaDia?.bottom5Produtividade,
     isLoading: isBuscandoDashDiaDia,
+    porTurnoEProcesso: dashDiaDia?.produtividadeProcesso
   }
 }

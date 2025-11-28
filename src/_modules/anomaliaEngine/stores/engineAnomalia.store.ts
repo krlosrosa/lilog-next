@@ -1,6 +1,7 @@
 import { RuleGroupType } from 'react-querybuilder';
 import { create } from 'zustand';
 import { EventData } from '../types/event.type';
+import { Field } from 'react-querybuilder';
 
 interface EngineAnomaliaStore {
   processo: {
@@ -15,6 +16,7 @@ interface EngineAnomaliaStore {
     };
   },
   query: RuleGroupType;
+  fields: Field[];
   setProcesso: (processo: {
     nomeRegra: string;
     descricao: string;
@@ -22,6 +24,7 @@ interface EngineAnomaliaStore {
   }) => void;
   setQuery: (query: RuleGroupType) => void;
   setEvent: (event: EventData) => void;
+  setFields: (fields: Field[]) => void;
 }
 
 export const useEngineAnomaliaStore = create<EngineAnomaliaStore>((set) => ({
@@ -35,7 +38,9 @@ export const useEngineAnomaliaStore = create<EngineAnomaliaStore>((set) => ({
     params: { message: '' },
   },
   query: { combinator: 'and', rules: [] },
-  setProcesso: (processo) => set({ processo }),
+  fields: [],
+  setProcesso: (processo) => set({ processo }), 
+  setFields: (fields) => set({ fields }),
   setQuery: (query) => set({ query }),
   setEvent: (event) => set({ event }),
 }));
