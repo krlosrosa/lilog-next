@@ -14,10 +14,12 @@ export default function useGetAllTransportes(dataExpedicao?: string) {
     separacao: filters.separacao as BuscarTodosTransportesSemTransporteSeparacao,
     conferencia: filters.conferencia as BuscarTodosTransportesSemTransporteConferencia,
     carregamento: filters.carregamento as BuscarTodosTransportesSemTransporteCarregamento,
+    cargaParada: filters.cargaParada === 'true' ? true : undefined,
   }, {
     query: {
       enabled: !!dataExpedicaoFinal,
       refetchInterval: 1000 * 60, // 1 minuto
+      queryKey: ['buscarTodosTransportesSemTransporte', dataExpedicaoFinal, filters.cargaParada],
     }
   });
 

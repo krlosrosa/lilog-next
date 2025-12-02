@@ -1,14 +1,5 @@
 'use client';
 import { ResultTransporteDtoOutput, ResultTransporteDtoOutputCarregamento, ResultTransporteDtoOutputConferencia, ResultTransporteDtoOutputSeparacao } from "@/_services/api/model";
-import { useState, useEffect } from "react";
-import { CalendarIcon } from "lucide-react";
-import { Button } from "@/_shared/_components/ui/button";
-import { Calendar } from "@/_shared/_components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/_shared/_components/ui/popover";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
-import { cn } from "@/lib/utils";
-import { useUpdateSearchParam } from "@/_shared/hooks/useUpdateSearchParams";
 import useGetAllTransportes from "../hooks/useGetAllTransportes";
 import CardKanbam from "./cardKanbam";
 import KanbanColumnHeader from "./kanbanColumnHeader";
@@ -57,11 +48,6 @@ const calcularEstatisticas = (
   return { total, emAndamento, concluidos, naoIniciados };
 };
 
-const parseDateString = (dateString: string): Date => {
-  const [year, month, day] = dateString.split('-').map(Number);
-  return new Date(year, month - 1, day);
-};
-
 export default function Transporte() {
   const { filters } = useTransporteFilter();
 
@@ -77,6 +63,7 @@ export default function Transporte() {
   const statsConferencia = calcularEstatisticas(todosTransportes, todosTransportes, 'conferencia');
   const statsCarregamento = calcularEstatisticas(todosTransportes, todosTransportes, 'carregamento');
 
+  const cargaParada = todosTransportes.filter((item) => item.cargaParada === true);
   return (
     <div className="p-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-1">

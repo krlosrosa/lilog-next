@@ -5,14 +5,16 @@ import { Calendar } from "@/_shared/_components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/_shared/_components/ui/popover";
 import { Label } from "@/_shared/_components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/_shared/_components/ui/select";
-import { CalendarIcon, Filter, X, Truck, CheckSquare, Package } from "lucide-react";
+import { CalendarIcon, Filter, X, Truck, CheckSquare, Package, AlertCircle } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
+import { Switch } from "@/_shared/_components/ui/switch";
 
 export default function FiltrosTransporte() {
   const { filters, setFilters } = useTransporteFilter();
+  const [cargaParada, setCargaParada] = useState<boolean>(filters.cargaParada === 'true');
   const [date, setDate] = useState<Date | undefined>(
     filters.dataRegistro ? new Date(filters.dataRegistro) : undefined
   );
@@ -22,6 +24,12 @@ export default function FiltrosTransporte() {
       dataRegistro: date ? format(date, 'yyyy-MM-dd') : null,
     });
   }, [date, setFilters]);
+
+  useEffect(() => {
+    setFilters({
+      cargaParada: cargaParada ? 'true' : 'false',
+    });
+  }, [cargaParada, setFilters]);
 
   const handleStatusChange = (field: 'separacao' | 'conferencia' | 'carregamento' | 'cargaParada', value: string) => {
     setFilters({
@@ -41,7 +49,7 @@ export default function FiltrosTransporte() {
   return (
     <div className="space-y-4">
       {/* Grid de Filtros */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 bg-muted/30 rounded-lg border">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 p-4 bg-muted/30 rounded-lg border">
         {/* Filtro de Data */}
         <div className="space-y-2">
           <Label htmlFor="dataRegistro" className="text-sm font-medium flex items-center gap-2">
@@ -208,6 +216,13 @@ export default function FiltrosTransporte() {
               </SelectItem>
             </SelectContent>
           </Select>
+        </div>
+        <div className="flex items-center gap-2">
+          <Label htmlFor="cargaParada" className="text-sm font-medium flex items-center gap-2">
+            <AlertCircle className="h-3.5 w-3.5" />
+            Carga Parada
+          </Label>
+          <Switch id="cargaParada" checked={cargaParada} onCheckedChange={setCargaParada} />
         </div>
       </div>
     </div>

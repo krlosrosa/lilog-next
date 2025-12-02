@@ -59,6 +59,8 @@ export default function CardDashboard() {
 
   const totalTransportes = transportes?.length || 0;
 
+  const totalCargaParada = transportes?.filter((item) => item.cargaParada === true).length || 0;
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
       {/* Card Separação */}
@@ -158,7 +160,7 @@ export default function CardDashboard() {
                 <StatusIcon status="NAO_INICIADO" />
                 <span className="text-sm text-muted-foreground">Não Iniciado</span>
               </div>
-              <span className="text-lg font-semibold">{resumos.carregamento.NAO_INICIADO}</span>
+              <span className="text-lg font-semibold">{resumos.carregamento.NAO_INICIADO - totalCargaParada}</span>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -180,6 +182,14 @@ export default function CardDashboard() {
                 <span className="text-lg font-bold">{totalTransportes}</span>
               </div>
             </div>
+            {totalCargaParada > 0 && (
+              <div className="pt-2 border-t text-red-400 text-sm font-semibold">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">Carga Parada</span>
+                  <span className="font-bold">{totalCargaParada}</span>
+                </div>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>
