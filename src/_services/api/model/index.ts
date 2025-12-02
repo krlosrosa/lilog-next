@@ -199,6 +199,7 @@ export * from './produtividadeDiaDiaGetDataDtoProdutividadeItemTotalCaixas';
 export * from './produtividadeDiaDiaGetDataDtoProdutividadeItemTotalTempoPausa';
 export * from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItem';
 export * from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItemCenterid';
+export * from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItemCriadoem';
 export * from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItemMediaEnderecosPorDemanda';
 export * from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItemPeriodoFim';
 export * from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItemPeriodoInicio';

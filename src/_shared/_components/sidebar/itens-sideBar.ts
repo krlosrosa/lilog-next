@@ -73,6 +73,12 @@ export const itemsSideBar = [
         icon: Settings,
         recurso: 'configuracoes',
       },
+      {
+        title: 'Reagendar Expedição',
+        url: '/expedicao/trocar-data-expedicao',
+        icon: Calendar,
+        recurso: 'expedicao',
+      }
     ],
   },
   {

@@ -1301,3 +1301,99 @@ export function useBuscarTransportePorNumeroTransporte<
 
   return query;
 }
+
+/**
+ * @summary Trocar data de expedição de transportes
+ */
+export const trocarDataExpedicaoTransportes = (
+  dataExpedicao: string,
+  trocarDataExpedicaoTransportesBody: BodyType<string[]>,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<void>(
+    {
+      url: `/api/transporte/trocar-data-expedicao-transporte/${dataExpedicao}`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: trocarDataExpedicaoTransportesBody,
+      signal,
+    },
+    options,
+  );
+};
+
+export const getTrocarDataExpedicaoTransportesMutationOptions = <
+  TError = ErrorType<void | void | void | void | void | void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof trocarDataExpedicaoTransportes>>,
+    TError,
+    { dataExpedicao: string; data: BodyType<string[]> },
+    TContext
+  >;
+  request?: SecondParameter<typeof axiosFetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof trocarDataExpedicaoTransportes>>,
+  TError,
+  { dataExpedicao: string; data: BodyType<string[]> },
+  TContext
+> => {
+  const mutationKey = ['trocarDataExpedicaoTransportes'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof trocarDataExpedicaoTransportes>>,
+    { dataExpedicao: string; data: BodyType<string[]> }
+  > = (props) => {
+    const { dataExpedicao, data } = props ?? {};
+
+    return trocarDataExpedicaoTransportes(dataExpedicao, data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type TrocarDataExpedicaoTransportesMutationResult = NonNullable<
+  Awaited<ReturnType<typeof trocarDataExpedicaoTransportes>>
+>;
+export type TrocarDataExpedicaoTransportesMutationBody = BodyType<string[]>;
+export type TrocarDataExpedicaoTransportesMutationError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+/**
+ * @summary Trocar data de expedição de transportes
+ */
+export const useTrocarDataExpedicaoTransportes = <
+  TError = ErrorType<void | void | void | void | void | void>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof trocarDataExpedicaoTransportes>>,
+      TError,
+      { dataExpedicao: string; data: BodyType<string[]> },
+      TContext
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof trocarDataExpedicaoTransportes>>,
+  TError,
+  { dataExpedicao: string; data: BodyType<string[]> },
+  TContext
+> => {
+  const mutationOptions =
+    getTrocarDataExpedicaoTransportesMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};

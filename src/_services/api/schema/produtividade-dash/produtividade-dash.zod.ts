@@ -67,6 +67,7 @@ export const dashDiaDiaResponse = zod.object({
   "centerid": zod.union([zod.string(),zod.null()]),
   "processo": zod.union([zod.enum(['SEPARACAO', 'CARREGAMENTO', 'CONFERENCIA']),zod.null()]),
   "turno": zod.union([zod.enum(['MANHA', 'TARDE', 'NOITE', 'INTERMEDIARIO', 'ADMINISTRATIVO']),zod.null()]),
+  "criadoem": zod.union([zod.string(),zod.null()]),
   "periodoInicio": zod.union([zod.string(),zod.null()]),
   "periodoFim": zod.union([zod.string(),zod.null()]),
   "totalTempoPausa": zod.union([zod.string(),zod.null()]),

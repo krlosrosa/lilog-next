@@ -338,3 +338,13 @@ export const buscarTransportePorNumeroTransporteResponse = zod.object({
 })).default(buscarTransportePorNumeroTransporteResponseClientesDefault)
 })
 
+/**
+ * @summary Trocar data de expedição de transportes
+ */
+export const trocarDataExpedicaoTransportesParams = zod.object({
+  "dataExpedicao": zod.string()
+})
+
+export const trocarDataExpedicaoTransportesBodyItem = zod.string()
+export const trocarDataExpedicaoTransportesBody = zod.array(trocarDataExpedicaoTransportesBodyItem)
+

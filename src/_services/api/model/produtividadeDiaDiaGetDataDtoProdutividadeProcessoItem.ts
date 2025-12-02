@@ -8,6 +8,7 @@
 import type { ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemCenterid } from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItemCenterid';
 import type { ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemProcesso } from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItemProcesso';
 import type { ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemTurno } from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItemTurno';
+import type { ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemCriadoem } from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItemCriadoem';
 import type { ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemPeriodoInicio } from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItemPeriodoInicio';
 import type { ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemPeriodoFim } from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItemPeriodoFim';
 import type { ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemTotalTempoPausa } from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItemTotalTempoPausa';
@@ -23,6 +24,7 @@ export type ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItem = {
   centerid: ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemCenterid;
   processo: ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemProcesso;
   turno: ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemTurno;
+  criadoem: ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemCriadoem;
   periodoInicio: ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemPeriodoInicio;
   periodoFim: ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemPeriodoFim;
   totalTempoPausa: ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItemTotalTempoPausa;
