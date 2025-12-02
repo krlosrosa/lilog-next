@@ -9,7 +9,7 @@ export default function useTrocarDataExpedicaoService() {
     mutation: {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: ['buscarTodosTransportes'],
+          queryKey: ['buscarTodosTransportesSemTransporte'],
         });
       },
     },

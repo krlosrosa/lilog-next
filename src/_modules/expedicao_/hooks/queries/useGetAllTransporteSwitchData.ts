@@ -14,6 +14,12 @@ export default function useGetAllTransporteSwitchData(dataExpedicao?: string) {
     {
       dataExpedicao: dataExpedicaoFinal,
       cargaParada: cargaParada === true ? true : undefined,
+    },
+    {
+      query: {
+        enabled: !!dataExpedicao,
+        queryKey: ['buscarTodosTransportesSemTransporte', dataExpedicaoFinal, cargaParada],
+      },
     }
   )
 
