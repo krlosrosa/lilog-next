@@ -5,8 +5,8 @@ export function useDashProdutividade(dataInicio: string, dataFim: string) {
   const { user } = useUser();
   const { data: dashDiaDia, isLoading: isBuscandoDashDiaDia } = useDashDiaDia({
     query: {
-      enabled: !!user?.centerSelect,
-      queryKey: ['dashDiaDia', user?.centerSelect],
+      enabled: !!user?.centerSelect && !!dataInicio && !!dataFim,
+      queryKey: ['dashDiaDia', user?.centerSelect, dataInicio, dataFim],
     },
     request:{ 
       params: {
