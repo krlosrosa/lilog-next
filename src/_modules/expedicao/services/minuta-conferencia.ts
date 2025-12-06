@@ -34,28 +34,10 @@ export async function gerarMinutaConferencia(
   );
   itens = sumarizar(itens, 'porMinuta');
 
-  itens.map((item) => {
-    if(item.transportId === '53055753') {
-      console.log('sumarizar', item)
-    }
-  })
-
-
   // --- Etapa 3: Alocação e Classificação ---
   itens = alocarCaixasEPaletes(itens, false);
-  itens.map((item) => {
-    if(item.transportId === '53055753') {
-      console.log('item', item)
-    }
-  })
   itens = sumarizarMinuta(itens);
   const minuta = gerarMinutaConferenciaPipeline(itens);
-
-  minuta.map((item) => {
-    if(item.transportId === '53055753') {
-      console.log('minuta', item)
-    }
-  })
 
   return minuta;
 }
