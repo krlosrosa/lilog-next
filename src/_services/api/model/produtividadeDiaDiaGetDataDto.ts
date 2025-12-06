@@ -9,10 +9,12 @@ import type { ProdutividadeDiaDiaGetDataDtoProdutividadeItem } from './produtivi
 import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItem } from './produtividadeDiaDiaGetDataDtoTop5ProdutividadeItem';
 import type { ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItem } from './produtividadeDiaDiaGetDataDtoBottom5ProdutividadeItem';
 import type { ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItem } from './produtividadeDiaDiaGetDataDtoProdutividadeProcessoItem';
+import type { ProdutividadeDiaDiaGetDataDtoListaProdutividadePorFuncionarioItem } from './produtividadeDiaDiaGetDataDtoListaProdutividadePorFuncionarioItem';
 
 export interface ProdutividadeDiaDiaGetDataDto {
   produtividade: ProdutividadeDiaDiaGetDataDtoProdutividadeItem[];
   top5Produtividade: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItem[];
   bottom5Produtividade: ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItem[];
   produtividadeProcesso: ProdutividadeDiaDiaGetDataDtoProdutividadeProcessoItem[];
+  listaProdutividadePorFuncionario: ProdutividadeDiaDiaGetDataDtoListaProdutividadePorFuncionarioItem[];
 }

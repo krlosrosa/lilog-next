@@ -18,7 +18,6 @@ export const useAddCargaParada = () => {
   });
 
   function criarCargaParada(data: z.infer<typeof criarCargaParadaBody>) {
-    console.log(data);
     const promise = criarCargaParadaMutation({ data });
     toast.promise(promise, {
       loading: 'Salvando carga parada...',

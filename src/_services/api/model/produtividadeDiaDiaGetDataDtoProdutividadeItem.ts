@@ -11,6 +11,7 @@ import type { ProdutividadeDiaDiaGetDataDtoProdutividadeItemTotalTempoPausa } fr
 import type { ProdutividadeDiaDiaGetDataDtoProdutividadeItemTotalCaixas } from './produtividadeDiaDiaGetDataDtoProdutividadeItemTotalCaixas';
 import type { ProdutividadeDiaDiaGetDataDtoProdutividadeItemTempoTotal } from './produtividadeDiaDiaGetDataDtoProdutividadeItemTempoTotal';
 import type { ProdutividadeDiaDiaGetDataDtoProdutividadeItemTempoTrabalhado } from './produtividadeDiaDiaGetDataDtoProdutividadeItemTempoTrabalhado';
+import type { ProdutividadeDiaDiaGetDataDtoProdutividadeItemProcesso } from './produtividadeDiaDiaGetDataDtoProdutividadeItemProcesso';
 import type { ProdutividadeDiaDiaGetDataDtoProdutividadeItemProdutividadeCaixaPorHora } from './produtividadeDiaDiaGetDataDtoProdutividadeItemProdutividadeCaixaPorHora';
 
 export type ProdutividadeDiaDiaGetDataDtoProdutividadeItem = {
@@ -20,5 +21,6 @@ export type ProdutividadeDiaDiaGetDataDtoProdutividadeItem = {
   totalCaixas: ProdutividadeDiaDiaGetDataDtoProdutividadeItemTotalCaixas;
   tempoTotal: ProdutividadeDiaDiaGetDataDtoProdutividadeItemTempoTotal;
   tempoTrabalhado: ProdutividadeDiaDiaGetDataDtoProdutividadeItemTempoTrabalhado;
+  processo: ProdutividadeDiaDiaGetDataDtoProdutividadeItemProcesso;
   produtividadeCaixaPorHora: ProdutividadeDiaDiaGetDataDtoProdutividadeItemProdutividadeCaixaPorHora;
 };

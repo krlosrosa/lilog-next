@@ -529,19 +529,6 @@ export default function NewEmployeePage() {
     setIsSubmitting(true);
 
     try {
-      // Simular criação do funcionário
-      console.log('Criando funcionário:', {
-        ...formData,
-        // Se não for admin, não envia permissões personalizadas
-        permissions: formData.isAdmin ? formData.permissions : [],
-      });
-
-      // Em uma aplicação real:
-      // await fetch('/api/employees', {
-      //   method: 'POST',
-      //   body: JSON.stringify(formData)
-      // });
-
       // Redirecionar para lista de funcionários
       setTimeout(() => {
         router.push('/funcionarios');

@@ -21,7 +21,10 @@ export const dashDiaDiaResponseBottom5ProdutividadeItemTotalDemandasMaxOne = 900
 export const dashDiaDiaResponseBottom5ProdutividadeItemTotalEnderecosVisitadosMaxOne = 9007199254740991;export const dashDiaDiaResponseProdutividadeProcessoItemTotalCaixasMinOne = -9007199254740991;
 export const dashDiaDiaResponseProdutividadeProcessoItemTotalCaixasMaxOne = 9007199254740991;export const dashDiaDiaResponseProdutividadeProcessoItemTotalDemandasMinOne = -9007199254740991;
 export const dashDiaDiaResponseProdutividadeProcessoItemTotalDemandasMaxOne = 9007199254740991;export const dashDiaDiaResponseProdutividadeProcessoItemTotalEnderecosVisitadosMinOne = -9007199254740991;
-export const dashDiaDiaResponseProdutividadeProcessoItemTotalEnderecosVisitadosMaxOne = 9007199254740991;
+export const dashDiaDiaResponseProdutividadeProcessoItemTotalEnderecosVisitadosMaxOne = 9007199254740991;export const dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalCaixasMinOne = -9007199254740991;
+export const dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalCaixasMaxOne = 9007199254740991;export const dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalDemandasMinOne = -9007199254740991;
+export const dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalDemandasMaxOne = 9007199254740991;export const dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalEnderecosVisitadosMinOne = -9007199254740991;
+export const dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalEnderecosVisitadosMaxOne = 9007199254740991;
 
 export const dashDiaDiaResponse = zod.object({
   "produtividade": zod.array(zod.object({
@@ -31,11 +34,13 @@ export const dashDiaDiaResponse = zod.object({
   "totalCaixas": zod.union([zod.number().min(dashDiaDiaResponseProdutividadeItemTotalCaixasMinOne).max(dashDiaDiaResponseProdutividadeItemTotalCaixasMaxOne),zod.null()]),
   "tempoTotal": zod.union([zod.string(),zod.null()]),
   "tempoTrabalhado": zod.union([zod.string(),zod.null()]),
+  "processo": zod.union([zod.enum(['SEPARACAO', 'CARREGAMENTO', 'CONFERENCIA']),zod.null()]),
   "produtividadeCaixaPorHora": zod.union([zod.string(),zod.null()])
 })),
   "top5Produtividade": zod.array(zod.object({
   "funcionarioid": zod.union([zod.string(),zod.null()]),
   "funcionarionome": zod.union([zod.string(),zod.null()]),
+  "processo": zod.union([zod.enum(['SEPARACAO', 'CARREGAMENTO', 'CONFERENCIA']),zod.null()]),
   "centerid": zod.union([zod.string(),zod.null()]),
   "periodoInicio": zod.union([zod.string(),zod.null()]),
   "periodoFim": zod.union([zod.string(),zod.null()]),
@@ -51,6 +56,7 @@ export const dashDiaDiaResponse = zod.object({
   "bottom5Produtividade": zod.array(zod.object({
   "funcionarioid": zod.union([zod.string(),zod.null()]),
   "funcionarionome": zod.union([zod.string(),zod.null()]),
+  "processo": zod.union([zod.enum(['SEPARACAO', 'CARREGAMENTO', 'CONFERENCIA']),zod.null()]),
   "centerid": zod.union([zod.string(),zod.null()]),
   "periodoInicio": zod.union([zod.string(),zod.null()]),
   "periodoFim": zod.union([zod.string(),zod.null()]),
@@ -75,6 +81,22 @@ export const dashDiaDiaResponse = zod.object({
   "tempoTotal": zod.union([zod.string(),zod.null()]),
   "totalDemandas": zod.union([zod.number().min(dashDiaDiaResponseProdutividadeProcessoItemTotalDemandasMinOne).max(dashDiaDiaResponseProdutividadeProcessoItemTotalDemandasMaxOne),zod.null()]),
   "totalEnderecosVisitados": zod.union([zod.number().min(dashDiaDiaResponseProdutividadeProcessoItemTotalEnderecosVisitadosMinOne).max(dashDiaDiaResponseProdutividadeProcessoItemTotalEnderecosVisitadosMaxOne),zod.null()]),
+  "tempoTrabalhado": zod.union([zod.string(),zod.null()]),
+  "produtividadeCaixaPorHora": zod.union([zod.string(),zod.null()]),
+  "mediaEnderecosPorDemanda": zod.union([zod.string(),zod.null()])
+})),
+  "listaProdutividadePorFuncionario": zod.array(zod.object({
+  "funcionarioid": zod.union([zod.string(),zod.null()]),
+  "funcionarionome": zod.union([zod.string(),zod.null()]),
+  "processo": zod.union([zod.enum(['SEPARACAO', 'CARREGAMENTO', 'CONFERENCIA']),zod.null()]),
+  "centerid": zod.union([zod.string(),zod.null()]),
+  "periodoInicio": zod.union([zod.string(),zod.null()]),
+  "periodoFim": zod.union([zod.string(),zod.null()]),
+  "totalTempoPausa": zod.union([zod.string(),zod.null()]),
+  "totalCaixas": zod.union([zod.number().min(dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalCaixasMinOne).max(dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalCaixasMaxOne),zod.null()]),
+  "tempoTotal": zod.union([zod.string(),zod.null()]),
+  "totalDemandas": zod.union([zod.number().min(dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalDemandasMinOne).max(dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalDemandasMaxOne),zod.null()]),
+  "totalEnderecosVisitados": zod.union([zod.number().min(dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalEnderecosVisitadosMinOne).max(dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalEnderecosVisitadosMaxOne),zod.null()]),
   "tempoTrabalhado": zod.union([zod.string(),zod.null()]),
   "produtividadeCaixaPorHora": zod.union([zod.string(),zod.null()]),
   "mediaEnderecosPorDemanda": zod.union([zod.string(),zod.null()])

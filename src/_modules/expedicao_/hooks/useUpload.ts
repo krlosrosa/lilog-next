@@ -17,7 +17,6 @@ export function useUpload(setValueTab: (value: string) => void) {
   const handleValidateInputs = async () => {
     setIsLoading(true);
     const resultado = await ValidarInputs(itensUpload);
-    console.log('resultado', resultado);
     if (resultado.error) {
       setValidationFailure(resultado);
       setValidationSuccess(null);

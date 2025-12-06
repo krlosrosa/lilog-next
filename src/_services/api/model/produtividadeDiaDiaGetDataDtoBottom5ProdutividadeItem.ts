@@ -7,6 +7,7 @@
  */
 import type { ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemFuncionarioid } from './produtividadeDiaDiaGetDataDtoBottom5ProdutividadeItemFuncionarioid';
 import type { ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemFuncionarionome } from './produtividadeDiaDiaGetDataDtoBottom5ProdutividadeItemFuncionarionome';
+import type { ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemProcesso } from './produtividadeDiaDiaGetDataDtoBottom5ProdutividadeItemProcesso';
 import type { ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemCenterid } from './produtividadeDiaDiaGetDataDtoBottom5ProdutividadeItemCenterid';
 import type { ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemPeriodoInicio } from './produtividadeDiaDiaGetDataDtoBottom5ProdutividadeItemPeriodoInicio';
 import type { ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemPeriodoFim } from './produtividadeDiaDiaGetDataDtoBottom5ProdutividadeItemPeriodoFim';
@@ -22,6 +23,7 @@ import type { ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemMediaEndereco
 export type ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItem = {
   funcionarioid: ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemFuncionarioid;
   funcionarionome: ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemFuncionarionome;
+  processo: ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemProcesso;
   centerid: ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemCenterid;
   periodoInicio: ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemPeriodoInicio;
   periodoFim: ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemPeriodoFim;

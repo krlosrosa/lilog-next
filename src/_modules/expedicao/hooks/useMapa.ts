@@ -110,7 +110,6 @@ export function useMapa() {
       console.error('Falha ao gerar mapas:', error);
     } finally {
       setIsLoading(false);
-      console.log('isLoading definido como false', isLoading);
     }
   }, [validationSuccess, configuracaoImpressa, clientesSegregados, grupoClientes, grupoTransportes, grupoRemessas]);
 

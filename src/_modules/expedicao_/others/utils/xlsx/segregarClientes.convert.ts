@@ -7,12 +7,8 @@ export interface ClienteSegregado {
 export async function convertFileToClientesSegregados(
   file: File,
 ): Promise<ClienteSegregado[]> {
-  console.log('convertFileToClientesSegregados called with file:', file);
-
   try {
     const data: any[] = (await processExcelFile(file)) as any[];
-    console.log('Excel data processed:', data);
-
     const convertedData = data
       .map((item: any) => {
         // Tenta diferentes possíveis nomes de coluna
@@ -31,7 +27,6 @@ export async function convertFileToClientesSegregados(
       })
       .filter((cliente) => cliente.codCliente && cliente.codCliente !== ''); // Remove valores vazios
 
-    console.log('Converted data:', convertedData);
     return convertedData;
   } catch (error) {
     console.error('Error in convertFileToClientesSegregados:', error);

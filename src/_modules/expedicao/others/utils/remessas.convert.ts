@@ -67,10 +67,5 @@ export async function convertShipment(
     pesoLiquido: parseUSNumber(item['Peso Líquido']),
     // --- FIM DO AJUSTE ---
   }));
-
-  const filtrarBrutos = convertedData.filter(
-    (item) => item.codItem === '610401262' && item.transportId === '53055627',
-  );
-  console.log('filtrarBrutos', filtrarBrutos);
   return convertedData;
 }

@@ -49,8 +49,6 @@ export function gerarSeparacao(
       // representa apenas a parte deste item (ex: só paletes).
       const aloc = item.alocacao;
 
-      console.log('aloc', aloc);
-
       // Extrai os valores do local correto
       const unidades = aloc?.unidadesSoltas ?? 0;
       const caixas = aloc?.caixasSoltas ?? 0;

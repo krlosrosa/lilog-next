@@ -16,7 +16,6 @@ export default function useTrocarDataExpedicaoService() {
   });
 
   function trocarDataExpedicaoMutation(dataExpedicao: string, data: string[]) {
-    console.log(dataExpedicao, data)
     const promise = trocarDataExpedicao({ dataExpedicao, data });
     toast.promise(promise, {
       loading: 'Trocando data de expedição...',

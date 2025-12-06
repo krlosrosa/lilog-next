@@ -11,6 +11,7 @@ import { gerarGrupos, Groups } from './pipeline/4-gerarGrupos';
 import { sumarizar } from './pipeline/5-sumarizar';
 import { alocarCaixasEPaletes } from './pipeline/6-alocarCaixasEPaletes';
 import { gerarMinutaConferencia as gerarMinutaConferenciaPipeline } from './pipeline/12-gerarMinutaCarregamento';
+import { sumarizarMinuta } from './pipeline/5-sumarizarMinuta';
 
 export async function gerarMinutaConferencia(
   input: ValidationSuccess,
@@ -30,20 +31,31 @@ export async function gerarMinutaConferencia(
   itens = gerarGrupos(
     itens,
     'TRANSPORTE',
-    segregarClientes,
-    agruparClientes,
-    agruparTransportes,
-    agruparRemessas,
   );
   itens = sumarizar(itens, 'porMinuta');
 
+  itens.map((item) => {
+    if(item.transportId === '53055753') {
+      console.log('sumarizar', item)
+    }
+  })
+
+
   // --- Etapa 3: Alocação e Classificação ---
   itens = alocarCaixasEPaletes(itens, false);
-
+  itens.map((item) => {
+    if(item.transportId === '53055753') {
+      console.log('item', item)
+    }
+  })
+  itens = sumarizarMinuta(itens);
   const minuta = gerarMinutaConferenciaPipeline(itens);
 
-  console.log('minuta', minuta[0])
+  minuta.map((item) => {
+    if(item.transportId === '53055753') {
+      console.log('minuta', item)
+    }
+  })
 
-  // MELHORIA: 'async' functions já retornam Promises.
   return minuta;
 }

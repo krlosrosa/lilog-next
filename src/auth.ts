@@ -103,21 +103,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             signal: AbortSignal.timeout(3000), // 3 segundos
           });
 
-          console.log('res', res);
-
           if (!res.ok) {
             throw new Error(`Backend /info-me respondeu com ${res.status}`);
           }
 
           const userInfo = await res.json();
-          console.log('userInfo', userInfo);
           // Caminho feliz: dados populados no token
           token.id = userInfo.id;
           token.roles = userInfo.roles;
           token.empresa = userInfo.empresa;
           delete token.error; // Limpa qualquer erro anterior
         } catch (error) {
-          console.log('error', token);
           console.error('Erro ao buscar /info-me no login:', error);
           token.id = null;
           token.roles = null;
@@ -135,7 +131,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const isTokenValid =
         Date.now() < (token.accessTokenExpires as number) - 10000;
       if (isTokenValid) {
-        // console.log('Bloco JWT: Token ainda válido');
         return token;
       }
 
@@ -186,7 +181,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               Authorization: `Bearer ${message.token?.accessToken}`,
             },
           });
-          console.log('Resultado do logout no backend:', response.status);
         } catch (error) {
           console.error('Erro no evento signOut (backend logout):', error);
         }

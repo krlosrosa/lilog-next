@@ -15,23 +15,13 @@ export type EstrategiaSumarizacao = 'porItem' | 'porMinuta';
  * serão uma cópia do *primeiro item* encontrado nesse grupo.
  * As 'quantidades' e 'pesos' serão a soma de *todos* os itens do grupo.
  */
-export function sumarizar(
+export function sumarizarMinuta(
   lista: EnrichedPickingMapItem[],
-  estrategia: EstrategiaSumarizacao = 'porItem',
 ): EnrichedPickingMapItem[] {
   const agrupado = lista.reduce(
     (acc: Record<string, EnrichedPickingMapItem>, item) => {
       let chaveValor: string;
-
-      if (estrategia === 'porMinuta') {
-        // --- ESTRATÉGIA MINUTA ---
-        chaveValor = `${item.id}-${item.codItem}`;
-      } else {
-        // --- ESTRATÉGIA ITEM (Lógica original) ---
-        chaveValor = `${item.codItem}-${item.lote}-${item.id}`;
-      }
-
-
+        chaveValor = `${item.id}-${item.produto?.empresa}-${item.produto.segmento}`;
       if (!acc[chaveValor]) {
         // 1. Item não existe no grupo.
         // Adiciona uma cópia dele como o "item base" do grupo.
@@ -39,7 +29,14 @@ export function sumarizar(
       } else {
         // 2. Item já existe.
         // Apenas soma os valores ao "item base" que já está no 'acc'.
-        acc[chaveValor].quantidade += item.quantidade;
+        acc[chaveValor].alocacao.unidadesSoltas += item.alocacao?.unidadesSoltas ?? 0;
+        acc[chaveValor].alocacao.caixasSoltas += item.alocacao?.caixasSoltas ?? 0;
+        acc[chaveValor].alocacao.paletesCompletos += item.alocacao?.paletesCompletos ?? 0;
+        acc[chaveValor].alocacao.pesoUnidades += item.alocacao?.pesoUnidades ?? 0;
+        acc[chaveValor].alocacao.pesoCaixas += item.alocacao?.pesoCaixas ?? 0;
+        acc[chaveValor].alocacao.pesoPaletes += item.alocacao?.pesoPaletes ?? 0;
+        acc[chaveValor].alocacao.percentualProximoPalete += item.alocacao?.percentualProximoPalete ?? 0;
+        acc[chaveValor].alocacao.totalCaixas += item.alocacao?.totalCaixas ?? 0;
         acc[chaveValor].pesoLiquido += item.pesoLiquido;
       }
 

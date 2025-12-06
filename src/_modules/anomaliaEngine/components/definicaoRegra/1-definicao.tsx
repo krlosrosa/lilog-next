@@ -26,7 +26,6 @@ export default function DefinicaoRegra1Nome() {
 
   function handleNext() {
     if (!processo.processo) {
-      console.log("Selecione um processo antes de continuar");
       return;
     }
     setProcesso({ ...processo, nomeRegra: processo.nomeRegra });

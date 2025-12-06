@@ -1,7 +1,5 @@
 'use client';
 import { useDashboardProdutividade } from "../../hooks/useDashboardProdutividade";
-import GraficoDiaDia from "./graficoDiaDia";
-import Top5Melhores from "./top5Melhores";
 import { Card } from "@/_shared/_components/ui/card";
 import { CardContent } from "@/_shared/_components/ui/card";
 import { Input } from "@/_shared/_components/ui/input";
@@ -10,19 +8,24 @@ import ProdutividadeDiaDia from "./produtividadeDiaDia";
 import RankingFuncionarioT5 from "./rankingFuncionarioT5";
 import RankingFuncionariosB5 from "./rankingFunctionariosB5";
 import PorTurno from "./porTurno";
+import { useFilterDash } from "../../hooks/useFilterDash";
+import { Select, SelectTrigger } from "@/_shared/_components/ui/select";
+import { SelectValue } from "@/_shared/_components/ui/select";
+import { SelectContent } from "@/_shared/_components/ui/select";
+import { SelectItem } from "@/_shared/_components/ui/select";
+import { DataTableFuncionario } from "./table/data-table-funcionario";
+import { columnsFuncionarioDashboard } from "./table/columnsFuncionario";
 
 export default function Dashboard() {
   const {
-    dataInicio,
-    setDataInicio,
-    dataFim,
-    setDataFim,
     isBuscandoDashDiaDia,
     produtividadeDiaDia,
     top5ProdutividadeDiaDia,
     bottom5ProdutividadeDiaDia,
-    porTurnoEProcesso
+    porTurnoEProcesso,
+    listaProdutividadePorFuncionario, 
   } = useDashboardProdutividade();
+  const { filters, setFilter } = useFilterDash();
   return (
     <div>
       {/* Filtros */}
@@ -34,17 +37,33 @@ export default function Dashboard() {
                 <label className="text-sm font-medium">Data Início</label>
                 <Input
                   type="date"
-                  value={dataInicio}
-                  onChange={(e) => setDataInicio(e.target.value)}
+                  value={filters.dataInicio}
+                  onChange={(e) => setFilter('dataInicio', e.target.value)}
                 />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Data Fim</label>
                 <Input
                   type="date"
-                  value={dataFim}
-                  onChange={(e) => setDataFim(e.target.value)}
+                  value={filters.dataFim}
+                  onChange={(e) => setFilter('dataFim', e.target.value)}
                 />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Processo</label>
+                <Select
+                  value={filters.processo}
+                  onValueChange={(value) => setFilter('processo', value)}
+                >
+                  <SelectTrigger id="processo">
+                    <SelectValue placeholder="Selecione um processo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="SEPARACAO">Separação</SelectItem>
+                    <SelectItem value="CONFERENCIA">Conferência</SelectItem>
+                    <SelectItem value="CARREGAMENTO">Carregamento</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
             <Button
@@ -64,6 +83,7 @@ export default function Dashboard() {
       <RankingFuncionariosB5 topFuncionarios={bottom5ProdutividadeDiaDia || []} tipo="piores" titulo="Top 5 Piores Desempenhos" descricao="Colaboradores com menor produtividade no período" />
       </div>
       <PorTurno porTurnoEProcesso={porTurnoEProcesso || []} />
+      <DataTableFuncionario columns={columnsFuncionarioDashboard} data={listaProdutividadePorFuncionario || []} />
     </div>
   )
 }
