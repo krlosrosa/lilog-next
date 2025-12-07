@@ -5,7 +5,7 @@ import { SegregrarClientes } from "./segregrarClientes";
 import { useAgrupamentoStore } from "@/_modules/expedicao_/others/stores/agrupamento.store";
 
 export function Agrupamento() {
-  const { clientesSegregados, setClientesSegregados, handleSegregedClientes } = useAgrupamentoStore();
+  const { clientesSegregados, setClientesSegregados, handleSegregedClientes, removeGroup, grupoRemessas, addGroup, updateGroupName, addItem, removeItem } = useAgrupamentoStore();
 
   return (
     <div className="space-y-2 p-4 mt-4 rounded-lg border shadow-sm">
@@ -16,7 +16,14 @@ export function Agrupamento() {
       <SegregrarClientes setClientesSegregados={setClientesSegregados} handleSegregedClientes={handleSegregedClientes} clientesSegregados={clientesSegregados} />
       <AgruparPorCliente />
       <AgruparPorTransporte />
-      <AgruparPorRemessa />
+      <AgruparPorRemessa
+        grupoRemessas={grupoRemessas}
+        removeGroup={removeGroup}
+        addGroup={addGroup}
+        updateGroupName={updateGroupName}
+        addItem={addItem}
+        removeItem={removeItem}
+      />
     </div>
   )
 }

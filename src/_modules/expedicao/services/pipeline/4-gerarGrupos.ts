@@ -16,14 +16,23 @@ function getTransporteGroupKey(
   shipment: EnrichedPickingMapItem,
   transportesAgrupar: Groups[],
   segregarClientes: string[],
+  remessasAgrupar: Groups[],
 ): string {
   // Prioridade 1: O transporte está em um grupo explícito?
+  const remessaGroup = remessasAgrupar.find((g) =>
+    g.items.includes(shipment.remessa),
+  );
+  if (remessaGroup) {
+    return remessaGroup.name; // Usa o nome do grupo global de remessa
+  }
+  
   const transporteGroup = transportesAgrupar.find((g) =>
     g.items.includes(shipment.transportId),
   );
   if (transporteGroup) {
     return transporteGroup.name; // Usa o nome do grupo e ignora o resto
   }
+
 
   // Prioridade 2: O cliente deve ser segregado?
   if (segregarClientes.includes(shipment.codCliente)) {
@@ -91,8 +100,9 @@ export function gerarGrupos(
         shipment,
         transportesAgrupar,
         clientesASegregar,
+        remessasAgrupar,
       );
-    } else if (tipo === 'CLIENTE') {
+    } else if (tipo === 'TRANSPORTE') {
       groupKey = getClienteGroupKey(shipment, clientesAgrupar, remessasAgrupar);
     } else if (tipo === 'REMESSA') {
       groupKey = `${shipment.remessa}`;

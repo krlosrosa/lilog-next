@@ -3,9 +3,18 @@ import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import RenderGroupSection from "./gerarAgrupamento";
 import { useGroups } from "@/_modules/expedicao_/hooks/useGroups";
+import { Group, GroupType } from "@/_modules/expedicao_/others/stores/agrupamento.store";
 
-export function AgruparPorRemessa() {
-  const { grupoRemessas, addGroup, removeGroup, updateGroupName, addItem, removeItem } = useGroups();
+type AgruparPorRemessaProps = {
+  grupoRemessas: Group[];
+  removeGroup: (tipo: GroupType, id: string) => void;
+  addGroup: (tipo: GroupType) => void;
+  updateGroupName: (tipo: GroupType, id: string, name: string) => void;
+  addItem: (tipo: GroupType, groupId: string, item: string) => void;
+  removeItem: (tipo: GroupType, groupId: string, index: number) => void;
+}
+
+export function AgruparPorRemessa({ grupoRemessas, removeGroup, addGroup, updateGroupName, addItem, removeItem }: AgruparPorRemessaProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
