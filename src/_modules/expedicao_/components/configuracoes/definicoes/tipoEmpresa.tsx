@@ -1,5 +1,6 @@
 import { useConfiguracoesStore } from "@/_modules/expedicao_/others/stores/configuracoes.store";
 import { SelectWithLabel } from "@/_shared/_components/ui/SelectLabel";
+import { Switch } from "@/_shared/_components/ui/switch";
 
 const tipoImpressaoOptions = [
   { label: 'Cliente', value: 'CLIENTE' },
@@ -15,9 +16,11 @@ const empresaOptions = [
 type TipoEmpresaProps = {
   setEmpresa: (empresa: 'DPA' | 'ITB' | 'LDB') => void;
   empresa: 'DPA' | 'ITB' | 'LDB';
+  setReplicar: (replicar: boolean) => void;
+  replicar: boolean;
 }
 
-export function TipoEmpresa({ setEmpresa, empresa }: TipoEmpresaProps) {
+export function TipoEmpresa({ setEmpresa, empresa, setReplicar, replicar }: TipoEmpresaProps) {
 
   const configuracaoImpressao = useConfiguracoesStore((state) => state.configuracaoImpressao)
   const setConfiguracaoImpressao = useConfiguracoesStore((state) => state.setConfiguracaoImpressao)
@@ -52,6 +55,10 @@ export function TipoEmpresa({ setEmpresa, empresa }: TipoEmpresaProps) {
           options={tipoImpressaoOptions}
           value={configuracaoImpressao.tipoImpressaoConferencia}
           onChange={handleTipoImpressaoConferenciaChange as (value: string) => void}
+        />
+        <Switch
+          checked={replicar}
+          onCheckedChange={setReplicar}
         />
         <SelectWithLabel
           label="Empresa"

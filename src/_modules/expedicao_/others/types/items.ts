@@ -127,7 +127,7 @@ export interface ImpressaoMapaHeader {
   linhasVisitadas: number;
   tipo: 'picking' | 'unidade' | 'palete' | 'fifo';
   processo: string;
-  sequenciaTransporte?: string;
+  sequenciaTransporte?: number;
 }
 
 export interface ImpressaoMapaItem {

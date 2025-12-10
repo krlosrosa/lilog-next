@@ -29,7 +29,7 @@ export function MapaSeparacao({
     <div>
       <HeaderSeparacaoMapa indice={indice} mapa={rest} exibirCliente={exibirCliente} tipo={tipo} segregados={segregados} />
       <DataTableMapa
-        transporteId={`${mapa.transportId} | qtd mapas: ${rest.sequenciaTransporte}`}
+        transporteId={`${mapa.transportId} | qtd mapas: ${rest.sequencia}/${rest.sequenciaTransporte}`}
         columnsExibir={columnsExibir}
         columns={columns}
         data={itens}

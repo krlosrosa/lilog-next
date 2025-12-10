@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type GetTransporteDtoSeparacao =
-  (typeof GetTransporteDtoSeparacao)[keyof typeof GetTransporteDtoSeparacao];
+export type GetTransporteDtoSeparacao = typeof GetTransporteDtoSeparacao[keyof typeof GetTransporteDtoSeparacao];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const GetTransporteDtoSeparacao = {

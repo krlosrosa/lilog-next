@@ -23,6 +23,7 @@ export async function gerarMapaConferencia(
   agruparClientes?: Groups[],
   agruparTransportes?: Groups[],
   agruparRemessas?: Groups[],
+  replicar: boolean = false,
 ): Promise<ImpressaoMapa[]> {
   const { shipments, products, routes } = input.data;
 
@@ -32,7 +33,19 @@ export async function gerarMapaConferencia(
 
   
   // --- Etapa 2: Agrupamento e Sumarização ---
-  itens = gerarGrupos(itens, config.tipoImpressaoConferencia || 'TRANSPORTE');
+  if(replicar) {
+    itens = gerarGrupos(
+      itens,
+      config.tipoImpressao,
+      segregarClientes,
+      agruparClientes,
+      agruparTransportes,
+      agruparRemessas,
+    );
+  } else {
+
+    itens = gerarGrupos(itens, config.tipoImpressaoConferencia || 'TRANSPORTE');
+  }
   itens = sumarizar(itens);
 
   // --- Etapa 3: Alocação e Classificação ---

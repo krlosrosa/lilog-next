@@ -14,7 +14,7 @@ type SeparacaoProps = {
 }
 
 export function Separacao({ configuracaoImpressao, clientesSegregados }: SeparacaoProps) {
-  const { gerarMapaSeparacaoService, isLoading, mapas, addPaleteInTransporte, isAddingPaleteInTransporte, open, setOpen } = useMapaSeparacao()
+  const { gerarMapaSeparacaoService, isLoading, mapas, addPaleteInTransporte, isAddingPaleteInTransporte, open, setOpen, groupedPicking } = useMapaSeparacao()
 
   const printRef = useRef<HTMLDivElement>(null);
   const handlePrint = usePrint({ printRef, handleBeforePrint: addPaleteInTransporte });

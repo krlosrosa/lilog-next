@@ -16,9 +16,11 @@ import { NaoSincronizado } from "../naoSincronizado";
 type ConfiguracaoGeralProps = {
   setEmpresa: (empresa: 'DPA' | 'ITB' | 'LDB') => void;
   empresa: 'DPA' | 'ITB' | 'LDB';
+  setReplicar: (replicar: boolean) => void;
+  replicar: boolean;
 }
 
-export function ConfiguracaoGeral({ setEmpresa, empresa }: ConfiguracaoGeralProps) {
+export function ConfiguracaoGeral({ setEmpresa, empresa, setReplicar, replicar }: ConfiguracaoGeralProps) {
   const [isOpen, setIsOpen] = useState(false);
   const sincronizado = useConfiguracoesStore((state) => state.sincronizado)
 
@@ -27,6 +29,8 @@ export function ConfiguracaoGeral({ setEmpresa, empresa }: ConfiguracaoGeralProp
       <TipoEmpresa
         setEmpresa={setEmpresa} 
         empresa={empresa} 
+        setReplicar={setReplicar}
+        replicar={replicar}
       />
       <Separator />
       {sincronizado ? <Collapsible>

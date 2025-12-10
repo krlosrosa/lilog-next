@@ -6,9 +6,13 @@ import { TitleTabs } from "../components/title";
 import { LoadingTransporte } from "../components/transporte/loading";
 import { useConfiguracao } from "../hooks/useConfiguracao";
 
-export function DefinicoesTab({ setValueTab }: { setValueTab: (value: string) => void }) {
+ type DefinicoesTabProps = {
+  setValueTab: (value: string) => void;
+ }
 
-  const { isLoadingConfiguracaoImpressao, setEmpresa, empresa } = useConfiguracao()
+export function DefinicoesTab({ setValueTab}: DefinicoesTabProps) {
+
+  const { isLoadingConfiguracaoImpressao, setEmpresa, empresa, setReplicar, replicar } = useConfiguracao()
 
   return (
     <div className="space-y-4">
@@ -27,6 +31,8 @@ export function DefinicoesTab({ setValueTab }: { setValueTab: (value: string) =>
           <ConfiguracaoGeral
             setEmpresa={setEmpresa}
             empresa={empresa}
+            setReplicar={setReplicar}
+            replicar={replicar}
           />
           <Agrupamento />
         </>

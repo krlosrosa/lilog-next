@@ -39,7 +39,7 @@ export function TabsMapas({ configuracaoImpressao, clientesSegregados }: TabsMap
             />
           </TabsContent>
           <TabsContent value="conferencia">
-            <MapasConferencia />
+            <MapasConferencia/>
           </TabsContent>
           <TabsContent value="protocolo">
             <Protocolo/>

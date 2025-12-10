@@ -1,12 +1,19 @@
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/_shared/_components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
-import RenderGroupSection from "./gerarAgrupamento";
+import RenderGroupSection, { Group, GroupType } from "./gerarAgrupamento";
 import { useGroups } from "@/_modules/expedicao_/hooks/useGroups";
 
+type AgruparPorClienteProps = {
+  grupoClientes: Group[];
+  removeGroup: (tipo: GroupType, id: string) => void;
+  addGroup: (tipo: GroupType) => void;
+  updateGroupName: (tipo: GroupType, id: string, name: string) => void;
+  addItem: (tipo: GroupType, groupId: string, item: string) => void;
+  removeItem: (tipo: GroupType, groupId: string, index: number) => void;
+}
 
-export function AgruparPorCliente() {
-  const { grupoClientes, addGroup, removeGroup, updateGroupName, addItem, removeItem } = useGroups();
+export function AgruparPorCliente({ grupoClientes, removeGroup, addGroup, updateGroupName, addItem, removeItem }: AgruparPorClienteProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

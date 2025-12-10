@@ -19,7 +19,7 @@ export function MapaConferencia({
     <div>
       <HeaderCarregamento mapa={rest} />
       <DataTableMapa
-        transporteId={`${mapa.transportId} | qtd mapas: ${rest.sequenciaTransporte}`}
+        transporteId={`${mapa.transportId} | qtd mapas: ${rest.sequencia}/${rest.sequenciaTransporte ? rest.sequenciaTransporte - 1 : 0}`}
         columnsExibir={columnsExibir}
         columns={columns}
         data={mapa.itens}

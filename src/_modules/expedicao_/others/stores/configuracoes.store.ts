@@ -25,16 +25,20 @@ const initialConfiguracaoImpressao: ConfiguracaoImpressa = {
 interface ConfiguracoesStore {
   sincronizado: boolean;
   configuracaoImpressao: ConfiguracaoImpressa;
+  replicar: boolean;
   setConfiguracaoImpressao: (config: ConfiguracaoImpressa) => void;
   setSincronizado: (sincronizado: boolean) => void;
   resetConfiguracao: () => void;
+  setReplicar: (replicar: boolean) => void;
 }
 
 export const useConfiguracoesStore = create<ConfiguracoesStore>((set) => ({
   sincronizado: false,
   configuracaoImpressao: initialConfiguracaoImpressao,
+  replicar: false,
   setConfiguracaoImpressao: (config) => set({ configuracaoImpressao: config }),
   setSincronizado: (sincronizado) => set({ sincronizado }),
   resetConfiguracao: () => initialConfiguracaoImpressao,
+  setReplicar: (replicar) => set({ replicar }),
 }));
 

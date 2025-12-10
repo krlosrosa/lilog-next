@@ -7,4 +7,5 @@
  */
 
 export type ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemPeriodoInicio =
-  string | null;
+  | string
+  | null;

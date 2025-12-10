@@ -10,6 +10,8 @@ export function useConfiguracao() {
   const setSincronizado = useConfiguracoesStore((state) => state.setSincronizado)
   const resetConfiguracao = useConfiguracoesStore((state) => state.resetConfiguracao)
   const sincronizado = useConfiguracoesStore((state) => state.sincronizado)
+  const setReplicar = useConfiguracoesStore((state) => state.setReplicar)
+  const replicar = useConfiguracoesStore((state) => state.replicar)
 
   useEffect(() => {
     if (configuracaoImpressaoFromDB && !isLoadingConfiguracaoImpressao) {
@@ -29,6 +31,8 @@ export function useConfiguracao() {
     setEmpresa,
     empresa,
     setConfiguracaoImpressao,
-    sincronizado
+    sincronizado,
+    setReplicar,
+    replicar
   }
 }

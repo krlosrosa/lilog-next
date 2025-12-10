@@ -6,13 +6,12 @@
  * OpenAPI spec version: 1.0
  */
 
-export type TransporteComRelacionamentosGetDtoImpressaoMapaItemTipoImpressao =
-  (typeof TransporteComRelacionamentosGetDtoImpressaoMapaItemTipoImpressao)[keyof typeof TransporteComRelacionamentosGetDtoImpressaoMapaItemTipoImpressao];
+export type TransporteComRelacionamentosGetDtoImpressaoMapaItemTipoImpressao = typeof TransporteComRelacionamentosGetDtoImpressaoMapaItemTipoImpressao[keyof typeof TransporteComRelacionamentosGetDtoImpressaoMapaItemTipoImpressao];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const TransporteComRelacionamentosGetDtoImpressaoMapaItemTipoImpressao =
-  {
-    SEPARACAO: 'SEPARACAO',
-    CARREGAMENTO: 'CARREGAMENTO',
-    CONFERENCIA: 'CONFERENCIA',
-  } as const;
+export const TransporteComRelacionamentosGetDtoImpressaoMapaItemTipoImpressao = {
+  SEPARACAO: 'SEPARACAO',
+  CARREGAMENTO: 'CARREGAMENTO',
+  CONFERENCIA: 'CONFERENCIA',
+} as const;

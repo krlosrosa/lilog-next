@@ -7,4 +7,5 @@
  */
 
 export type ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemTotalDemandas =
-  number | null;
+  | number
+  | null;

@@ -11,6 +11,7 @@ import { PageHeaderMapa } from "../header";
 import toast from "react-hot-toast";
 import ModalConfirmacaoInput from "./modalConfirmacaoInput";
 
+
 export default function MapasConferencia() {
   const { configuracaoImpressao } = useConfiguracoesStore();
   const { gerarMapaConferenciaService, isLoading, mapas, addPaleteInTransporte, isAddingPaleteInTransporte, open, setOpen } = useMapaConferencia();

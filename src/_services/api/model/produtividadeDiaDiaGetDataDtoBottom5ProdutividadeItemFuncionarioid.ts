@@ -7,4 +7,5 @@
  */
 
 export type ProdutividadeDiaDiaGetDataDtoBottom5ProdutividadeItemFuncionarioid =
-  string | null;
+  | string
+  | null;

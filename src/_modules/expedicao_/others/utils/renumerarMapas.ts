@@ -40,7 +40,7 @@ export function renumerarMapasPorTransporte(
       const sequencia = index + 1;
       mapasRenumerados.push({
         ...mapa,
-        sequenciaTransporte: `${sequencia}/${totalTransportes}`,
+        sequenciaTransporte: totalTransportes,
         sequencia: sequencia, // Sequência começa em 1
       });
     });
