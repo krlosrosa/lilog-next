@@ -6,22 +6,28 @@
  * OpenAPI spec version: 1.0
  */
 import type { UpdateMovimentacaoDtoIdUsuario } from './updateMovimentacaoDtoIdUsuario';
+import type { UpdateMovimentacaoDtoOrigem } from './updateMovimentacaoDtoOrigem';
+import type { UpdateMovimentacaoDtoDestino } from './updateMovimentacaoDtoDestino';
 import type { UpdateMovimentacaoDtoStatus } from './updateMovimentacaoDtoStatus';
 import type { UpdateMovimentacaoDtoDataCriacao } from './updateMovimentacaoDtoDataCriacao';
 import type { UpdateMovimentacaoDtoDataExecucao } from './updateMovimentacaoDtoDataExecucao';
 import type { UpdateMovimentacaoDtoSku } from './updateMovimentacaoDtoSku';
 import type { UpdateMovimentacaoDtoDescricao } from './updateMovimentacaoDtoDescricao';
 import type { UpdateMovimentacaoDtoLote } from './updateMovimentacaoDtoLote';
+import type { UpdateMovimentacaoDtoExecutadoPor } from './updateMovimentacaoDtoExecutadoPor';
 
 export interface UpdateMovimentacaoDto {
+  /**
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  idMov?: number;
   idUsuario?: UpdateMovimentacaoDtoIdUsuario;
   idCentro?: string;
   /** @maxLength 50 */
   palete?: string;
-  /** @maxLength 50 */
-  origem?: string;
-  /** @maxLength 50 */
-  destino?: string;
+  origem?: UpdateMovimentacaoDtoOrigem;
+  destino?: UpdateMovimentacaoDtoDestino;
   /**
    * @minimum -2147483648
    * @maximum 2147483647
@@ -33,4 +39,5 @@ export interface UpdateMovimentacaoDto {
   sku?: UpdateMovimentacaoDtoSku;
   descricao?: UpdateMovimentacaoDtoDescricao;
   lote?: UpdateMovimentacaoDtoLote;
+  executadoPor?: UpdateMovimentacaoDtoExecutadoPor;
 }

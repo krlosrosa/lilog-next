@@ -6,22 +6,28 @@
  * OpenAPI spec version: 1.0
  */
 import type { CreateMovimentacaoDtoIdUsuario } from './createMovimentacaoDtoIdUsuario';
+import type { CreateMovimentacaoDtoOrigem } from './createMovimentacaoDtoOrigem';
+import type { CreateMovimentacaoDtoDestino } from './createMovimentacaoDtoDestino';
 import type { CreateMovimentacaoDtoStatus } from './createMovimentacaoDtoStatus';
 import type { CreateMovimentacaoDtoDataCriacao } from './createMovimentacaoDtoDataCriacao';
 import type { CreateMovimentacaoDtoDataExecucao } from './createMovimentacaoDtoDataExecucao';
 import type { CreateMovimentacaoDtoSku } from './createMovimentacaoDtoSku';
 import type { CreateMovimentacaoDtoDescricao } from './createMovimentacaoDtoDescricao';
 import type { CreateMovimentacaoDtoLote } from './createMovimentacaoDtoLote';
+import type { CreateMovimentacaoDtoExecutadoPor } from './createMovimentacaoDtoExecutadoPor';
 
 export interface CreateMovimentacaoDto {
+  /**
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  idMov?: number;
   idUsuario?: CreateMovimentacaoDtoIdUsuario;
   idCentro: string;
   /** @maxLength 50 */
   palete: string;
-  /** @maxLength 50 */
-  origem: string;
-  /** @maxLength 50 */
-  destino: string;
+  origem?: CreateMovimentacaoDtoOrigem;
+  destino?: CreateMovimentacaoDtoDestino;
   /**
    * @minimum -2147483648
    * @maximum 2147483647
@@ -33,4 +39,5 @@ export interface CreateMovimentacaoDto {
   sku?: CreateMovimentacaoDtoSku;
   descricao?: CreateMovimentacaoDtoDescricao;
   lote?: CreateMovimentacaoDtoLote;
+  executadoPor?: CreateMovimentacaoDtoExecutadoPor;
 }

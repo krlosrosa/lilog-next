@@ -6,19 +6,20 @@
  * OpenAPI spec version: 1.0
  */
 
-export type TransporteComRelacionamentosGetDtoHistoricoTransporteItemTipoEvento = typeof TransporteComRelacionamentosGetDtoHistoricoTransporteItemTipoEvento[keyof typeof TransporteComRelacionamentosGetDtoHistoricoTransporteItemTipoEvento];
-
+export type TransporteComRelacionamentosGetDtoHistoricoTransporteItemTipoEvento =
+  (typeof TransporteComRelacionamentosGetDtoHistoricoTransporteItemTipoEvento)[keyof typeof TransporteComRelacionamentosGetDtoHistoricoTransporteItemTipoEvento];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const TransporteComRelacionamentosGetDtoHistoricoTransporteItemTipoEvento = {
-  CRIACAO_TRANSPORTE: 'CRIACAO_TRANSPORTE',
-  INICIO_SEPARACAO: 'INICIO_SEPARACAO',
-  TERMINO_SEPARACAO: 'TERMINO_SEPARACAO',
-  INICIO_CONFERENCIA: 'INICIO_CONFERENCIA',
-  TERMINO_CONFERENCIA: 'TERMINO_CONFERENCIA',
-  INICIO_CARREGAMENTO: 'INICIO_CARREGAMENTO',
-  TERMINO_CARREGAMENTO: 'TERMINO_CARREGAMENTO',
-  CORTE_PRODUTO: 'CORTE_PRODUTO',
-  FATURADO: 'FATURADO',
-  LIBERADO_PORTARIA: 'LIBERADO_PORTARIA',
-} as const;
+export const TransporteComRelacionamentosGetDtoHistoricoTransporteItemTipoEvento =
+  {
+    CRIACAO_TRANSPORTE: 'CRIACAO_TRANSPORTE',
+    INICIO_SEPARACAO: 'INICIO_SEPARACAO',
+    TERMINO_SEPARACAO: 'TERMINO_SEPARACAO',
+    INICIO_CONFERENCIA: 'INICIO_CONFERENCIA',
+    TERMINO_CONFERENCIA: 'TERMINO_CONFERENCIA',
+    INICIO_CARREGAMENTO: 'INICIO_CARREGAMENTO',
+    TERMINO_CARREGAMENTO: 'TERMINO_CARREGAMENTO',
+    CORTE_PRODUTO: 'CORTE_PRODUTO',
+    FATURADO: 'FATURADO',
+    LIBERADO_PORTARIA: 'LIBERADO_PORTARIA',
+  } as const;

@@ -11,27 +11,30 @@ import zod from 'zod';
 /**
  * @summary Criar uma movimentação
  */
-export const criarNovaMovimentacaoBodyPaleteMax = 50;export const criarNovaMovimentacaoBodyOrigemMax = 50;export const criarNovaMovimentacaoBodyDestinoMax = 50;export const criarNovaMovimentacaoBodyPrioridadeMin = -2147483648;
+export const criarNovaMovimentacaoBodyIdMovMin = -2147483648;
+export const criarNovaMovimentacaoBodyIdMovMax = 2147483647;export const criarNovaMovimentacaoBodyPaleteMax = 50;export const criarNovaMovimentacaoBodyOrigemMaxOne = 50;export const criarNovaMovimentacaoBodyDestinoMaxOne = 50;export const criarNovaMovimentacaoBodyPrioridadeMin = -2147483648;
 export const criarNovaMovimentacaoBodyPrioridadeMax = 2147483647;export const criarNovaMovimentacaoBodyStatusMaxOne = 20;
 
 export const criarNovaMovimentacaoBodyItem = zod.object({
+  "idMov": zod.number().min(criarNovaMovimentacaoBodyIdMovMin).max(criarNovaMovimentacaoBodyIdMovMax).optional(),
   "idUsuario": zod.union([zod.string(),zod.null()]).optional(),
   "idCentro": zod.string(),
   "palete": zod.string().max(criarNovaMovimentacaoBodyPaleteMax),
-  "origem": zod.string().max(criarNovaMovimentacaoBodyOrigemMax),
-  "destino": zod.string().max(criarNovaMovimentacaoBodyDestinoMax),
+  "origem": zod.union([zod.string().max(criarNovaMovimentacaoBodyOrigemMaxOne),zod.null()]).optional(),
+  "destino": zod.union([zod.string().max(criarNovaMovimentacaoBodyDestinoMaxOne),zod.null()]).optional(),
   "prioridade": zod.number().min(criarNovaMovimentacaoBodyPrioridadeMin).max(criarNovaMovimentacaoBodyPrioridadeMax),
   "status": zod.union([zod.string().max(criarNovaMovimentacaoBodyStatusMaxOne),zod.null()]).optional(),
   "dataCriacao": zod.union([zod.string(),zod.null()]).optional(),
   "dataExecucao": zod.union([zod.string(),zod.null()]).optional(),
   "sku": zod.union([zod.string(),zod.null()]).optional(),
   "descricao": zod.union([zod.string(),zod.null()]).optional(),
-  "lote": zod.union([zod.string(),zod.null()]).optional()
+  "lote": zod.union([zod.string(),zod.null()]).optional(),
+  "executadoPor": zod.union([zod.string(),zod.null()]).optional()
 })
 export const criarNovaMovimentacaoBody = zod.array(criarNovaMovimentacaoBodyItem)
 
 export const criarNovaMovimentacaoResponseIdMovMin = -2147483648;
-export const criarNovaMovimentacaoResponseIdMovMax = 2147483647;export const criarNovaMovimentacaoResponsePaleteMax = 50;export const criarNovaMovimentacaoResponseOrigemMax = 50;export const criarNovaMovimentacaoResponseDestinoMax = 50;export const criarNovaMovimentacaoResponsePrioridadeMin = -2147483648;
+export const criarNovaMovimentacaoResponseIdMovMax = 2147483647;export const criarNovaMovimentacaoResponsePaleteMax = 50;export const criarNovaMovimentacaoResponseOrigemMaxOne = 50;export const criarNovaMovimentacaoResponseDestinoMaxOne = 50;export const criarNovaMovimentacaoResponsePrioridadeMin = -2147483648;
 export const criarNovaMovimentacaoResponsePrioridadeMax = 2147483647;export const criarNovaMovimentacaoResponseStatusMaxOne = 20;
 
 export const criarNovaMovimentacaoResponse = zod.object({
@@ -39,15 +42,16 @@ export const criarNovaMovimentacaoResponse = zod.object({
   "idUsuario": zod.union([zod.string(),zod.null()]),
   "idCentro": zod.string(),
   "palete": zod.string().max(criarNovaMovimentacaoResponsePaleteMax),
-  "origem": zod.string().max(criarNovaMovimentacaoResponseOrigemMax),
-  "destino": zod.string().max(criarNovaMovimentacaoResponseDestinoMax),
+  "origem": zod.union([zod.string().max(criarNovaMovimentacaoResponseOrigemMaxOne),zod.null()]),
+  "destino": zod.union([zod.string().max(criarNovaMovimentacaoResponseDestinoMaxOne),zod.null()]),
   "prioridade": zod.number().min(criarNovaMovimentacaoResponsePrioridadeMin).max(criarNovaMovimentacaoResponsePrioridadeMax),
   "status": zod.union([zod.string().max(criarNovaMovimentacaoResponseStatusMaxOne),zod.null()]),
   "dataCriacao": zod.union([zod.string(),zod.null()]),
   "dataExecucao": zod.union([zod.string(),zod.null()]),
   "sku": zod.union([zod.string(),zod.null()]),
   "descricao": zod.union([zod.string(),zod.null()]),
-  "lote": zod.union([zod.string(),zod.null()])
+  "lote": zod.union([zod.string(),zod.null()]),
+  "executadoPor": zod.union([zod.string(),zod.null()])
 })
 
 /**
@@ -58,7 +62,7 @@ export const findAllPendingParams = zod.object({
 })
 
 export const findAllPendingResponseIdMovMin = -2147483648;
-export const findAllPendingResponseIdMovMax = 2147483647;export const findAllPendingResponsePaleteMax = 50;export const findAllPendingResponseOrigemMax = 50;export const findAllPendingResponseDestinoMax = 50;export const findAllPendingResponsePrioridadeMin = -2147483648;
+export const findAllPendingResponseIdMovMax = 2147483647;export const findAllPendingResponsePaleteMax = 50;export const findAllPendingResponseOrigemMaxOne = 50;export const findAllPendingResponseDestinoMaxOne = 50;export const findAllPendingResponsePrioridadeMin = -2147483648;
 export const findAllPendingResponsePrioridadeMax = 2147483647;export const findAllPendingResponseStatusMaxOne = 20;
 
 export const findAllPendingResponseItem = zod.object({
@@ -66,15 +70,16 @@ export const findAllPendingResponseItem = zod.object({
   "idUsuario": zod.union([zod.string(),zod.null()]),
   "idCentro": zod.string(),
   "palete": zod.string().max(findAllPendingResponsePaleteMax),
-  "origem": zod.string().max(findAllPendingResponseOrigemMax),
-  "destino": zod.string().max(findAllPendingResponseDestinoMax),
+  "origem": zod.union([zod.string().max(findAllPendingResponseOrigemMaxOne),zod.null()]),
+  "destino": zod.union([zod.string().max(findAllPendingResponseDestinoMaxOne),zod.null()]),
   "prioridade": zod.number().min(findAllPendingResponsePrioridadeMin).max(findAllPendingResponsePrioridadeMax),
   "status": zod.union([zod.string().max(findAllPendingResponseStatusMaxOne),zod.null()]),
   "dataCriacao": zod.union([zod.string(),zod.null()]),
   "dataExecucao": zod.union([zod.string(),zod.null()]),
   "sku": zod.union([zod.string(),zod.null()]),
   "descricao": zod.union([zod.string(),zod.null()]),
-  "lote": zod.union([zod.string(),zod.null()])
+  "lote": zod.union([zod.string(),zod.null()]),
+  "executadoPor": zod.union([zod.string(),zod.null()])
 })
 export const findAllPendingResponse = zod.array(findAllPendingResponseItem)
 
@@ -82,31 +87,44 @@ export const movimentacaoControllerFindOneParams = zod.object({
   "id": zod.string()
 })
 
-export const movimentacaoControllerUpdateParams = zod.object({
-  "id": zod.string()
+/**
+ * @summary Atualizar uma movimentação
+ */
+export const updateMovimentacaoParams = zod.object({
+  "id": zod.number().describe('ID da movimentação')
 })
 
-export const movimentacaoControllerUpdateBodyPaleteMax = 50;export const movimentacaoControllerUpdateBodyOrigemMax = 50;export const movimentacaoControllerUpdateBodyDestinoMax = 50;export const movimentacaoControllerUpdateBodyPrioridadeMin = -2147483648;
-export const movimentacaoControllerUpdateBodyPrioridadeMax = 2147483647;export const movimentacaoControllerUpdateBodyStatusMaxOne = 20;
+export const updateMovimentacaoBodyIdMovMin = -2147483648;
+export const updateMovimentacaoBodyIdMovMax = 2147483647;export const updateMovimentacaoBodyPaleteMax = 50;export const updateMovimentacaoBodyOrigemMaxOne = 50;export const updateMovimentacaoBodyDestinoMaxOne = 50;export const updateMovimentacaoBodyPrioridadeMin = -2147483648;
+export const updateMovimentacaoBodyPrioridadeMax = 2147483647;export const updateMovimentacaoBodyStatusMaxOne = 20;
 
-export const movimentacaoControllerUpdateBody = zod.object({
+export const updateMovimentacaoBody = zod.object({
+  "idMov": zod.number().min(updateMovimentacaoBodyIdMovMin).max(updateMovimentacaoBodyIdMovMax).optional(),
   "idUsuario": zod.union([zod.string(),zod.null()]).optional(),
   "idCentro": zod.string().optional(),
-  "palete": zod.string().max(movimentacaoControllerUpdateBodyPaleteMax).optional(),
-  "origem": zod.string().max(movimentacaoControllerUpdateBodyOrigemMax).optional(),
-  "destino": zod.string().max(movimentacaoControllerUpdateBodyDestinoMax).optional(),
-  "prioridade": zod.number().min(movimentacaoControllerUpdateBodyPrioridadeMin).max(movimentacaoControllerUpdateBodyPrioridadeMax).optional(),
-  "status": zod.union([zod.string().max(movimentacaoControllerUpdateBodyStatusMaxOne),zod.null()]).optional(),
+  "palete": zod.string().max(updateMovimentacaoBodyPaleteMax).optional(),
+  "origem": zod.union([zod.string().max(updateMovimentacaoBodyOrigemMaxOne),zod.null()]).optional(),
+  "destino": zod.union([zod.string().max(updateMovimentacaoBodyDestinoMaxOne),zod.null()]).optional(),
+  "prioridade": zod.number().min(updateMovimentacaoBodyPrioridadeMin).max(updateMovimentacaoBodyPrioridadeMax).optional(),
+  "status": zod.union([zod.string().max(updateMovimentacaoBodyStatusMaxOne),zod.null()]).optional(),
   "dataCriacao": zod.union([zod.string(),zod.null()]).optional(),
   "dataExecucao": zod.union([zod.string(),zod.null()]).optional(),
   "sku": zod.union([zod.string(),zod.null()]).optional(),
   "descricao": zod.union([zod.string(),zod.null()]).optional(),
-  "lote": zod.union([zod.string(),zod.null()]).optional()
+  "lote": zod.union([zod.string(),zod.null()]).optional(),
+  "executadoPor": zod.union([zod.string(),zod.null()]).optional()
 })
 
-export const movimentacaoControllerRemoveParams = zod.object({
-  "id": zod.string()
+export const updateMovimentacaoResponse = zod.boolean()
+
+/**
+ * @summary Remover uma movimentação
+ */
+export const removerMovimentacaoParams = zod.object({
+  "id": zod.number().describe('ID da movimentação')
 })
+
+export const removerMovimentacaoResponse = zod.boolean()
 
 /**
  * @summary Buscar a próxima movimentação pendente
@@ -116,7 +134,7 @@ export const getNextMovimentacaoParams = zod.object({
 })
 
 export const getNextMovimentacaoResponseIdMovMin = -2147483648;
-export const getNextMovimentacaoResponseIdMovMax = 2147483647;export const getNextMovimentacaoResponsePaleteMax = 50;export const getNextMovimentacaoResponseOrigemMax = 50;export const getNextMovimentacaoResponseDestinoMax = 50;export const getNextMovimentacaoResponsePrioridadeMin = -2147483648;
+export const getNextMovimentacaoResponseIdMovMax = 2147483647;export const getNextMovimentacaoResponsePaleteMax = 50;export const getNextMovimentacaoResponseOrigemMaxOne = 50;export const getNextMovimentacaoResponseDestinoMaxOne = 50;export const getNextMovimentacaoResponsePrioridadeMin = -2147483648;
 export const getNextMovimentacaoResponsePrioridadeMax = 2147483647;export const getNextMovimentacaoResponseStatusMaxOne = 20;
 
 export const getNextMovimentacaoResponse = zod.object({
@@ -124,14 +142,33 @@ export const getNextMovimentacaoResponse = zod.object({
   "idUsuario": zod.union([zod.string(),zod.null()]),
   "idCentro": zod.string(),
   "palete": zod.string().max(getNextMovimentacaoResponsePaleteMax),
-  "origem": zod.string().max(getNextMovimentacaoResponseOrigemMax),
-  "destino": zod.string().max(getNextMovimentacaoResponseDestinoMax),
+  "origem": zod.union([zod.string().max(getNextMovimentacaoResponseOrigemMaxOne),zod.null()]),
+  "destino": zod.union([zod.string().max(getNextMovimentacaoResponseDestinoMaxOne),zod.null()]),
   "prioridade": zod.number().min(getNextMovimentacaoResponsePrioridadeMin).max(getNextMovimentacaoResponsePrioridadeMax),
   "status": zod.union([zod.string().max(getNextMovimentacaoResponseStatusMaxOne),zod.null()]),
   "dataCriacao": zod.union([zod.string(),zod.null()]),
   "dataExecucao": zod.union([zod.string(),zod.null()]),
   "sku": zod.union([zod.string(),zod.null()]),
   "descricao": zod.union([zod.string(),zod.null()]),
-  "lote": zod.union([zod.string(),zod.null()])
+  "lote": zod.union([zod.string(),zod.null()]),
+  "executadoPor": zod.union([zod.string(),zod.null()])
 })
+
+/**
+ * @summary Validar uma movimentação
+ */
+export const validateMovimentacaoParams = zod.object({
+  "id": zod.string()
+})
+
+export const validateMovimentacaoResponse = zod.boolean()
+
+/**
+ * @summary Cadastrar uma anomalia
+ */
+export const cadastrarAnomaliaParams = zod.object({
+  "id": zod.string()
+})
+
+export const cadastrarAnomaliaResponse = zod.boolean()
 

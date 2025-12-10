@@ -438,15 +438,18 @@ export function useMovimentacaoControllerFindOne<
   return query;
 }
 
-export const movimentacaoControllerUpdate = (
-  id: string,
+/**
+ * @summary Atualizar uma movimentação
+ */
+export const updateMovimentacao = (
+  id: number,
   updateMovimentacaoDto: BodyType<UpdateMovimentacaoDto>,
   options?: SecondParameter<typeof axiosFetcher>,
 ) => {
-  return axiosFetcher<void>(
+  return axiosFetcher<boolean>(
     {
       url: `/api/movimentacao/${id}`,
-      method: 'PATCH',
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       data: updateMovimentacaoDto,
     },
@@ -454,24 +457,24 @@ export const movimentacaoControllerUpdate = (
   );
 };
 
-export const getMovimentacaoControllerUpdateMutationOptions = <
+export const getUpdateMovimentacaoMutationOptions = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof movimentacaoControllerUpdate>>,
+    Awaited<ReturnType<typeof updateMovimentacao>>,
     TError,
-    { id: string; data: BodyType<UpdateMovimentacaoDto> },
+    { id: number; data: BodyType<UpdateMovimentacaoDto> },
     TContext
   >;
   request?: SecondParameter<typeof axiosFetcher>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof movimentacaoControllerUpdate>>,
+  Awaited<ReturnType<typeof updateMovimentacao>>,
   TError,
-  { id: string; data: BodyType<UpdateMovimentacaoDto> },
+  { id: number; data: BodyType<UpdateMovimentacaoDto> },
   TContext
 > => {
-  const mutationKey = ['movimentacaoControllerUpdate'];
+  const mutationKey = ['updateMovimentacao'];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       'mutationKey' in options.mutation &&
@@ -481,77 +484,81 @@ export const getMovimentacaoControllerUpdateMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof movimentacaoControllerUpdate>>,
-    { id: string; data: BodyType<UpdateMovimentacaoDto> }
+    Awaited<ReturnType<typeof updateMovimentacao>>,
+    { id: number; data: BodyType<UpdateMovimentacaoDto> }
   > = (props) => {
     const { id, data } = props ?? {};
 
-    return movimentacaoControllerUpdate(id, data, requestOptions);
+    return updateMovimentacao(id, data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type MovimentacaoControllerUpdateMutationResult = NonNullable<
-  Awaited<ReturnType<typeof movimentacaoControllerUpdate>>
+export type UpdateMovimentacaoMutationResult = NonNullable<
+  Awaited<ReturnType<typeof updateMovimentacao>>
 >;
-export type MovimentacaoControllerUpdateMutationBody =
-  BodyType<UpdateMovimentacaoDto>;
-export type MovimentacaoControllerUpdateMutationError = ErrorType<unknown>;
+export type UpdateMovimentacaoMutationBody = BodyType<UpdateMovimentacaoDto>;
+export type UpdateMovimentacaoMutationError = ErrorType<unknown>;
 
-export const useMovimentacaoControllerUpdate = <
+/**
+ * @summary Atualizar uma movimentação
+ */
+export const useUpdateMovimentacao = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(
   options?: {
     mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof movimentacaoControllerUpdate>>,
+      Awaited<ReturnType<typeof updateMovimentacao>>,
       TError,
-      { id: string; data: BodyType<UpdateMovimentacaoDto> },
+      { id: number; data: BodyType<UpdateMovimentacaoDto> },
       TContext
     >;
     request?: SecondParameter<typeof axiosFetcher>;
   },
   queryClient?: QueryClient,
 ): UseMutationResult<
-  Awaited<ReturnType<typeof movimentacaoControllerUpdate>>,
+  Awaited<ReturnType<typeof updateMovimentacao>>,
   TError,
-  { id: string; data: BodyType<UpdateMovimentacaoDto> },
+  { id: number; data: BodyType<UpdateMovimentacaoDto> },
   TContext
 > => {
-  const mutationOptions =
-    getMovimentacaoControllerUpdateMutationOptions(options);
+  const mutationOptions = getUpdateMovimentacaoMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
-export const movimentacaoControllerRemove = (
-  id: string,
+/**
+ * @summary Remover uma movimentação
+ */
+export const removerMovimentacao = (
+  id: number,
   options?: SecondParameter<typeof axiosFetcher>,
 ) => {
-  return axiosFetcher<void>(
+  return axiosFetcher<boolean>(
     { url: `/api/movimentacao/${id}`, method: 'DELETE' },
     options,
   );
 };
 
-export const getMovimentacaoControllerRemoveMutationOptions = <
+export const getRemoverMovimentacaoMutationOptions = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof movimentacaoControllerRemove>>,
+    Awaited<ReturnType<typeof removerMovimentacao>>,
     TError,
-    { id: string },
+    { id: number },
     TContext
   >;
   request?: SecondParameter<typeof axiosFetcher>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof movimentacaoControllerRemove>>,
+  Awaited<ReturnType<typeof removerMovimentacao>>,
   TError,
-  { id: string },
+  { id: number },
   TContext
 > => {
-  const mutationKey = ['movimentacaoControllerRemove'];
+  const mutationKey = ['removerMovimentacao'];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       'mutationKey' in options.mutation &&
@@ -561,45 +568,47 @@ export const getMovimentacaoControllerRemoveMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof movimentacaoControllerRemove>>,
-    { id: string }
+    Awaited<ReturnType<typeof removerMovimentacao>>,
+    { id: number }
   > = (props) => {
     const { id } = props ?? {};
 
-    return movimentacaoControllerRemove(id, requestOptions);
+    return removerMovimentacao(id, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type MovimentacaoControllerRemoveMutationResult = NonNullable<
-  Awaited<ReturnType<typeof movimentacaoControllerRemove>>
+export type RemoverMovimentacaoMutationResult = NonNullable<
+  Awaited<ReturnType<typeof removerMovimentacao>>
 >;
 
-export type MovimentacaoControllerRemoveMutationError = ErrorType<unknown>;
+export type RemoverMovimentacaoMutationError = ErrorType<unknown>;
 
-export const useMovimentacaoControllerRemove = <
+/**
+ * @summary Remover uma movimentação
+ */
+export const useRemoverMovimentacao = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(
   options?: {
     mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof movimentacaoControllerRemove>>,
+      Awaited<ReturnType<typeof removerMovimentacao>>,
       TError,
-      { id: string },
+      { id: number },
       TContext
     >;
     request?: SecondParameter<typeof axiosFetcher>;
   },
   queryClient?: QueryClient,
 ): UseMutationResult<
-  Awaited<ReturnType<typeof movimentacaoControllerRemove>>,
+  Awaited<ReturnType<typeof removerMovimentacao>>,
   TError,
-  { id: string },
+  { id: number },
   TContext
 > => {
-  const mutationOptions =
-    getMovimentacaoControllerRemoveMutationOptions(options);
+  const mutationOptions = getRemoverMovimentacaoMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
@@ -770,3 +779,172 @@ export function useGetNextMovimentacao<
 
   return query;
 }
+
+/**
+ * @summary Validar uma movimentação
+ */
+export const validateMovimentacao = (
+  id: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+) => {
+  return axiosFetcher<boolean>(
+    { url: `/api/movimentacao/${id}/validate`, method: 'PUT' },
+    options,
+  );
+};
+
+export const getValidateMovimentacaoMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof validateMovimentacao>>,
+    TError,
+    { id: string },
+    TContext
+  >;
+  request?: SecondParameter<typeof axiosFetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof validateMovimentacao>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationKey = ['validateMovimentacao'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof validateMovimentacao>>,
+    { id: string }
+  > = (props) => {
+    const { id } = props ?? {};
+
+    return validateMovimentacao(id, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type ValidateMovimentacaoMutationResult = NonNullable<
+  Awaited<ReturnType<typeof validateMovimentacao>>
+>;
+
+export type ValidateMovimentacaoMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Validar uma movimentação
+ */
+export const useValidateMovimentacao = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof validateMovimentacao>>,
+      TError,
+      { id: string },
+      TContext
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof validateMovimentacao>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationOptions = getValidateMovimentacaoMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
+ * @summary Cadastrar uma anomalia
+ */
+export const cadastrarAnomalia = (
+  id: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+) => {
+  return axiosFetcher<boolean>(
+    { url: `/api/movimentacao/${id}/anomalia`, method: 'PUT' },
+    options,
+  );
+};
+
+export const getCadastrarAnomaliaMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof cadastrarAnomalia>>,
+    TError,
+    { id: string },
+    TContext
+  >;
+  request?: SecondParameter<typeof axiosFetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof cadastrarAnomalia>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationKey = ['cadastrarAnomalia'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof cadastrarAnomalia>>,
+    { id: string }
+  > = (props) => {
+    const { id } = props ?? {};
+
+    return cadastrarAnomalia(id, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CadastrarAnomaliaMutationResult = NonNullable<
+  Awaited<ReturnType<typeof cadastrarAnomalia>>
+>;
+
+export type CadastrarAnomaliaMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Cadastrar uma anomalia
+ */
+export const useCadastrarAnomalia = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof cadastrarAnomalia>>,
+      TError,
+      { id: string },
+      TContext
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof cadastrarAnomalia>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationOptions = getCadastrarAnomaliaMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};

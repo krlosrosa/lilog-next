@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type GetTransporteDtoConferencia = typeof GetTransporteDtoConferencia[keyof typeof GetTransporteDtoConferencia];
-
+export type GetTransporteDtoConferencia =
+  (typeof GetTransporteDtoConferencia)[keyof typeof GetTransporteDtoConferencia];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const GetTransporteDtoConferencia = {

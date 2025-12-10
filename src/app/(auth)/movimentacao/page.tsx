@@ -1,7 +1,7 @@
-import { TableMovimentacao } from "@/_modules/movimentacao/components/table";
+import CriarMovimentacao from "@/_modules/movimentacao/views/criarMovimentacao";
 
 export default function Movimentacao() {
   return (
-    <TableMovimentacao/>
+    <CriarMovimentacao/>
   )
 }

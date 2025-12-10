@@ -88,6 +88,12 @@ export const itemsSideBar = [
     recurso: 'configuracoes',
     child: [
       {
+        title: 'Movimentação',
+        url: '/movimentacao',
+        icon: ArrowLeftRight,
+        recurso: 'movimentacao',
+      },
+      {
         title: 'Relatório de Cortes',
         url: '/estoque/cortes',
         icon: Scissors,

@@ -4,6 +4,8 @@ import {
   GetMovimentacaoDto,
 } from '@/_services/api/model';
 import { ColumnDef } from '@tanstack/react-table';
+import ModalExcluirDemanda from '../modalExcluirDemanda';
+import ModalEditarDemanda from '../modalEditarDemanda';
 
 export const columnsMovimentacao: ColumnDef<GetMovimentacaoDto>[] = [
   {
@@ -14,11 +16,11 @@ export const columnsMovimentacao: ColumnDef<GetMovimentacaoDto>[] = [
     ),
   },
   {
-    accessorKey: 'idCentro',
-    header: 'Centro',
+    accessorKey: 'palete',
+    header: 'SSCC',
     cell: ({ row }) => (
       <div className="text-foreground font-medium">
-        {row.getValue('idCentro')}
+        {row.getValue('palete')}
       </div>
     ),
   },
@@ -86,5 +88,23 @@ export const columnsMovimentacao: ColumnDef<GetMovimentacaoDto>[] = [
       const date = value ? new Date(value as string) : null;
       return <div>{date ? date.toLocaleString() : '-'}</div>;
     },
+  },
+  {
+    accessorKey: 'actions',
+    header: 'Ações',
+    cell: ({ row }) => (
+      <div>
+        <ModalExcluirDemanda id={row.original.idMov} />
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'editar',
+    header: 'Editar',
+    cell: ({ row }) => (
+      <div>
+        <ModalEditarDemanda demanda={row.original} />
+      </div>
+    ),
   },
 ];

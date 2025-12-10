@@ -6,12 +6,15 @@
  * OpenAPI spec version: 1.0
  */
 import type { GetMovimentacaoDtoIdUsuario } from './getMovimentacaoDtoIdUsuario';
+import type { GetMovimentacaoDtoOrigem } from './getMovimentacaoDtoOrigem';
+import type { GetMovimentacaoDtoDestino } from './getMovimentacaoDtoDestino';
 import type { GetMovimentacaoDtoStatus } from './getMovimentacaoDtoStatus';
 import type { GetMovimentacaoDtoDataCriacao } from './getMovimentacaoDtoDataCriacao';
 import type { GetMovimentacaoDtoDataExecucao } from './getMovimentacaoDtoDataExecucao';
 import type { GetMovimentacaoDtoSku } from './getMovimentacaoDtoSku';
 import type { GetMovimentacaoDtoDescricao } from './getMovimentacaoDtoDescricao';
 import type { GetMovimentacaoDtoLote } from './getMovimentacaoDtoLote';
+import type { GetMovimentacaoDtoExecutadoPor } from './getMovimentacaoDtoExecutadoPor';
 
 export interface GetMovimentacaoDto {
   /**
@@ -23,10 +26,8 @@ export interface GetMovimentacaoDto {
   idCentro: string;
   /** @maxLength 50 */
   palete: string;
-  /** @maxLength 50 */
-  origem: string;
-  /** @maxLength 50 */
-  destino: string;
+  origem: GetMovimentacaoDtoOrigem;
+  destino: GetMovimentacaoDtoDestino;
   /**
    * @minimum -2147483648
    * @maximum 2147483647
@@ -38,4 +39,5 @@ export interface GetMovimentacaoDto {
   sku: GetMovimentacaoDtoSku;
   descricao: GetMovimentacaoDtoDescricao;
   lote: GetMovimentacaoDtoLote;
+  executadoPor: GetMovimentacaoDtoExecutadoPor;
 }

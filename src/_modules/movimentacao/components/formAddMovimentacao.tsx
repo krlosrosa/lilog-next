@@ -1,137 +1,32 @@
 'use client';
 
-import { CreateMovimentacaoDto } from "@/_services/api/model";
 import { CriarNovaMovimentacaoMutationBody } from "@/_services/api/service/movimentacao/movimentacao";
 import { Button } from "@/_shared/_components/ui/button";
 import { Input } from "@/_shared/_components/ui/input";
-import { Label } from "@/_shared/_components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/_shared/_components/ui/card";
 import { useState } from "react";
-import { Trash2, Plus, ArrowRight, Warehouse, Palette, Package, ArrowUpDown } from "lucide-react";
+import { Trash2, Upload, FileSpreadsheet, ArrowRight, Warehouse, Palette, Package } from "lucide-react";
 import { useCriarMovimentacao } from "../hooks/criarMovimentacao";
-
-// Configurações dos campos
-const FIELD_CONFIG = {
-  required: ['idCentro', 'palete', 'origem', 'destino'] as (keyof CreateMovimentacaoDto)[],
-  fields: [
-    {
-      id: 'idCentro',
-      label: 'ID Centro',
-      placeholder: 'Digite o ID do centro',
-      icon: Warehouse,
-      required: true,
-      maxLength: 50
-    },
-    {
-      id: 'palete',
-      label: 'Palete',
-      placeholder: 'Digite o número do palete',
-      icon: Palette,
-      required: true,
-      maxLength: 50
-    },
-    {
-      id: 'origem',
-      label: 'Origem',
-      placeholder: 'Digite a origem',
-      icon: ArrowRight,
-      required: true,
-      maxLength: 50
-    },
-    {
-      id: 'destino',
-      label: 'Destino',
-      placeholder: 'Digite o destino',
-      icon: ArrowRight,
-      required: true,
-      maxLength: 50
-    },
-    {
-      id: 'prioridade',
-      label: 'Prioridade',
-      type: 'number',
-      placeholder: 'Digite a prioridade',
-      required: false
-    },
-    {
-      id: 'sku',
-      label: 'SKU',
-      placeholder: 'Digite o SKU (opcional)',
-      icon: Package,
-      required: false
-    },
-    {
-      id: 'lote',
-      label: 'Lote',
-      placeholder: 'Digite o lote (opcional)',
-      required: false
-    },
-    {
-      id: 'descricao',
-      label: 'Descrição',
-      placeholder: 'Digite a descrição (opcional)',
-      required: false
-    }
-  ] as const
-};
-
-// Estado inicial limpo
-const INITIAL_FORM_DATA: CreateMovimentacaoDto = {
-  idCentro: '',
-  palete: '',
-  origem: '',
-  destino: '',
-  prioridade: 0,
-  idUsuario: null,
-  status: null,
-  dataCriacao: null,
-  dataExecucao: null,
-  sku: null,
-  descricao: null,
-  lote: null,
-};
+import { useMovimentacao } from "../hooks/useMovimentacao";
 
 export function FormAddMovimentacao() {
-  const [items, setItems] = useState<CriarNovaMovimentacaoMutationBody>([]);
-  const [formData, setFormData] = useState<CreateMovimentacaoDto>(INITIAL_FORM_DATA);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const {criarMovimentacao, isCriandoMovimentacao} = useCriarMovimentacao()
+  const { handleFileChange, items, setItems } = useMovimentacao();
+  const { criarMovimentacao, isCriandoMovimentacao } = useCriarMovimentacao();
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleInputChange = (field: keyof CreateMovimentacaoDto, value: string | number | null) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
 
-  const handleAddItem = async () => {
-    // Validação dos campos obrigatórios
-    const isValid = FIELD_CONFIG.required.every(field => 
-      formData[field] && String(formData[field]).trim().length > 0
-    );
+    setUploadedFile(file);
+    setIsLoading(true);
 
-    if (!isValid) return;
-
-    setIsSubmitting(true);
-
-    // Simula um processamento assíncrono
-    await new Promise(resolve => setTimeout(resolve, 300));
-
-    const newItem: CreateMovimentacaoDto = {
-      ...formData,
-      prioridade: Number(formData.prioridade) || 0,
-      idUsuario: formData.idUsuario || null,
-      status: formData.status || null,
-      dataCriacao: formData.dataCriacao || null,
-      dataExecucao: formData.dataExecucao || null,
-      sku: formData.sku?.toString().trim() || null,
-      descricao: formData.descricao?.toString().trim() || null,
-      lote: formData.lote?.toString().trim() || null,
-    };
-
-    setItems(prev => [...prev, newItem]);
-    setFormData(INITIAL_FORM_DATA);
-    setIsSubmitting(false);
+    try {
+      await handleFileChange(event);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleRemoveItem = (index: number) => {
@@ -140,81 +35,65 @@ export function FormAddMovimentacao() {
 
   const handleClearAll = () => {
     setItems([]);
+    setUploadedFile(null);
   };
 
   const handleSubmitAll = async () => {
     if (items.length === 0) return;
     criarMovimentacao(items);
+    setItems([]);
+    setUploadedFile(null);
   };
-
-  const isFormValid = FIELD_CONFIG.required.every(field => 
-    formData[field] && String(formData[field]).trim().length > 0
-  );
 
   return (
     <div className="space-y-6 p-4 md:p-6">
-      {/* Card do Formulário */}
-      <Card className="border shadow-sm hover:shadow-md transition-shadow">
-        <CardHeader className="pb-3">
+      {/* Card de Upload */}
+      <Card className="border shadow-sm">
+        <CardHeader>
           <div className="flex items-center gap-2">
-            <ArrowUpDown className="h-6 w-6 text-primary" />
-            <CardTitle className="text-xl">Nova Movimentação</CardTitle>
+            <Upload className="h-6 w-6 text-primary" />
+            <CardTitle className="text-xl">Upload de Movimentações</CardTitle>
           </div>
           <CardDescription>
-            Preencha os campos obrigatórios (*) para adicionar uma movimentação
+            Faça upload de um arquivo Excel (.xlsx, .xls) para adicionar movimentações em massa
           </CardDescription>
         </CardHeader>
-        
-        <CardContent className="space-y-6">
-          {/* Grid de Campos */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {FIELD_CONFIG.fields.map((field) => {
-              const isRequired = field.required;
-              const value = formData[field.id as keyof CreateMovimentacaoDto] || '';
-
-              return (
-                <div key={field.id} className="space-y-2">
-                  <Label htmlFor={field.id} className="flex items-center gap-1">
-                    {field.label}
-                    {isRequired && <span className="text-destructive ml-1">*</span>}
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      id={field.id}
-                      value={value}
-                      onChange={(e) => handleInputChange(field.id as keyof CreateMovimentacaoDto, e.target.value)}
-                      placeholder={field.placeholder}
-  
-                      className={`pl-9 ${isRequired && !value ? 'border-destructive focus-visible:ring-destructive' : ''}`}
-                      disabled={isSubmitting}
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Botão de Adicionar */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+        <CardContent className="space-y-4">
+          <div className="flex items-center gap-4">
+            <Input
+              id="file-upload"
+              type="file"
+              accept=".xlsx,.xls"
+              onChange={handleFileUpload}
+              className="hidden"
+              disabled={isLoading}
+            />
             <Button
-              onClick={handleAddItem}
-              disabled={!isFormValid || isSubmitting}
-              className="flex-1 bg-primary hover:bg-primary/90"
-              size="lg"
+              type="button"
+              onClick={() => document.getElementById('file-upload')?.click()}
+              disabled={isLoading}
+              className="flex items-center gap-2"
             >
-              <Plus className="mr-2 h-5 w-5" />
-              {isSubmitting ? 'Adicionando...' : 'Adicionar Movimentação'}
+              <Upload className="h-4 w-4" />
+              {isLoading ? 'Processando...' : 'Selecionar Arquivo'}
             </Button>
-            
+
+            {uploadedFile && (
+              <div className="flex items-center gap-2 flex-1">
+                <FileSpreadsheet className="h-5 w-5 text-blue-600" />
+                <span className="text-sm font-medium">{uploadedFile.name}</span>
+              </div>
+            )}
+
             {items.length > 0 && (
               <Button
                 onClick={handleClearAll}
                 variant="outline"
                 className="border-destructive text-destructive hover:bg-destructive/10"
-                disabled={isSubmitting}
+                disabled={isLoading || isCriandoMovimentacao}
               >
-                <Trash2 className="mr-2 h-5 w-5" />
-                Limpar Lista
+                <Trash2 className="mr-2 h-4 w-4" />
+                Limpar
               </Button>
             )}
           </div>
@@ -224,25 +103,25 @@ export function FormAddMovimentacao() {
       {/* Lista de Movimentações */}
       {items.length > 0 && (
         <Card className="border shadow-sm">
-          <CardHeader className="pb-3">
+          <CardHeader>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="bg-primary/10 p-2 rounded-lg">
                   <Package className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <CardTitle>Movimentações Adicionadas</CardTitle>
+                  <CardTitle>Movimentações Carregadas</CardTitle>
                   <CardDescription>
-                    {items.length} {items.length === 1 ? 'item' : 'itens'} na lista
+                    {items.length} {items.length === 1 ? 'item' : 'itens'} carregados do arquivo
                   </CardDescription>
                 </div>
               </div>
               <Button
                 onClick={handleSubmitAll}
-                disabled={isSubmitting}
+                disabled={isCriandoMovimentacao}
                 className="bg-green-600 hover:bg-green-700"
               >
-                {isSubmitting ? 'Enviando...' : `Enviar ${items.length} Movimentações`}
+                {isCriandoMovimentacao ? 'Enviando...' : `Enviar ${items.length} Movimentações`}
               </Button>
             </div>
           </CardHeader>
@@ -325,7 +204,7 @@ export function FormAddMovimentacao() {
                     size="icon"
                     onClick={() => handleRemoveItem(index)}
                     className="ml-4 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-destructive/10"
-                    disabled={isSubmitting}
+                    disabled={isCriandoMovimentacao}
                   >
                     <Trash2 className="h-4 w-4 text-destructive" />
                   </Button>
@@ -344,7 +223,7 @@ export function FormAddMovimentacao() {
                     variant="link"
                     onClick={handleClearAll}
                     className="text-destructive"
-                    disabled={isSubmitting}
+                    disabled={isCriandoMovimentacao}
                   >
                     <Trash2 className="mr-1 h-3.5 w-3.5" />
                     Remover todas
@@ -357,15 +236,14 @@ export function FormAddMovimentacao() {
       )}
 
       {/* Indicador de Estado Vazio */}
-      {items.length === 0 && !isFormValid && (
+      {items.length === 0 && !uploadedFile && (
         <div className="text-center py-12 border-2 border-dashed rounded-lg">
-          <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-50" />
+          <FileSpreadsheet className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-50" />
           <h3 className="text-lg font-medium text-muted-foreground mb-2">
-            Nenhuma movimentação adicionada
+            Nenhum arquivo carregado
           </h3>
           <p className="text-sm text-muted-foreground max-w-md mx-auto">
-            Preencha o formulário acima para adicionar sua primeira movimentação. 
-            Todos os campos marcados com * são obrigatórios.
+            Faça upload de um arquivo Excel para carregar as movimentações em massa
           </p>
         </div>
       )}

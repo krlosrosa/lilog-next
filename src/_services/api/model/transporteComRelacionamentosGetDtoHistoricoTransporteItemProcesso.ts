@@ -6,12 +6,13 @@
  * OpenAPI spec version: 1.0
  */
 
-export type TransporteComRelacionamentosGetDtoHistoricoTransporteItemProcesso = typeof TransporteComRelacionamentosGetDtoHistoricoTransporteItemProcesso[keyof typeof TransporteComRelacionamentosGetDtoHistoricoTransporteItemProcesso];
-
+export type TransporteComRelacionamentosGetDtoHistoricoTransporteItemProcesso =
+  (typeof TransporteComRelacionamentosGetDtoHistoricoTransporteItemProcesso)[keyof typeof TransporteComRelacionamentosGetDtoHistoricoTransporteItemProcesso];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const TransporteComRelacionamentosGetDtoHistoricoTransporteItemProcesso = {
-  SEPARACAO: 'SEPARACAO',
-  CARREGAMENTO: 'CARREGAMENTO',
-  CONFERENCIA: 'CONFERENCIA',
-} as const;
+export const TransporteComRelacionamentosGetDtoHistoricoTransporteItemProcesso =
+  {
+    SEPARACAO: 'SEPARACAO',
+    CARREGAMENTO: 'CARREGAMENTO',
+    CONFERENCIA: 'CONFERENCIA',
+  } as const;

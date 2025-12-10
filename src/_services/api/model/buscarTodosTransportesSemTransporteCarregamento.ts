@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type BuscarTodosTransportesSemTransporteCarregamento = typeof BuscarTodosTransportesSemTransporteCarregamento[keyof typeof BuscarTodosTransportesSemTransporteCarregamento];
-
+export type BuscarTodosTransportesSemTransporteCarregamento =
+  (typeof BuscarTodosTransportesSemTransporteCarregamento)[keyof typeof BuscarTodosTransportesSemTransporteCarregamento];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const BuscarTodosTransportesSemTransporteCarregamento = {
