@@ -7,7 +7,6 @@ import { useAgrupamentoStore } from "../others/stores/agrupamento.store";
 import { renumerarMapasPorTransporte } from "../others/utils/renumerarMapas";
 import { useAddPaleteInTransporte } from "./mutatation/addPaleteInTransporte";
 import { parseCadastrarPalete } from "../others/utils/parseCadastrarPalete";
-import { gerarRessuprimento } from "@/_modules/expedicao/services/mapa-separacao-ressuprir";
 import { EnrichedPickingMapItem } from "@/_modules/expedicao/others/types/items";
 
 
@@ -30,13 +29,6 @@ export function useMapaSeparacao() {
     if (!validationSuccess || !configuracaoImpressao) {
       return;
     }
-    gerarRessuprimento(validationSuccess, configuracaoImpressao, clientesSegregados, grupoClientes, grupoTransportes, grupoRemessas, 0.10).then(
-      (groupedPicking) => {
-        if(groupedPicking) {
-          setGroupedPicking(groupedPicking as Record<string, EnrichedPickingMapItem[][]>)
-        }
-      }
-    ).catch(console.error).finally(() => setIsLoading(false));
     gerarMapaSeparacao(
       validationSuccess,
       configuracaoImpressao,
