@@ -85,7 +85,7 @@ export const itemsSideBar = [
     title: 'Estoque',
     url: '/estoque',
     icon: Package,
-    recurso: 'configuracoes',
+    recurso: 'estoque',
     child: [
       {
         title: 'Movimentação',
