@@ -52,6 +52,12 @@ export const itemsSideBar = [
         url: '/produtividade/relatorio',
         icon: FileText,
         recurso: 'produtividade',
+      },
+      {
+        title: 'Buscar Demanda',
+        url: '/produtividade/buscar-demanda',
+        icon: Search,
+        recurso: 'produtividade',
       }
     ],
   },

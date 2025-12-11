@@ -948,3 +948,87 @@ export const useCadastrarAnomalia = <
 
   return useMutation(mutationOptions, queryClient);
 };
+/**
+ * @summary Registrar o início de uma movimentação
+ */
+export const registerStartMovement = (
+  id: number,
+  options?: SecondParameter<typeof axiosFetcher>,
+) => {
+  return axiosFetcher<boolean>(
+    { url: `/api/movimentacao/${id}/start`, method: 'PUT' },
+    options,
+  );
+};
+
+export const getRegisterStartMovementMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof registerStartMovement>>,
+    TError,
+    { id: number },
+    TContext
+  >;
+  request?: SecondParameter<typeof axiosFetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof registerStartMovement>>,
+  TError,
+  { id: number },
+  TContext
+> => {
+  const mutationKey = ['registerStartMovement'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof registerStartMovement>>,
+    { id: number }
+  > = (props) => {
+    const { id } = props ?? {};
+
+    return registerStartMovement(id, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type RegisterStartMovementMutationResult = NonNullable<
+  Awaited<ReturnType<typeof registerStartMovement>>
+>;
+
+export type RegisterStartMovementMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Registrar o início de uma movimentação
+ */
+export const useRegisterStartMovement = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof registerStartMovement>>,
+      TError,
+      { id: number },
+      TContext
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof registerStartMovement>>,
+  TError,
+  { id: number },
+  TContext
+> => {
+  const mutationOptions = getRegisterStartMovementMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};

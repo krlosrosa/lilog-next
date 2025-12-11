@@ -29,7 +29,8 @@ export const criarNovaMovimentacaoBodyItem = zod.object({
   "sku": zod.union([zod.string(),zod.null()]).optional(),
   "descricao": zod.union([zod.string(),zod.null()]).optional(),
   "lote": zod.union([zod.string(),zod.null()]).optional(),
-  "executadoPor": zod.union([zod.string(),zod.null()]).optional()
+  "executadoPor": zod.union([zod.string(),zod.null()]).optional(),
+  "iniciado": zod.union([zod.string(),zod.null()]).optional()
 })
 export const criarNovaMovimentacaoBody = zod.array(criarNovaMovimentacaoBodyItem)
 
@@ -51,7 +52,8 @@ export const criarNovaMovimentacaoResponse = zod.object({
   "sku": zod.union([zod.string(),zod.null()]),
   "descricao": zod.union([zod.string(),zod.null()]),
   "lote": zod.union([zod.string(),zod.null()]),
-  "executadoPor": zod.union([zod.string(),zod.null()])
+  "executadoPor": zod.union([zod.string(),zod.null()]),
+  "iniciado": zod.union([zod.string(),zod.null()])
 })
 
 /**
@@ -79,7 +81,8 @@ export const findAllPendingResponseItem = zod.object({
   "sku": zod.union([zod.string(),zod.null()]),
   "descricao": zod.union([zod.string(),zod.null()]),
   "lote": zod.union([zod.string(),zod.null()]),
-  "executadoPor": zod.union([zod.string(),zod.null()])
+  "executadoPor": zod.union([zod.string(),zod.null()]),
+  "iniciado": zod.union([zod.string(),zod.null()])
 })
 export const findAllPendingResponse = zod.array(findAllPendingResponseItem)
 
@@ -112,7 +115,8 @@ export const updateMovimentacaoBody = zod.object({
   "sku": zod.union([zod.string(),zod.null()]).optional(),
   "descricao": zod.union([zod.string(),zod.null()]).optional(),
   "lote": zod.union([zod.string(),zod.null()]).optional(),
-  "executadoPor": zod.union([zod.string(),zod.null()]).optional()
+  "executadoPor": zod.union([zod.string(),zod.null()]).optional(),
+  "iniciado": zod.union([zod.string(),zod.null()]).optional()
 })
 
 export const updateMovimentacaoResponse = zod.boolean()
@@ -151,7 +155,8 @@ export const getNextMovimentacaoResponse = zod.object({
   "sku": zod.union([zod.string(),zod.null()]),
   "descricao": zod.union([zod.string(),zod.null()]),
   "lote": zod.union([zod.string(),zod.null()]),
-  "executadoPor": zod.union([zod.string(),zod.null()])
+  "executadoPor": zod.union([zod.string(),zod.null()]),
+  "iniciado": zod.union([zod.string(),zod.null()])
 })
 
 /**
@@ -171,4 +176,13 @@ export const cadastrarAnomaliaParams = zod.object({
 })
 
 export const cadastrarAnomaliaResponse = zod.boolean()
+
+/**
+ * @summary Registrar o início de uma movimentação
+ */
+export const registerStartMovementParams = zod.object({
+  "id": zod.number()
+})
+
+export const registerStartMovementResponse = zod.boolean()
 

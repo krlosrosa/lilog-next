@@ -245,3 +245,37 @@ export const deletarDemandaParams = zod.object({
   "paleteId": zod.string()
 })
 
+/**
+ * @summary Deletar uma demanda de produtividade por ID
+ */
+export const deletarDemandaAnomaliaParams = zod.object({
+  "idDemanda": zod.string()
+})
+
+/**
+ * @summary Buscar uma demanda de produtividade por ID
+ */
+export const getDemandaByIdParams = zod.object({
+  "idDemanda": zod.string()
+})
+
+export const getDemandaByIdResponse = zod.object({
+  "idDemanda": zod.number(),
+  "processo": zod.enum(['SEPARACAO', 'CARREGAMENTO', 'CONFERENCIA']),
+  "status": zod.enum(['EM_PROGRESSO', 'FINALIZADA', 'PAUSA', 'CANCELADA']),
+  "funcionarioId": zod.string(),
+  "centerId": zod.string(),
+  "dataExpedicao": zod.string(),
+  "paletes": zod.array(zod.object({
+  "id": zod.string(),
+  "empresa": zod.string(),
+  "quantidadeCaixas": zod.number(),
+  "quantidadeUnidades": zod.number(),
+  "quantidadePaletes": zod.number(),
+  "enderecoVisitado": zod.number(),
+  "transporteId": zod.string(),
+  "tipoProcesso": zod.enum(['SEPARACAO', 'CARREGAMENTO', 'CONFERENCIA']),
+  "status": zod.enum(['NAO_INICIADO', 'EM_PROGRESSO', 'CONCLUIDO', 'EM_PAUSA'])
+}))
+})
+

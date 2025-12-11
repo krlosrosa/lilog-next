@@ -15,6 +15,7 @@ import type { GetMovimentacaoDtoSku } from './getMovimentacaoDtoSku';
 import type { GetMovimentacaoDtoDescricao } from './getMovimentacaoDtoDescricao';
 import type { GetMovimentacaoDtoLote } from './getMovimentacaoDtoLote';
 import type { GetMovimentacaoDtoExecutadoPor } from './getMovimentacaoDtoExecutadoPor';
+import type { GetMovimentacaoDtoIniciado } from './getMovimentacaoDtoIniciado';
 
 export interface GetMovimentacaoDto {
   /**
@@ -40,4 +41,5 @@ export interface GetMovimentacaoDto {
   descricao: GetMovimentacaoDtoDescricao;
   lote: GetMovimentacaoDtoLote;
   executadoPor: GetMovimentacaoDtoExecutadoPor;
+  iniciado: GetMovimentacaoDtoIniciado;
 }

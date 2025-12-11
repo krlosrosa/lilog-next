@@ -24,6 +24,7 @@ import type {
 import type {
   BuscarPausasAtivasParams,
   DemandaCreateDataComPaletesIds,
+  DemandaDto,
   OverViewProdutividadeDataDto,
   PausaCreateDataDto,
   PausaGeralCreateDataDto,
@@ -1439,3 +1440,245 @@ export const useDeletarDemanda = <
 
   return useMutation(mutationOptions, queryClient);
 };
+/**
+ * @summary Deletar uma demanda de produtividade por ID
+ */
+export const deletarDemandaAnomalia = (
+  idDemanda: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+) => {
+  return axiosFetcher<void>(
+    {
+      url: `/api/gestao-produtividade/deletar-demanda-anomalia/${idDemanda}`,
+      method: 'DELETE',
+    },
+    options,
+  );
+};
+
+export const getDeletarDemandaAnomaliaMutationOptions = <
+  TError = ErrorType<void | void | void | void | void | void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deletarDemandaAnomalia>>,
+    TError,
+    { idDemanda: string },
+    TContext
+  >;
+  request?: SecondParameter<typeof axiosFetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deletarDemandaAnomalia>>,
+  TError,
+  { idDemanda: string },
+  TContext
+> => {
+  const mutationKey = ['deletarDemandaAnomalia'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deletarDemandaAnomalia>>,
+    { idDemanda: string }
+  > = (props) => {
+    const { idDemanda } = props ?? {};
+
+    return deletarDemandaAnomalia(idDemanda, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type DeletarDemandaAnomaliaMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deletarDemandaAnomalia>>
+>;
+
+export type DeletarDemandaAnomaliaMutationError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+/**
+ * @summary Deletar uma demanda de produtividade por ID
+ */
+export const useDeletarDemandaAnomalia = <
+  TError = ErrorType<void | void | void | void | void | void>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof deletarDemandaAnomalia>>,
+      TError,
+      { idDemanda: string },
+      TContext
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof deletarDemandaAnomalia>>,
+  TError,
+  { idDemanda: string },
+  TContext
+> => {
+  const mutationOptions = getDeletarDemandaAnomaliaMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
+ * @summary Buscar uma demanda de produtividade por ID
+ */
+export const getDemandaById = (
+  idDemanda: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<DemandaDto>(
+    {
+      url: `/api/gestao-produtividade/get-demanda-by-id/${idDemanda}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getGetDemandaByIdQueryKey = (idDemanda?: string) => {
+  return [`/api/gestao-produtividade/get-demanda-by-id/${idDemanda}`] as const;
+};
+
+export const getGetDemandaByIdQueryOptions = <
+  TData = Awaited<ReturnType<typeof getDemandaById>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  idDemanda: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getDemandaById>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetDemandaByIdQueryKey(idDemanda);
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getDemandaById>>> = ({
+    signal,
+  }) => getDemandaById(idDemanda, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!idDemanda,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getDemandaById>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetDemandaByIdQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getDemandaById>>
+>;
+export type GetDemandaByIdQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+export function useGetDemandaById<
+  TData = Awaited<ReturnType<typeof getDemandaById>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  idDemanda: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getDemandaById>>, TError, TData>
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getDemandaById>>,
+          TError,
+          Awaited<ReturnType<typeof getDemandaById>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetDemandaById<
+  TData = Awaited<ReturnType<typeof getDemandaById>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  idDemanda: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getDemandaById>>, TError, TData>
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getDemandaById>>,
+          TError,
+          Awaited<ReturnType<typeof getDemandaById>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetDemandaById<
+  TData = Awaited<ReturnType<typeof getDemandaById>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  idDemanda: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getDemandaById>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar uma demanda de produtividade por ID
+ */
+
+export function useGetDemandaById<
+  TData = Awaited<ReturnType<typeof getDemandaById>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  idDemanda: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getDemandaById>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetDemandaByIdQueryOptions(idDemanda, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}

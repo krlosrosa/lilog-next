@@ -15,6 +15,7 @@ import type { UpdateMovimentacaoDtoSku } from './updateMovimentacaoDtoSku';
 import type { UpdateMovimentacaoDtoDescricao } from './updateMovimentacaoDtoDescricao';
 import type { UpdateMovimentacaoDtoLote } from './updateMovimentacaoDtoLote';
 import type { UpdateMovimentacaoDtoExecutadoPor } from './updateMovimentacaoDtoExecutadoPor';
+import type { UpdateMovimentacaoDtoIniciado } from './updateMovimentacaoDtoIniciado';
 
 export interface UpdateMovimentacaoDto {
   /**
@@ -40,4 +41,5 @@ export interface UpdateMovimentacaoDto {
   descricao?: UpdateMovimentacaoDtoDescricao;
   lote?: UpdateMovimentacaoDtoLote;
   executadoPor?: UpdateMovimentacaoDtoExecutadoPor;
+  iniciado?: UpdateMovimentacaoDtoIniciado;
 }

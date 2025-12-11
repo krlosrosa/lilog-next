@@ -15,6 +15,7 @@ import type { CreateMovimentacaoDtoSku } from './createMovimentacaoDtoSku';
 import type { CreateMovimentacaoDtoDescricao } from './createMovimentacaoDtoDescricao';
 import type { CreateMovimentacaoDtoLote } from './createMovimentacaoDtoLote';
 import type { CreateMovimentacaoDtoExecutadoPor } from './createMovimentacaoDtoExecutadoPor';
+import type { CreateMovimentacaoDtoIniciado } from './createMovimentacaoDtoIniciado';
 
 export interface CreateMovimentacaoDto {
   /**
@@ -40,4 +41,5 @@ export interface CreateMovimentacaoDto {
   descricao?: CreateMovimentacaoDtoDescricao;
   lote?: CreateMovimentacaoDtoLote;
   executadoPor?: CreateMovimentacaoDtoExecutadoPor;
+  iniciado?: CreateMovimentacaoDtoIniciado;
 }
