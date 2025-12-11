@@ -91,17 +91,19 @@ export const itemsSideBar = [
         title: 'Movimentação',
         url: '/movimentacao',
         icon: ArrowLeftRight,
-        recurso: 'movimentacao',
+        recurso: 'estoque',
       },
       {
         title: 'Relatório de Cortes',
         url: '/estoque/cortes',
         icon: Scissors,
+        recurso: 'estoque',
       },
       {
         title: 'Cortes Adm',
         url: '/corte/adm',
         icon: Scissors,
+        recurso: 'estoque',
       }
     ]
   },
