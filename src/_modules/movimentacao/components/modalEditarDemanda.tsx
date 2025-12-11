@@ -8,6 +8,7 @@ import { Label } from "@/_shared/_components/ui/label";
 import { Edit, Warehouse, Palette, ArrowRight, Package } from "lucide-react";
 import { useState } from "react";
 import { useAtualizarDemandaMutation } from "../hooks/atualizarDemanda";
+import toast from "react-hot-toast";
 
 type ModalEditarDemandaProps = {
   demanda: GetMovimentacaoDto;
