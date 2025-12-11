@@ -6,6 +6,7 @@ import { Button } from "@/_shared/_components/ui/button";
 import { DataTablePaleteDemanda } from "../components/demanda/table/data-table-palete-demanda";
 import { columnsPaletesDemanda } from "../components/demanda/table/palete-demanda";
 import { Search, Loader2, Trash2 } from "lucide-react";
+import { formatDate } from "date-fns";
 
 export default function BuscarDemanda() {
   const { demanda, isBuscandoDemanda, setId, centerId, handleExcluirDemanda } = useDemanda();
@@ -85,6 +86,9 @@ export default function BuscarDemanda() {
                 <h2 className="font-bold text-lg">Demanda #{demanda.idDemanda}</h2>
                 <span className="px-2 py-1 text-sm bg-blue-100 text-blue-800 rounded">
                   {demanda.status}
+                </span>
+                <span className="px-2 py-1 text-sm font-bold">
+                  {formatDate(demanda.dataExpedicao?.toString() || '', 'dd/MM/yyyy')}
                 </span>
               </div>
               {podeExcluir && (
