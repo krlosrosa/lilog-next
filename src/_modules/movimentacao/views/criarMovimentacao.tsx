@@ -3,13 +3,27 @@ import { Button } from "@/_shared/_components/ui/button";
 import { TableMovimentacao } from "../components/table";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Label } from "@/_shared/_components/ui/label";
+import { Input } from "@/_shared/_components/ui/input";
 
 export default function CriarMovimentacao(){
+  const [filter, setFilter] = useState<string>('');
   const  router = useRouter();
   return (
     <div>
       <h1>Criar Movimentação</h1>
-      <TableMovimentacao/>
+      <div className="flex items-center gap-2 p-2">
+        <Label>
+          Filtrar:
+        </Label>
+        <Input
+          value={filter}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilter(e.target.value)}
+          placeholder="Digite o filtro"
+        />
+      </div>
+      <TableMovimentacao globalFilter={filter} setGlobalFilter={setFilter}/>
       <div className="fixed right-6 bottom-6 z-50">
       <Button
         size="lg"
