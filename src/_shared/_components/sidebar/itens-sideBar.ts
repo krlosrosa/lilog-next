@@ -94,6 +94,12 @@ export const itemsSideBar = [
     recurso: 'estoque',
     child: [
       {
+        title: 'Cadastrar Contagem',
+        url: '/movimentacao/contagem',
+        icon: Package,
+        recurso: 'estoque',
+      },
+      {
         title: 'Movimentação',
         url: '/movimentacao',
         icon: ArrowLeftRight,

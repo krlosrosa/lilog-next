@@ -186,3 +186,69 @@ export const registerStartMovementParams = zod.object({
 
 export const registerStartMovementResponse = zod.boolean()
 
+/**
+ * @summary Adicionar uma contagem lite validation
+ */
+export const addContagemLiteValidationBodyIdMin = -2147483648;
+export const addContagemLiteValidationBodyIdMax = 2147483647;export const addContagemLiteValidationBodyCaixasMinOne = -2147483648;
+export const addContagemLiteValidationBodyCaixasMaxOne = 2147483647;export const addContagemLiteValidationBodyQtdPaleteMinOne = -2147483648;
+export const addContagemLiteValidationBodyQtdPaleteMaxOne = 2147483647;export const addContagemLiteValidationBodyCapacidadePaleteMinOne = -2147483648;
+export const addContagemLiteValidationBodyCapacidadePaleteMaxOne = 2147483647;
+
+export const addContagemLiteValidationBodyItem = zod.object({
+  "id": zod.number().min(addContagemLiteValidationBodyIdMin).max(addContagemLiteValidationBodyIdMax).optional(),
+  "dataRef": zod.string(),
+  "endereco": zod.string(),
+  "sku": zod.union([zod.string(),zod.null()]).optional(),
+  "descricao": zod.union([zod.string(),zod.null()]).optional(),
+  "dataValidade": zod.union([zod.string(),zod.null()]).optional(),
+  "lote": zod.union([zod.string(),zod.null()]).optional(),
+  "peso": zod.union([zod.string(),zod.null()]).optional(),
+  "caixas": zod.union([zod.number().min(addContagemLiteValidationBodyCaixasMinOne).max(addContagemLiteValidationBodyCaixasMaxOne),zod.null()]).optional(),
+  "qtdPalete": zod.union([zod.number().min(addContagemLiteValidationBodyQtdPaleteMinOne).max(addContagemLiteValidationBodyQtdPaleteMaxOne),zod.null()]).optional(),
+  "capacidadePalete": zod.union([zod.number().min(addContagemLiteValidationBodyCapacidadePaleteMinOne).max(addContagemLiteValidationBodyCapacidadePaleteMaxOne),zod.null()]).optional(),
+  "area": zod.union([zod.string(),zod.null()]).optional(),
+  "centroId": zod.string(),
+  "codigoBloqueio": zod.union([zod.string(),zod.null()]).optional(),
+  "validado": zod.union([zod.boolean(),zod.null()]).optional(),
+  "adicionarPor": zod.union([zod.string(),zod.null()]).optional(),
+  "contadoPor": zod.union([zod.string(),zod.null()]).optional()
+})
+export const addContagemLiteValidationBody = zod.array(addContagemLiteValidationBodyItem)
+
+export const addContagemLiteValidationResponse = zod.boolean()
+
+/**
+ * @summary Buscar uma contagem lite validation por endereço
+ */
+export const getEnderecoParams = zod.object({
+  "endereco": zod.string().describe('Endereço da contagem lite validation')
+})
+
+export const getEnderecoResponseIdMin = -2147483648;
+export const getEnderecoResponseIdMax = 2147483647;export const getEnderecoResponseCaixasMinOne = -2147483648;
+export const getEnderecoResponseCaixasMaxOne = 2147483647;export const getEnderecoResponseQtdPaleteMinOne = -2147483648;
+export const getEnderecoResponseQtdPaleteMaxOne = 2147483647;export const getEnderecoResponseCapacidadePaleteMinOne = -2147483648;
+export const getEnderecoResponseCapacidadePaleteMaxOne = 2147483647;
+
+export const getEnderecoResponseItem = zod.object({
+  "id": zod.number().min(getEnderecoResponseIdMin).max(getEnderecoResponseIdMax),
+  "dataRef": zod.string(),
+  "endereco": zod.string(),
+  "sku": zod.union([zod.string(),zod.null()]),
+  "descricao": zod.union([zod.string(),zod.null()]),
+  "dataValidade": zod.union([zod.string(),zod.null()]),
+  "lote": zod.union([zod.string(),zod.null()]),
+  "peso": zod.union([zod.string(),zod.null()]),
+  "caixas": zod.union([zod.number().min(getEnderecoResponseCaixasMinOne).max(getEnderecoResponseCaixasMaxOne),zod.null()]),
+  "qtdPalete": zod.union([zod.number().min(getEnderecoResponseQtdPaleteMinOne).max(getEnderecoResponseQtdPaleteMaxOne),zod.null()]),
+  "capacidadePalete": zod.union([zod.number().min(getEnderecoResponseCapacidadePaleteMinOne).max(getEnderecoResponseCapacidadePaleteMaxOne),zod.null()]),
+  "area": zod.union([zod.string(),zod.null()]),
+  "centroId": zod.string(),
+  "codigoBloqueio": zod.union([zod.string(),zod.null()]),
+  "validado": zod.union([zod.boolean(),zod.null()]),
+  "adicionarPor": zod.union([zod.string(),zod.null()]),
+  "contadoPor": zod.union([zod.string(),zod.null()])
+})
+export const getEnderecoResponse = zod.array(getEnderecoResponseItem)
+

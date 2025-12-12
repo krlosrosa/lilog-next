@@ -22,7 +22,9 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  CreateContagemDto,
   CreateMovimentacaoDto,
+  GetContagemDto,
   GetMovimentacaoDto,
   UpdateMovimentacaoDto,
 } from '../../model';
@@ -1032,3 +1034,246 @@ export const useRegisterStartMovement = <
 
   return useMutation(mutationOptions, queryClient);
 };
+/**
+ * @summary Adicionar uma contagem lite validation
+ */
+export const addContagemLiteValidation = (
+  createContagemDto: BodyType<CreateContagemDto[]>,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<boolean>(
+    {
+      url: `/api/movimentacao/add-contagem-lite`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: createContagemDto,
+      signal,
+    },
+    options,
+  );
+};
+
+export const getAddContagemLiteValidationMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof addContagemLiteValidation>>,
+    TError,
+    { data: BodyType<CreateContagemDto[]> },
+    TContext
+  >;
+  request?: SecondParameter<typeof axiosFetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof addContagemLiteValidation>>,
+  TError,
+  { data: BodyType<CreateContagemDto[]> },
+  TContext
+> => {
+  const mutationKey = ['addContagemLiteValidation'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof addContagemLiteValidation>>,
+    { data: BodyType<CreateContagemDto[]> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return addContagemLiteValidation(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type AddContagemLiteValidationMutationResult = NonNullable<
+  Awaited<ReturnType<typeof addContagemLiteValidation>>
+>;
+export type AddContagemLiteValidationMutationBody = BodyType<
+  CreateContagemDto[]
+>;
+export type AddContagemLiteValidationMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Adicionar uma contagem lite validation
+ */
+export const useAddContagemLiteValidation = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof addContagemLiteValidation>>,
+      TError,
+      { data: BodyType<CreateContagemDto[]> },
+      TContext
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof addContagemLiteValidation>>,
+  TError,
+  { data: BodyType<CreateContagemDto[]> },
+  TContext
+> => {
+  const mutationOptions = getAddContagemLiteValidationMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
+ * @summary Buscar uma contagem lite validation por endereço
+ */
+export const getEndereco = (
+  endereco: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<GetContagemDto[]>(
+    {
+      url: `/api/movimentacao/get-endereco/${endereco}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getGetEnderecoQueryKey = (endereco?: string) => {
+  return [`/api/movimentacao/get-endereco/${endereco}`] as const;
+};
+
+export const getGetEnderecoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getEndereco>>,
+  TError = ErrorType<unknown>,
+>(
+  endereco: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getEndereco>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetEnderecoQueryKey(endereco);
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getEndereco>>> = ({
+    signal,
+  }) => getEndereco(endereco, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!endereco,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getEndereco>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetEnderecoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getEndereco>>
+>;
+export type GetEnderecoQueryError = ErrorType<unknown>;
+
+export function useGetEndereco<
+  TData = Awaited<ReturnType<typeof getEndereco>>,
+  TError = ErrorType<unknown>,
+>(
+  endereco: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getEndereco>>, TError, TData>
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getEndereco>>,
+          TError,
+          Awaited<ReturnType<typeof getEndereco>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetEndereco<
+  TData = Awaited<ReturnType<typeof getEndereco>>,
+  TError = ErrorType<unknown>,
+>(
+  endereco: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getEndereco>>, TError, TData>
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getEndereco>>,
+          TError,
+          Awaited<ReturnType<typeof getEndereco>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetEndereco<
+  TData = Awaited<ReturnType<typeof getEndereco>>,
+  TError = ErrorType<unknown>,
+>(
+  endereco: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getEndereco>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar uma contagem lite validation por endereço
+ */
+
+export function useGetEndereco<
+  TData = Awaited<ReturnType<typeof getEndereco>>,
+  TError = ErrorType<unknown>,
+>(
+  endereco: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof getEndereco>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetEnderecoQueryOptions(endereco, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
