@@ -7,16 +7,18 @@ import useCadastrarContagem, { ContagemLiteFormSchema } from "./cadastrar-contag
 import { uploadContagemLite } from "../../services/upload-demanda-";
 import { useDeleteContagemLiteMutation } from "./detele-contagem-lite";
 import { useStatusContagem } from "./statusContagem";
+import { useGetAnomaliasLite } from "./get-anomalias-lite";
 
 export const useContagemLite = () => {
 
   const [formData, setFormData] = useState<ContagemLiteFormSchema[]>([]);
   const [items, setItems] = useState<AddContagemLiteValidationMutationBody>([]);
   const { user } = useUser();
-  const [dataRef, setDataRef] = useState<string>('2025-12-12');
+  const [dataRef, setDataRef] = useState<string>('2025-12-15');
   const { handleCadastrarContagem } = useCadastrarContagem();
   const { deleteContagemLiteFunction, isDeletingContagemLite } = useDeleteContagemLiteMutation();
   const { statusContagem, isLoadingStatusContagem } = useStatusContagem(user?.centerSelect as string);
+  const { anomaliasLite, isLoadingAnomaliasLite } = useGetAnomaliasLite(user?.centerSelect as string, dataRef);
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -50,5 +52,7 @@ export const useContagemLite = () => {
     isDeletingContagemLite,
     statusContagem,
     isLoadingStatusContagem,
+    anomaliasLite,
+    isLoadingAnomaliasLite,
   };
 }

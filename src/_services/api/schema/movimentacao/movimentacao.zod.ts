@@ -308,3 +308,28 @@ export const deleteContagemLiteParams = zod.object({
 
 export const deleteContagemLiteResponse = zod.boolean()
 
+/**
+ * @summary Buscar o relatorio de anomalias da contagem lite
+ */
+export const relatorioAnomaliasContagemLiteParams = zod.object({
+  "centerId": zod.string().describe('ID do centro'),
+  "dataReferencia": zod.string().describe('Data de referencia')
+})
+
+export const relatorioAnomaliasContagemLiteResponseIdMin = -2147483648;
+export const relatorioAnomaliasContagemLiteResponseIdMax = 2147483647;export const relatorioAnomaliasContagemLiteResponseQuantidadeMinOne = -2147483648;
+export const relatorioAnomaliasContagemLiteResponseQuantidadeMaxOne = 2147483647;
+
+export const relatorioAnomaliasContagemLiteResponseItem = zod.object({
+  "id": zod.number().min(relatorioAnomaliasContagemLiteResponseIdMin).max(relatorioAnomaliasContagemLiteResponseIdMax),
+  "endereco": zod.union([zod.string(),zod.null()]),
+  "centroId": zod.union([zod.string(),zod.null()]),
+  "sku": zod.union([zod.string(),zod.null()]),
+  "lote": zod.union([zod.string(),zod.null()]),
+  "quantidade": zod.union([zod.number().min(relatorioAnomaliasContagemLiteResponseQuantidadeMinOne).max(relatorioAnomaliasContagemLiteResponseQuantidadeMaxOne),zod.null()]),
+  "peso": zod.union([zod.string(),zod.null()]),
+  "dataReferencia": zod.union([zod.string(),zod.null()]),
+  "addPor": zod.union([zod.string(),zod.null()])
+})
+export const relatorioAnomaliasContagemLiteResponse = zod.array(relatorioAnomaliasContagemLiteResponseItem)
+

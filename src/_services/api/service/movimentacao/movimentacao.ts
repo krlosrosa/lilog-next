@@ -25,6 +25,7 @@ import type {
   CreateAnomaliaContagemLiteDto,
   CreateContagemDto,
   CreateMovimentacaoDto,
+  GetAnomaliaContagemDto,
   GetContagemDto,
   GetMovimentacaoDto,
   ResumoContagemLiteDto,
@@ -1741,3 +1742,196 @@ export const useDeleteContagemLite = <
 
   return useMutation(mutationOptions, queryClient);
 };
+/**
+ * @summary Buscar o relatorio de anomalias da contagem lite
+ */
+export const relatorioAnomaliasContagemLite = (
+  centerId: string,
+  dataReferencia: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<GetAnomaliaContagemDto[]>(
+    {
+      url: `/api/movimentacao/relatorio-anomalias-contagem-lite/${centerId}/${dataReferencia}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getRelatorioAnomaliasContagemLiteQueryKey = (
+  centerId?: string,
+  dataReferencia?: string,
+) => {
+  return [
+    `/api/movimentacao/relatorio-anomalias-contagem-lite/${centerId}/${dataReferencia}`,
+  ] as const;
+};
+
+export const getRelatorioAnomaliasContagemLiteQueryOptions = <
+  TData = Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  dataReferencia: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getRelatorioAnomaliasContagemLiteQueryKey(centerId, dataReferencia);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>
+  > = ({ signal }) =>
+    relatorioAnomaliasContagemLite(
+      centerId,
+      dataReferencia,
+      requestOptions,
+      signal,
+    );
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(centerId && dataReferencia),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type RelatorioAnomaliasContagemLiteQueryResult = NonNullable<
+  Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>
+>;
+export type RelatorioAnomaliasContagemLiteQueryError = ErrorType<unknown>;
+
+export function useRelatorioAnomaliasContagemLite<
+  TData = Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  dataReferencia: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+          TError,
+          Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useRelatorioAnomaliasContagemLite<
+  TData = Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  dataReferencia: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+          TError,
+          Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useRelatorioAnomaliasContagemLite<
+  TData = Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  dataReferencia: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar o relatorio de anomalias da contagem lite
+ */
+
+export function useRelatorioAnomaliasContagemLite<
+  TData = Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  dataReferencia: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof relatorioAnomaliasContagemLite>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getRelatorioAnomaliasContagemLiteQueryOptions(
+    centerId,
+    dataReferencia,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
