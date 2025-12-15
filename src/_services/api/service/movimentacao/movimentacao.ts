@@ -22,10 +22,12 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  CreateAnomaliaContagemLiteDto,
   CreateContagemDto,
   CreateMovimentacaoDto,
   GetContagemDto,
   GetMovimentacaoDto,
+  ResumoContagemLiteDto,
   UpdateMovimentacaoDto,
 } from '../../model';
 
@@ -1277,3 +1279,465 @@ export function useGetEndereco<
 
   return query;
 }
+
+/**
+ * @summary Validar um endereço
+ */
+export const validarEndereco = (
+  endereco: string,
+  centerId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+) => {
+  return axiosFetcher<boolean>(
+    {
+      url: `/api/movimentacao/validar-endereco/${endereco}/${centerId}`,
+      method: 'PUT',
+    },
+    options,
+  );
+};
+
+export const getValidarEnderecoMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof validarEndereco>>,
+    TError,
+    { endereco: string; centerId: string },
+    TContext
+  >;
+  request?: SecondParameter<typeof axiosFetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof validarEndereco>>,
+  TError,
+  { endereco: string; centerId: string },
+  TContext
+> => {
+  const mutationKey = ['validarEndereco'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof validarEndereco>>,
+    { endereco: string; centerId: string }
+  > = (props) => {
+    const { endereco, centerId } = props ?? {};
+
+    return validarEndereco(endereco, centerId, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type ValidarEnderecoMutationResult = NonNullable<
+  Awaited<ReturnType<typeof validarEndereco>>
+>;
+
+export type ValidarEnderecoMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Validar um endereço
+ */
+export const useValidarEndereco = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof validarEndereco>>,
+      TError,
+      { endereco: string; centerId: string },
+      TContext
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof validarEndereco>>,
+  TError,
+  { endereco: string; centerId: string },
+  TContext
+> => {
+  const mutationOptions = getValidarEnderecoMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
+ * @summary Adicionar uma anomalia contagem lite
+ */
+export const addAnomaliaContagemLite = (
+  centerId: string,
+  endereco: string,
+  createAnomaliaContagemLiteDto: BodyType<CreateAnomaliaContagemLiteDto>,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<boolean>(
+    {
+      url: `/api/movimentacao/add-anomalia-contagem-lite/${centerId}/${endereco}`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: createAnomaliaContagemLiteDto,
+      signal,
+    },
+    options,
+  );
+};
+
+export const getAddAnomaliaContagemLiteMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof addAnomaliaContagemLite>>,
+    TError,
+    {
+      centerId: string;
+      endereco: string;
+      data: BodyType<CreateAnomaliaContagemLiteDto>;
+    },
+    TContext
+  >;
+  request?: SecondParameter<typeof axiosFetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof addAnomaliaContagemLite>>,
+  TError,
+  {
+    centerId: string;
+    endereco: string;
+    data: BodyType<CreateAnomaliaContagemLiteDto>;
+  },
+  TContext
+> => {
+  const mutationKey = ['addAnomaliaContagemLite'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof addAnomaliaContagemLite>>,
+    {
+      centerId: string;
+      endereco: string;
+      data: BodyType<CreateAnomaliaContagemLiteDto>;
+    }
+  > = (props) => {
+    const { centerId, endereco, data } = props ?? {};
+
+    return addAnomaliaContagemLite(centerId, endereco, data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type AddAnomaliaContagemLiteMutationResult = NonNullable<
+  Awaited<ReturnType<typeof addAnomaliaContagemLite>>
+>;
+export type AddAnomaliaContagemLiteMutationBody =
+  BodyType<CreateAnomaliaContagemLiteDto>;
+export type AddAnomaliaContagemLiteMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Adicionar uma anomalia contagem lite
+ */
+export const useAddAnomaliaContagemLite = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof addAnomaliaContagemLite>>,
+      TError,
+      {
+        centerId: string;
+        endereco: string;
+        data: BodyType<CreateAnomaliaContagemLiteDto>;
+      },
+      TContext
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof addAnomaliaContagemLite>>,
+  TError,
+  {
+    centerId: string;
+    endereco: string;
+    data: BodyType<CreateAnomaliaContagemLiteDto>;
+  },
+  TContext
+> => {
+  const mutationOptions = getAddAnomaliaContagemLiteMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
+ * @summary Buscar o resumo da contagem lite
+ */
+export const resumoContagemLite = (
+  centerId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<ResumoContagemLiteDto[]>(
+    {
+      url: `/api/movimentacao/resumo-contagem-lite/${centerId}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getResumoContagemLiteQueryKey = (centerId?: string) => {
+  return [`/api/movimentacao/resumo-contagem-lite/${centerId}`] as const;
+};
+
+export const getResumoContagemLiteQueryOptions = <
+  TData = Awaited<ReturnType<typeof resumoContagemLite>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof resumoContagemLite>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getResumoContagemLiteQueryKey(centerId);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof resumoContagemLite>>
+  > = ({ signal }) => resumoContagemLite(centerId, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!centerId,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof resumoContagemLite>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ResumoContagemLiteQueryResult = NonNullable<
+  Awaited<ReturnType<typeof resumoContagemLite>>
+>;
+export type ResumoContagemLiteQueryError = ErrorType<unknown>;
+
+export function useResumoContagemLite<
+  TData = Awaited<ReturnType<typeof resumoContagemLite>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof resumoContagemLite>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof resumoContagemLite>>,
+          TError,
+          Awaited<ReturnType<typeof resumoContagemLite>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useResumoContagemLite<
+  TData = Awaited<ReturnType<typeof resumoContagemLite>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof resumoContagemLite>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof resumoContagemLite>>,
+          TError,
+          Awaited<ReturnType<typeof resumoContagemLite>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useResumoContagemLite<
+  TData = Awaited<ReturnType<typeof resumoContagemLite>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof resumoContagemLite>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar o resumo da contagem lite
+ */
+
+export function useResumoContagemLite<
+  TData = Awaited<ReturnType<typeof resumoContagemLite>>,
+  TError = ErrorType<unknown>,
+>(
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof resumoContagemLite>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getResumoContagemLiteQueryOptions(centerId, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * @summary Deletar a contagem lite
+ */
+export const deleteContagemLite = (
+  centerId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+) => {
+  return axiosFetcher<boolean>(
+    {
+      url: `/api/movimentacao/delete-contagem-lite/${centerId}`,
+      method: 'DELETE',
+    },
+    options,
+  );
+};
+
+export const getDeleteContagemLiteMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteContagemLite>>,
+    TError,
+    { centerId: string },
+    TContext
+  >;
+  request?: SecondParameter<typeof axiosFetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deleteContagemLite>>,
+  TError,
+  { centerId: string },
+  TContext
+> => {
+  const mutationKey = ['deleteContagemLite'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deleteContagemLite>>,
+    { centerId: string }
+  > = (props) => {
+    const { centerId } = props ?? {};
+
+    return deleteContagemLite(centerId, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type DeleteContagemLiteMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteContagemLite>>
+>;
+
+export type DeleteContagemLiteMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Deletar a contagem lite
+ */
+export const useDeleteContagemLite = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof deleteContagemLite>>,
+      TError,
+      { centerId: string },
+      TContext
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof deleteContagemLite>>,
+  TError,
+  { centerId: string },
+  TContext
+> => {
+  const mutationOptions = getDeleteContagemLiteMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};

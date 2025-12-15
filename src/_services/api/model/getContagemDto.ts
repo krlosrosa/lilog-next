@@ -18,6 +18,7 @@ import type { GetContagemDtoCodigoBloqueio } from './getContagemDtoCodigoBloquei
 import type { GetContagemDtoValidado } from './getContagemDtoValidado';
 import type { GetContagemDtoAdicionarPor } from './getContagemDtoAdicionarPor';
 import type { GetContagemDtoContadoPor } from './getContagemDtoContadoPor';
+import type { GetContagemDtoHoraRegistro } from './getContagemDtoHoraRegistro';
 
 export interface GetContagemDto {
   /**
@@ -41,4 +42,5 @@ export interface GetContagemDto {
   validado: GetContagemDtoValidado;
   adicionarPor: GetContagemDtoAdicionarPor;
   contadoPor: GetContagemDtoContadoPor;
+  horaRegistro: GetContagemDtoHoraRegistro;
 }

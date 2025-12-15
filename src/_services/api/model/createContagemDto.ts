@@ -18,6 +18,7 @@ import type { CreateContagemDtoCodigoBloqueio } from './createContagemDtoCodigoB
 import type { CreateContagemDtoValidado } from './createContagemDtoValidado';
 import type { CreateContagemDtoAdicionarPor } from './createContagemDtoAdicionarPor';
 import type { CreateContagemDtoContadoPor } from './createContagemDtoContadoPor';
+import type { CreateContagemDtoHoraRegistro } from './createContagemDtoHoraRegistro';
 
 export interface CreateContagemDto {
   /**
@@ -41,4 +42,5 @@ export interface CreateContagemDto {
   validado?: CreateContagemDtoValidado;
   adicionarPor?: CreateContagemDtoAdicionarPor;
   contadoPor?: CreateContagemDtoContadoPor;
+  horaRegistro?: CreateContagemDtoHoraRegistro;
 }

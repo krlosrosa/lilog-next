@@ -5,6 +5,8 @@ import { useState } from "react";
 import { AddContagemLiteValidationMutationBody, CriarNovaMovimentacaoMutationBody } from "@/_services/api/service/movimentacao/movimentacao";
 import useCadastrarContagem, { ContagemLiteFormSchema } from "./cadastrar-contagem";
 import { uploadContagemLite } from "../../services/upload-demanda-";
+import { useDeleteContagemLiteMutation } from "./detele-contagem-lite";
+import { useStatusContagem } from "./statusContagem";
 
 export const useContagemLite = () => {
 
@@ -13,6 +15,8 @@ export const useContagemLite = () => {
   const { user } = useUser();
   const [dataRef, setDataRef] = useState<string>('2025-12-12');
   const { handleCadastrarContagem } = useCadastrarContagem();
+  const { deleteContagemLiteFunction, isDeletingContagemLite } = useDeleteContagemLiteMutation();
+  const { statusContagem, isLoadingStatusContagem } = useStatusContagem(user?.centerSelect as string);
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -23,6 +27,10 @@ export const useContagemLite = () => {
       console.log('contagemLite', contagemLite);
       setItems(contagemLite);
     }
+  };
+
+  const handleDeleteContagemLite = async () => {
+    await deleteContagemLiteFunction(user?.centerSelect as string);
   };
 
   const handleCadastrarContagemLite = async () => {
@@ -38,5 +46,9 @@ export const useContagemLite = () => {
     setFormData,
     items,
     setItems,
+    handleDeleteContagemLite,
+    isDeletingContagemLite,
+    statusContagem,
+    isLoadingStatusContagem,
   };
 }

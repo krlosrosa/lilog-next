@@ -5,6 +5,8 @@ import { Input } from "@/_shared/_components/ui/input";
 import { Button } from "@/_shared/_components/ui/button";
 import { Upload } from "lucide-react";
 import { TableCadastroContagemLite } from "../components/table-lite";
+import RemoveCadastroLite from "../components/removeCadastroLite";
+import StatusContagem from "../components/statusContagem";
 
 export default function CadastrarContagemLite() {
   const [globalFilter, setGlobalFilter] = useState('');
@@ -51,6 +53,8 @@ export default function CadastrarContagemLite() {
             </Button>
           )}
         </div>
+        <RemoveCadastroLite />
+        <StatusContagem />
       {uploadedFile && (
         <TableCadastroContagemLite globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} items={items.slice(0, 10) || []} />
       )}

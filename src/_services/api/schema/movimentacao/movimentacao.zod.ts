@@ -212,7 +212,8 @@ export const addContagemLiteValidationBodyItem = zod.object({
   "codigoBloqueio": zod.union([zod.string(),zod.null()]).optional(),
   "validado": zod.union([zod.boolean(),zod.null()]).optional(),
   "adicionarPor": zod.union([zod.string(),zod.null()]).optional(),
-  "contadoPor": zod.union([zod.string(),zod.null()]).optional()
+  "contadoPor": zod.union([zod.string(),zod.null()]).optional(),
+  "horaRegistro": zod.union([zod.string(),zod.null()]).optional()
 })
 export const addContagemLiteValidationBody = zod.array(addContagemLiteValidationBodyItem)
 
@@ -248,7 +249,62 @@ export const getEnderecoResponseItem = zod.object({
   "codigoBloqueio": zod.union([zod.string(),zod.null()]),
   "validado": zod.union([zod.boolean(),zod.null()]),
   "adicionarPor": zod.union([zod.string(),zod.null()]),
-  "contadoPor": zod.union([zod.string(),zod.null()])
+  "contadoPor": zod.union([zod.string(),zod.null()]),
+  "horaRegistro": zod.union([zod.string(),zod.null()])
 })
 export const getEnderecoResponse = zod.array(getEnderecoResponseItem)
+
+/**
+ * @summary Validar um endereço
+ */
+export const validarEnderecoParams = zod.object({
+  "endereco": zod.string().describe('Endereço da contagem lite validation'),
+  "centerId": zod.string()
+})
+
+export const validarEnderecoResponse = zod.boolean()
+
+/**
+ * @summary Adicionar uma anomalia contagem lite
+ */
+export const addAnomaliaContagemLiteParams = zod.object({
+  "centerId": zod.string(),
+  "endereco": zod.string()
+})
+
+export const addAnomaliaContagemLiteBodyQuantidadeMinOne = -2147483648;
+export const addAnomaliaContagemLiteBodyQuantidadeMaxOne = 2147483647;
+
+export const addAnomaliaContagemLiteBody = zod.object({
+  "sku": zod.union([zod.string(),zod.null()]).optional(),
+  "lote": zod.union([zod.string(),zod.null()]).optional(),
+  "quantidade": zod.union([zod.number().min(addAnomaliaContagemLiteBodyQuantidadeMinOne).max(addAnomaliaContagemLiteBodyQuantidadeMaxOne),zod.null()]).optional(),
+  "peso": zod.union([zod.string(),zod.null()]).optional(),
+  "addPor": zod.union([zod.string(),zod.null()]).optional()
+})
+
+export const addAnomaliaContagemLiteResponse = zod.boolean()
+
+/**
+ * @summary Buscar o resumo da contagem lite
+ */
+export const resumoContagemLiteParams = zod.object({
+  "centerId": zod.string().describe('ID do centro')
+})
+
+export const resumoContagemLiteResponseItem = zod.object({
+  "endereco_base": zod.string(),
+  "total_enderecos": zod.number(),
+  "enderecos_validados": zod.number()
+})
+export const resumoContagemLiteResponse = zod.array(resumoContagemLiteResponseItem)
+
+/**
+ * @summary Deletar a contagem lite
+ */
+export const deleteContagemLiteParams = zod.object({
+  "centerId": zod.string().describe('ID do centro')
+})
+
+export const deleteContagemLiteResponse = zod.boolean()
 
