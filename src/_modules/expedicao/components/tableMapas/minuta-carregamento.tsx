@@ -28,13 +28,13 @@ export function MinutaCarregamento({ itens }: MinutaCarregamentoProps) {
               <span className="mr-2 text-sm font-semibold text-gray-700 print:text-black">
                 Lacre 1:
               </span>
-              <div className="flex-grow border-b border-gray-400 print:border-black"></div>
+              <div className="grow border-b border-gray-400 print:border-black"></div>
             </div>
             <div className="flex items-end">
               <span className="mr-2 text-sm font-semibold text-gray-700 print:text-black">
                 Início:
               </span>
-              <div className="flex-grow border-b border-gray-400 print:border-black"></div>
+              <div className="grow border-b border-gray-400 print:border-black"></div>
             </div>
           </div>
 
@@ -44,13 +44,13 @@ export function MinutaCarregamento({ itens }: MinutaCarregamentoProps) {
               <span className="mr-2 text-sm font-semibold text-gray-700 print:text-black">
                 Temperatura:
               </span>
-              <div className="flex-grow border-b border-gray-400 print:border-black"></div>
+              <div className="grow border-b border-gray-400 print:border-black"></div>
             </div>
             <div className="flex items-end">
               <span className="mr-2 text-sm font-semibold text-gray-700 print:text-black">
                 Fim:
               </span>
-              <div className="flex-grow border-b border-gray-400 print:border-black"></div>
+              <div className="grow border-b border-gray-400 print:border-black"></div>
             </div>
           </div>
 
@@ -108,7 +108,7 @@ export function MinutaCarregamento({ itens }: MinutaCarregamentoProps) {
             </div>
             <div className="flex items-center pt-2">
               <span className="mr-2 font-semibold">OBS:</span>
-              <div className="mt-2 flex-grow border-b-1 border-dotted border-gray-400 print:border-black"></div>
+              <div className="mt-2 grow border-b border-dotted border-gray-400 print:border-black"></div>
             </div>
           </div>
         </div>
@@ -146,7 +146,7 @@ export function MinutaCarregamento({ itens }: MinutaCarregamentoProps) {
             </div>
             <div className="flex items-center pt-2">
               <span className="mr-2 font-semibold">OBS:</span>
-              <div className="mt-2 flex-grow border-b-1 border-dotted border-gray-400 print:border-black"></div>
+              <div className="mt-2 grow border-b border-dotted border-gray-400 print:border-black"></div>
             </div>
           </div>
         </div>

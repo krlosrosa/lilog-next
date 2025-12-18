@@ -26,23 +26,13 @@ export function TableMinuta({ itens }: MinutaCarregamentoProps) {
           <div className="space-y-4">
             <div className="flex items-end">
               <span className="mr-2 text-sm font-semibold text-gray-700 print:text-black">
-                Lacre 1:
+                Lacre:
               </span>
               <div className="grow border-b border-gray-400 print:border-black"></div>
             </div>
             <div className="flex items-end">
               <span className="mr-2 text-sm font-semibold text-gray-700 print:text-black">
                 Início:
-              </span>
-              <div className="grow border-b border-gray-400 print:border-black"></div>
-            </div>
-          </div>
-
-          {/* Coluna 2 */}
-          <div className="space-y-4">
-            <div className="flex items-end">
-              <span className="mr-2 text-sm font-semibold text-gray-700 print:text-black">
-                Temperatura:
               </span>
               <div className="grow border-b border-gray-400 print:border-black"></div>
             </div>
@@ -54,11 +44,31 @@ export function TableMinuta({ itens }: MinutaCarregamentoProps) {
             </div>
           </div>
 
+          {/* Coluna 2 */}
+          <div className="space-y-4">
+            <div className="flex items-end">
+              <span className="mr-2 text-sm font-semibold text-gray-700 print:text-black">
+                Temperatura Baú:
+              </span>
+              <div className="grow border-b border-gray-400 print:border-black"></div>
+            </div>
+            <div className="flex items-end">
+              <span className="mr-2 text-sm font-semibold text-gray-700 print:text-black">
+                Temperatura Produto:
+              </span>
+              <div className="grow border-b border-gray-400 print:border-black"></div>
+            </div>
+            {/* Campo vazio para balancear a altura com a coluna 1 */}
+            <div className="h-[28px]"></div>
+          </div>
+
           {/* Coluna 3 - Doca em Destaque */}
           <div className="flex flex-col items-center justify-center rounded-md border-2 border-gray-400 bg-gray-100 p-2 print:border-black print:bg-gray-200">
-            <label className="pb-12 text-sm font-bold text-gray-800 print:text-black">
+            <label className="text-sm font-bold text-gray-800 print:text-black">
               DOCA
             </label>
+            {/* Espaço extra para alinhar com as outras colunas */}
+            <div className="mt-4"></div>
           </div>
         </div>
       </div>

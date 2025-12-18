@@ -1,6 +1,4 @@
 import { useUser } from "@/_shared/providers/UserContext";
-import { uploadDemandamovimentacao } from "../../services/uploaddemandamovimentacao";
-import { CreateMovimentacaoDto } from "@/_services/api/model";
 import { useState } from "react";
 import { AddContagemLiteValidationMutationBody, CriarNovaMovimentacaoMutationBody } from "@/_services/api/service/movimentacao/movimentacao";
 import useCadastrarContagem, { ContagemLiteFormSchema } from "./cadastrar-contagem";
@@ -14,7 +12,7 @@ export const useContagemLite = () => {
   const [formData, setFormData] = useState<ContagemLiteFormSchema[]>([]);
   const [items, setItems] = useState<AddContagemLiteValidationMutationBody>([]);
   const { user } = useUser();
-  const [dataRef, setDataRef] = useState<string>('2025-12-15');
+  const [dataRef, setDataRef] = useState<string>('');
   const { handleCadastrarContagem } = useCadastrarContagem();
   const { deleteContagemLiteFunction, isDeletingContagemLite } = useDeleteContagemLiteMutation();
   const { statusContagem, isLoadingStatusContagem } = useStatusContagem(user?.centerSelect as string);

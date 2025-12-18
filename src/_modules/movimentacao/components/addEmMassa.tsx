@@ -1,11 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Input } from '@/_shared/_components/ui/input';
 import { Button } from '@/_shared/_components/ui/button';
 import { FileSpreadsheet, Upload, X } from 'lucide-react';
-import { uploadDemandamovimentacao } from '../services/uploaddemandamovimentacao';
-import { useMovimentacao } from '../hooks/useMovimentacao';
 
 type AddEmMassaProps = {
   handleAddItem: (event: React.ChangeEvent<HTMLInputElement>) => Promise<void>

@@ -7,16 +7,21 @@ import { Skeleton } from "@/_shared/_components/ui/skeleton";
 export default function DownloadAnomaliaExcel() {
   const { anomaliasLite, isLoadingAnomaliasLite } = useContagemLite();
 
-  if(isLoadingAnomaliasLite) return <Skeleton className="h-10 w-full" />;
-
+  
   function handleDownloadAnomaliaExcel() {
     gerarExcel(anomaliasLite || [], 'anomalias-lite');
   }
-
+  
+  if(isLoadingAnomaliasLite) return <Skeleton className="h-10 w-full" />;
   return (
-    <Button onClick={handleDownloadAnomaliaExcel} disabled={isLoadingAnomaliasLite}>
+    <div>
+      {anomaliasLite && anomaliasLite.length > 0 && (
+        <pre>{JSON.stringify(anomaliasLite, null, 2)}</pre>
+      )}
+    <Button onClick={handleDownloadAnomaliaExcel}>
       <Download className="h-4 w-4" />
       Download Anomalia Excel
     </Button>
+    </div>
   )
 }

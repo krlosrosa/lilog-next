@@ -5,6 +5,8 @@ export function useStatusContagem(centerId: string) {
     query: {
       enabled: !!centerId,
       queryKey: ['statusContagem', centerId],
+      refetchInterval: 1000 * 60,
+      refetchIntervalInBackground: true,
     },
   });
   return {
