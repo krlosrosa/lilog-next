@@ -24,6 +24,7 @@ export async function gerarMapaConferencia(
   agruparTransportes?: Groups[],
   agruparRemessas?: Groups[],
   replicar: boolean = false,
+  classificarProduto: boolean = false,  
 ): Promise<ImpressaoMapa[]> {
   const { shipments, products, routes } = input.data;
 
@@ -50,12 +51,8 @@ export async function gerarMapaConferencia(
 
   // --- Etapa 3: Alocação e Classificação ---
   itens = alocarCaixasEPaletes(itens, false);
-  itens = classificarPorCampos(itens, [
-    'id',
-    'produto.segmento',
-    'tipo',
-    'produto.pickWay',
-  ]);
+  const camposClassificacao = classificarProduto ? ['id', 'produto.segmento', 'tipo', 'produto.codItem'] : ['id', 'produto.segmento', 'tipo', 'produto.pickWay'];
+  itens = classificarPorCampos(itens, camposClassificacao);
   // --- Etapa 4: Distribuição (Quebra de Paletes) ---
 
   // --- Etapa 5: Geração do Mapa Final ---

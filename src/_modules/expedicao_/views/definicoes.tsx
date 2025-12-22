@@ -12,7 +12,7 @@ import { useConfiguracao } from "../hooks/useConfiguracao";
 
 export function DefinicoesTab({ setValueTab}: DefinicoesTabProps) {
 
-  const { isLoadingConfiguracaoImpressao, setEmpresa, empresa, setReplicar, replicar } = useConfiguracao()
+  const { isLoadingConfiguracaoImpressao, setEmpresa, empresa, setReplicar, replicar, setClassificarProduto, classificarProduto } = useConfiguracao()
 
   return (
     <div className="space-y-4">
@@ -33,6 +33,8 @@ export function DefinicoesTab({ setValueTab}: DefinicoesTabProps) {
             empresa={empresa}
             setReplicar={setReplicar}
             replicar={replicar}
+            setClassificarProduto={setClassificarProduto}
+            classificarProduto={classificarProduto}
           />
           <Agrupamento />
         </>

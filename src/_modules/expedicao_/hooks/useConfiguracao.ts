@@ -13,6 +13,9 @@ export function useConfiguracao() {
   const setReplicar = useConfiguracoesStore((state) => state.setReplicar)
   const replicar = useConfiguracoesStore((state) => state.replicar)
 
+  const setClassificarProduto = useConfiguracoesStore((state) => state.setClassificarProduto)
+  const classificarProduto = useConfiguracoesStore((state) => state.classificarProduto)
+
   useEffect(() => {
     if (configuracaoImpressaoFromDB && !isLoadingConfiguracaoImpressao) {
       setSincronizado(true)
@@ -33,6 +36,8 @@ export function useConfiguracao() {
     setConfiguracaoImpressao,
     sincronizado,
     setReplicar,
-    replicar
+    replicar,
+    setClassificarProduto,
+    classificarProduto
   }
 }

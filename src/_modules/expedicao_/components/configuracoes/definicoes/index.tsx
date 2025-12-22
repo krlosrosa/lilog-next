@@ -18,9 +18,11 @@ type ConfiguracaoGeralProps = {
   empresa: 'DPA' | 'ITB' | 'LDB';
   setReplicar: (replicar: boolean) => void;
   replicar: boolean;
+  setClassificarProduto: (classificarProduto: boolean) => void;
+  classificarProduto: boolean;
 }
 
-export function ConfiguracaoGeral({ setEmpresa, empresa, setReplicar, replicar }: ConfiguracaoGeralProps) {
+export function ConfiguracaoGeral({ setEmpresa, empresa, setReplicar, replicar, setClassificarProduto, classificarProduto }: ConfiguracaoGeralProps) {
   const [isOpen, setIsOpen] = useState(false);
   const sincronizado = useConfiguracoesStore((state) => state.sincronizado)
 
@@ -31,6 +33,8 @@ export function ConfiguracaoGeral({ setEmpresa, empresa, setReplicar, replicar }
         empresa={empresa} 
         setReplicar={setReplicar}
         replicar={replicar}
+        setClassificarProduto={setClassificarProduto}
+        classificarProduto={classificarProduto}
       />
       <Separator />
       {sincronizado ? <Collapsible>

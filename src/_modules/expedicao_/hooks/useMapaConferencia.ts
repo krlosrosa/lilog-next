@@ -21,6 +21,8 @@ export function useMapaConferencia() {
   const grupoClientes = useAgrupamentoStore(state => state.grupoClientes)
   const grupoTransportes = useAgrupamentoStore(state => state.grupoTransportes)
   const grupoRemessas = useAgrupamentoStore(state => state.grupoRemessas)
+  const setClassificarProduto = useConfiguracoesStore(state => state.setClassificarProduto)
+  const classificarProduto = useConfiguracoesStore(state => state.classificarProduto)
 
   const { addPaleteInTransporteMutation, isPending: isAddingPaleteInTransporte } = useAddPaleteInTransporte()
 
@@ -39,6 +41,7 @@ export function useMapaConferencia() {
         grupoTransportes,
         grupoRemessas,
         replicar,
+        classificarProduto,
       ),
       gerarMinutaConferencia(validationSuccess, configuracaoImpressao),
     ]);
@@ -46,7 +49,7 @@ export function useMapaConferencia() {
     setMapas(mapasRenumerados)
 
     setIsLoading(false);
-  },[configuracaoImpressao])
+  },[configuracaoImpressao, classificarProduto])
 
 
   async function addPaleteInTransporte() {
@@ -61,5 +64,6 @@ export function useMapaConferencia() {
     gerarMapaConferenciaService,
     open,
     setOpen,
+    setClassificarProduto,
   }
 }
