@@ -280,6 +280,7 @@ export const addAnomaliaContagemLiteBody = zod.object({
   "lote": zod.union([zod.string(),zod.null()]).optional(),
   "quantidade": zod.union([zod.number().min(addAnomaliaContagemLiteBodyQuantidadeMinOne).max(addAnomaliaContagemLiteBodyQuantidadeMaxOne),zod.null()]).optional(),
   "peso": zod.union([zod.string(),zod.null()]).optional(),
+  "dataReferencia": zod.union([zod.string(),zod.null()]).optional(),
   "addPor": zod.union([zod.string(),zod.null()]).optional()
 })
 

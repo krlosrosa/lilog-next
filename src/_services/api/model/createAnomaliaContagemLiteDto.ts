@@ -9,6 +9,7 @@ import type { CreateAnomaliaContagemLiteDtoSku } from './createAnomaliaContagemL
 import type { CreateAnomaliaContagemLiteDtoLote } from './createAnomaliaContagemLiteDtoLote';
 import type { CreateAnomaliaContagemLiteDtoQuantidade } from './createAnomaliaContagemLiteDtoQuantidade';
 import type { CreateAnomaliaContagemLiteDtoPeso } from './createAnomaliaContagemLiteDtoPeso';
+import type { CreateAnomaliaContagemLiteDtoDataReferencia } from './createAnomaliaContagemLiteDtoDataReferencia';
 import type { CreateAnomaliaContagemLiteDtoAddPor } from './createAnomaliaContagemLiteDtoAddPor';
 
 export interface CreateAnomaliaContagemLiteDto {
@@ -16,5 +17,6 @@ export interface CreateAnomaliaContagemLiteDto {
   lote?: CreateAnomaliaContagemLiteDtoLote;
   quantidade?: CreateAnomaliaContagemLiteDtoQuantidade;
   peso?: CreateAnomaliaContagemLiteDtoPeso;
+  dataReferencia?: CreateAnomaliaContagemLiteDtoDataReferencia;
   addPor?: CreateAnomaliaContagemLiteDtoAddPor;
 }

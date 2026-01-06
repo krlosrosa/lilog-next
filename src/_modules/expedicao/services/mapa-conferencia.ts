@@ -32,6 +32,7 @@ export async function gerarMapaConferencia(
   let itens = enriquecerItems(shipments, products, routes);
   itens = transformarQuantidadeEmUnidade(itens);
 
+  itens = definirFaixaERange(itens, config.dataMaximaPercentual || 0);
   
   // --- Etapa 2: Agrupamento e Sumarização ---
   if(replicar) {
