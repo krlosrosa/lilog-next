@@ -6,7 +6,7 @@ const categoriasValidas = ['SECA', 'REFR', 'QUEIJO'];
 export const produtoSchema = z.object({
   codItem: z.string().length(9, 'Código do item deve ter 9 caracteres'),
   descricao: z.string(),
-  shelf: z.number().min(20, 'Shelf deve ser maior que 20'),
+  shelf: z.number().min(6, 'Shelf deve ser maior que 6'),
   variavel: z.number(),
   pesoCaixa: z.number(),
   pesoUnidade: z.number(),
