@@ -55,10 +55,18 @@ export default function Transporte() {
   const { transportes, isLoading } = useGetAllTransportes(filters.dataRegistro);
   
   const todosTransportes = transportes || [];
-  const transportesSeparacao = todosTransportes.filter((item) => definirProcesso(item) === 'separacao');
-  const transportesConferencia = todosTransportes.filter((item) => definirProcesso(item) === 'conferencia');
-  const transportesCarregamento = todosTransportes.filter((item) => definirProcesso(item) === 'carregamento');
-
+  const transportesSeparacao = ordenarPorProcesso(
+    todosTransportes.filter((item) => definirProcesso(item, 'separacao') === 'separacao'),
+    'separacao'
+  );
+  const transportesConferencia = ordenarPorProcesso(
+    todosTransportes.filter((item) => definirProcesso(item, 'conferencia') === 'conferencia'),
+    'conferencia'
+  );
+  const transportesCarregamento = ordenarPorProcesso(
+    todosTransportes.filter((item) => definirProcesso(item, 'carregamento') === 'carregamento'),
+    'carregamento'
+  );
   const statsSeparacao = calcularEstatisticas(todosTransportes, todosTransportes, 'separacao');
   const statsConferencia = calcularEstatisticas(todosTransportes, todosTransportes, 'conferencia');
   const statsCarregamento = calcularEstatisticas(todosTransportes, todosTransportes, 'carregamento');
@@ -140,15 +148,59 @@ export default function Transporte() {
   )
 }
 
-function definirProcesso(transporte: ResultTransporteDtoOutput) {
-  if (transporte.separacao === ResultTransporteDtoOutputSeparacao.EM_PROGRESSO) {
-    return 'separacao';
+function definirProcesso(transporte: ResultTransporteDtoOutput, processo: 'separacao' | 'conferencia' | 'carregamento') {
+ 
+  if(processo === 'separacao') {
+    if (transporte.separacao === ResultTransporteDtoOutputSeparacao.EM_PROGRESSO) {
+      return 'separacao';
+    }
   }
-  if (transporte.conferencia === ResultTransporteDtoOutputConferencia.EM_PROGRESSO || (transporte.separacao === ResultTransporteDtoOutputSeparacao.CONCLUIDO && transporte.conferencia === ResultTransporteDtoOutputConferencia.NAO_INICIADO)) {
-    return 'conferencia';
+
+  if(processo = 'conferencia') {
+    if (transporte.conferencia === ResultTransporteDtoOutputConferencia.EM_PROGRESSO || (transporte.separacao === ResultTransporteDtoOutputSeparacao.CONCLUIDO && transporte.conferencia === ResultTransporteDtoOutputConferencia.NAO_INICIADO)) {
+      return 'conferencia';
+    }
   }
-  if (transporte.carregamento === ResultTransporteDtoOutputCarregamento.EM_PROGRESSO || (transporte.conferencia === ResultTransporteDtoOutputConferencia.CONCLUIDO && transporte.carregamento === ResultTransporteDtoOutputCarregamento.NAO_INICIADO)) {
-    return 'carregamento';
+
+  if(processo = 'carregamento') {
+    if (transporte.carregamento === ResultTransporteDtoOutputCarregamento.EM_PROGRESSO || (transporte.conferencia === ResultTransporteDtoOutputConferencia.CONCLUIDO && transporte.carregamento === ResultTransporteDtoOutputCarregamento.NAO_INICIADO)) {
+      return 'carregamento';
+    }
   }
   return null;
+}
+
+
+function pesoStatus(status: any) {
+  switch (status) {
+    case ResultTransporteDtoOutputSeparacao.NAO_INICIADO:
+    case ResultTransporteDtoOutputConferencia.NAO_INICIADO:
+    case ResultTransporteDtoOutputCarregamento.NAO_INICIADO:
+      return 3;
+
+    case ResultTransporteDtoOutputSeparacao.EM_PROGRESSO:
+    case ResultTransporteDtoOutputConferencia.EM_PROGRESSO:
+    case ResultTransporteDtoOutputCarregamento.EM_PROGRESSO:
+      return 2;
+
+    case ResultTransporteDtoOutputSeparacao.CONCLUIDO:
+    case ResultTransporteDtoOutputConferencia.CONCLUIDO:
+    case ResultTransporteDtoOutputCarregamento.CONCLUIDO:
+      return 1;
+
+    default:
+      return 0;
+  }
+}
+
+function ordenarPorProcesso(
+  lista: ResultTransporteDtoOutput[],
+  processo: 'separacao' | 'conferencia' | 'carregamento'
+) {
+  return [...lista].sort((a, b) => {
+    const statusA = a[processo];
+    const statusB = b[processo];
+
+    return pesoStatus(statusB) - pesoStatus(statusA); // DESC
+  });
 }
