@@ -41,7 +41,7 @@ const InserirItemCorte = memo(function InserirItemCorte({ item }: InserirItemCor
   const caixasCortadas = item.caixasCortadas ?? 0;
   const quantidadeOriginal = item.quantidade ?? 0;
   const caixasOriginal = item.caixas ?? 0;
-  const preenchido = quantidadeInputada === 0 && caixasInputadas === 0;
+  const preenchido = (quantidadeInputada + caixasInputadas) === 0;
 
   const quantidadeExcedida = (quantidadeInputada + quantidadeCortada) > quantidadeOriginal;
   const caixasExcedidas = (caixasInputadas + caixasCortadas) > caixasOriginal;
