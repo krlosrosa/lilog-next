@@ -28,7 +28,6 @@ export const useAddNewCenter = () => {
 
   function handleAddNewCenter(data: z.infer<typeof criarNovoCentroBody>) {
     const promise = addCentro({ data });
-
     toast.promise(promise, {
       loading: 'Salvando centro...',
       success: 'Centro salvo com sucesso!',
