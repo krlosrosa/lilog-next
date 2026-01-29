@@ -6,12 +6,12 @@ import useDemandaPorIdQuery from "./queries/demandaPorId";
 import useGetNfByIdViagem from "./queries/getNfByIdViagem";
 import useGetNfCadastradas from "./queries/getNfCadastradas";
 import useGetResultadoConferenciaQuery from "./queries/getResultadoConferencia";
-
+  
 export function useDevolucao() {
   const { user } = useUser();
   const [notaFiscal, setNotaFiscal] = useState<string | null>(null);
   const [viagemId, setViagemId] = useState<string | null>(null);
-  const [dataRef, setDataRef] = useState<string>('2025-12-23');
+  const [dataRef, setDataRef] = useState<string>('2026-01-07');
   const [demandaId, setDemandaId] = useState<string | null>(null);
   const { data, isLoading, error } = useGetInfoViagemRavex(viagemId ?? '');
   const { data: nf, isLoading: isLoadingNf } = useGetNfByIdViagem(notaFiscal ?? '', viagemId ?? '');
