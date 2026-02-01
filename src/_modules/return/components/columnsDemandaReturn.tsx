@@ -167,7 +167,7 @@ export const columnsDemandaReturn: ColumnDef<ListarDemandasDto>[] = [
           <Button 
             variant="outline" 
             size="sm"
-            onClick={() => router.push(`/devolucao/demanda/${id}`)}
+            onClick={() => router.push(`/return/demanda/${id}`)}
             title="Ver detalhes"
           >
             <Eye className="w-4 h-4" />

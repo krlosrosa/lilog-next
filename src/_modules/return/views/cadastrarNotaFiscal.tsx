@@ -1,13 +1,17 @@
 'use client';
 
+import { useParams, useRouter } from "next/navigation";
 import { useCadastrarNotaFiscal } from "../hooks/useCadastrarNotaFiscal";
 import { ModalViagemSearch } from "../components/ModalViagemSearch";
 import { DemandaInfoCards } from "../components/DemandaInfoCards";
 import { NotaFiscalCard } from "../components/NotaFiscalCard";
 import { ModalConfirmacaoNota } from "../components/ModalConfirmacaoNota";
-import { Loader2, FileText } from "lucide-react";
+import { Button } from "@/_shared/_components/ui/button";
+import { Loader2, FileText, ArrowLeft } from "lucide-react";
 
 export default function CadastrarNotaFiscal() {
+  const { id } = useParams();
+  const router = useRouter();
   const {
     demanda,
     isLoadingDemanda,
@@ -29,6 +33,16 @@ export default function CadastrarNotaFiscal() {
 
   return (
     <div className="w-full px-4 md:px-6 lg:px-8 space-y-6">
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => router.push(`/return/demanda/${id}`)}
+        className="gap-2 -ml-1"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Voltar
+      </Button>
+
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="space-y-1">

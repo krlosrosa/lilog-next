@@ -16,5 +16,6 @@ export interface ReturnInfoGeralRavex {
   placa: string;
   motorista: string;
   transportadora: string;
+  transporte: string;
   notas: ReturnInfoGeralRavexNotasItem[];
 }

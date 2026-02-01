@@ -42,6 +42,7 @@ export const dashDiaDiaResponse = zod.object({
   "funcionarionome": zod.union([zod.string(),zod.null()]),
   "processo": zod.union([zod.enum(['SEPARACAO', 'CARREGAMENTO', 'CONFERENCIA']),zod.null()]),
   "centerid": zod.union([zod.string(),zod.null()]),
+  "dataregistro": zod.union([zod.string(),zod.null()]),
   "periodoInicio": zod.union([zod.string(),zod.null()]),
   "periodoFim": zod.union([zod.string(),zod.null()]),
   "totalTempoPausa": zod.union([zod.string(),zod.null()]),
@@ -51,13 +52,15 @@ export const dashDiaDiaResponse = zod.object({
   "totalEnderecosVisitados": zod.union([zod.number().min(dashDiaDiaResponseTop5ProdutividadeItemTotalEnderecosVisitadosMinOne).max(dashDiaDiaResponseTop5ProdutividadeItemTotalEnderecosVisitadosMaxOne),zod.null()]),
   "tempoTrabalhado": zod.union([zod.string(),zod.null()]),
   "produtividadeCaixaPorHora": zod.union([zod.string(),zod.null()]),
-  "mediaEnderecosPorDemanda": zod.union([zod.string(),zod.null()])
+  "mediaEnderecosPorDemanda": zod.union([zod.string(),zod.null()]),
+  "segmento": zod.union([zod.string(),zod.null()])
 })),
   "bottom5Produtividade": zod.array(zod.object({
   "funcionarioid": zod.union([zod.string(),zod.null()]),
   "funcionarionome": zod.union([zod.string(),zod.null()]),
   "processo": zod.union([zod.enum(['SEPARACAO', 'CARREGAMENTO', 'CONFERENCIA']),zod.null()]),
   "centerid": zod.union([zod.string(),zod.null()]),
+  "dataregistro": zod.union([zod.string(),zod.null()]),
   "periodoInicio": zod.union([zod.string(),zod.null()]),
   "periodoFim": zod.union([zod.string(),zod.null()]),
   "totalTempoPausa": zod.union([zod.string(),zod.null()]),
@@ -67,7 +70,8 @@ export const dashDiaDiaResponse = zod.object({
   "totalEnderecosVisitados": zod.union([zod.number().min(dashDiaDiaResponseBottom5ProdutividadeItemTotalEnderecosVisitadosMinOne).max(dashDiaDiaResponseBottom5ProdutividadeItemTotalEnderecosVisitadosMaxOne),zod.null()]),
   "tempoTrabalhado": zod.union([zod.string(),zod.null()]),
   "produtividadeCaixaPorHora": zod.union([zod.string(),zod.null()]),
-  "mediaEnderecosPorDemanda": zod.union([zod.string(),zod.null()])
+  "mediaEnderecosPorDemanda": zod.union([zod.string(),zod.null()]),
+  "segmento": zod.union([zod.string(),zod.null()])
 })),
   "produtividadeProcesso": zod.array(zod.object({
   "centerid": zod.union([zod.string(),zod.null()]),
@@ -90,6 +94,7 @@ export const dashDiaDiaResponse = zod.object({
   "funcionarionome": zod.union([zod.string(),zod.null()]),
   "processo": zod.union([zod.enum(['SEPARACAO', 'CARREGAMENTO', 'CONFERENCIA']),zod.null()]),
   "centerid": zod.union([zod.string(),zod.null()]),
+  "dataregistro": zod.union([zod.string(),zod.null()]),
   "periodoInicio": zod.union([zod.string(),zod.null()]),
   "periodoFim": zod.union([zod.string(),zod.null()]),
   "totalTempoPausa": zod.union([zod.string(),zod.null()]),
@@ -99,7 +104,8 @@ export const dashDiaDiaResponse = zod.object({
   "totalEnderecosVisitados": zod.union([zod.number().min(dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalEnderecosVisitadosMinOne).max(dashDiaDiaResponseListaProdutividadePorFuncionarioItemTotalEnderecosVisitadosMaxOne),zod.null()]),
   "tempoTrabalhado": zod.union([zod.string(),zod.null()]),
   "produtividadeCaixaPorHora": zod.union([zod.string(),zod.null()]),
-  "mediaEnderecosPorDemanda": zod.union([zod.string(),zod.null()])
+  "mediaEnderecosPorDemanda": zod.union([zod.string(),zod.null()]),
+  "segmento": zod.union([zod.string(),zod.null()])
 }))
 })
 

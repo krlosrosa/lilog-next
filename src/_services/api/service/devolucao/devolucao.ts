@@ -24,6 +24,11 @@ import type {
 import type {
   AddDemandaDto,
   AddNotaDto,
+  GetAnomaliasDto,
+  GetAvariaDto,
+  GetContagemFisicaDto,
+  GetFisicoDto,
+  GetNotaByDataDto,
   GetNotasDto,
   ListarDemandasDto,
   ResultadoDemandaDto,
@@ -1726,6 +1731,1174 @@ export function useGetResultadoDemandaDevolucao<
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
   const queryOptions = getGetResultadoDemandaDevolucaoQueryOptions(id, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * @summary Buscar anomalias de devolução por data
+ */
+export const getAnomaliasByDataDevolucao = (
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<GetAnomaliasDto[]>(
+    {
+      url: `/api/devolucao/get-anomalias-by-data/${dataInicio}/${dataFim}/${centerId}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getGetAnomaliasByDataDevolucaoQueryKey = (
+  dataInicio?: string,
+  dataFim?: string,
+  centerId?: string,
+) => {
+  return [
+    `/api/devolucao/get-anomalias-by-data/${dataInicio}/${dataFim}/${centerId}`,
+  ] as const;
+};
+
+export const getGetAnomaliasByDataDevolucaoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getGetAnomaliasByDataDevolucaoQueryKey(dataInicio, dataFim, centerId);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>
+  > = ({ signal }) =>
+    getAnomaliasByDataDevolucao(
+      dataInicio,
+      dataFim,
+      centerId,
+      requestOptions,
+      signal,
+    );
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(dataInicio && dataFim && centerId),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetAnomaliasByDataDevolucaoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>
+>;
+export type GetAnomaliasByDataDevolucaoQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+export function useGetAnomaliasByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetAnomaliasByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetAnomaliasByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar anomalias de devolução por data
+ */
+
+export function useGetAnomaliasByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getAnomaliasByDataDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetAnomaliasByDataDevolucaoQueryOptions(
+    dataInicio,
+    dataFim,
+    centerId,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * @summary Buscar físico de devolução por data
+ */
+export const getFisicoByDataDevolucao = (
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<GetFisicoDto[]>(
+    {
+      url: `/api/devolucao/get-fisico-by-data/${dataInicio}/${dataFim}/${centerId}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getGetFisicoByDataDevolucaoQueryKey = (
+  dataInicio?: string,
+  dataFim?: string,
+  centerId?: string,
+) => {
+  return [
+    `/api/devolucao/get-fisico-by-data/${dataInicio}/${dataFim}/${centerId}`,
+  ] as const;
+};
+
+export const getGetFisicoByDataDevolucaoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getGetFisicoByDataDevolucaoQueryKey(dataInicio, dataFim, centerId);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getFisicoByDataDevolucao>>
+  > = ({ signal }) =>
+    getFisicoByDataDevolucao(
+      dataInicio,
+      dataFim,
+      centerId,
+      requestOptions,
+      signal,
+    );
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(dataInicio && dataFim && centerId),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetFisicoByDataDevolucaoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getFisicoByDataDevolucao>>
+>;
+export type GetFisicoByDataDevolucaoQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+export function useGetFisicoByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getFisicoByDataDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetFisicoByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getFisicoByDataDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetFisicoByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar físico de devolução por data
+ */
+
+export function useGetFisicoByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFisicoByDataDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetFisicoByDataDevolucaoQueryOptions(
+    dataInicio,
+    dataFim,
+    centerId,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * @summary Buscar avarias de devolução por ID
+ */
+export const getAvariasByIdDevolucao = (
+  id: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<GetAvariaDto[]>(
+    { url: `/api/devolucao/get-avarias-by-id/${id}`, method: 'GET', signal },
+    options,
+  );
+};
+
+export const getGetAvariasByIdDevolucaoQueryKey = (id?: string) => {
+  return [`/api/devolucao/get-avarias-by-id/${id}`] as const;
+};
+
+export const getGetAvariasByIdDevolucaoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetAvariasByIdDevolucaoQueryKey(id);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAvariasByIdDevolucao>>
+  > = ({ signal }) => getAvariasByIdDevolucao(id, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetAvariasByIdDevolucaoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAvariasByIdDevolucao>>
+>;
+export type GetAvariasByIdDevolucaoQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+export function useGetAvariasByIdDevolucao<
+  TData = Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  id: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getAvariasByIdDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetAvariasByIdDevolucao<
+  TData = Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getAvariasByIdDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetAvariasByIdDevolucao<
+  TData = Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar avarias de devolução por ID
+ */
+
+export function useGetAvariasByIdDevolucao<
+  TData = Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getAvariasByIdDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetAvariasByIdDevolucaoQueryOptions(id, options);
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * @summary Buscar notas de devolução por data
+ */
+export const getNotasByDataDevolucao = (
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<GetNotaByDataDto[]>(
+    {
+      url: `/api/devolucao/get-notas-by-data/${dataInicio}/${dataFim}/${centerId}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getGetNotasByDataDevolucaoQueryKey = (
+  dataInicio?: string,
+  dataFim?: string,
+  centerId?: string,
+) => {
+  return [
+    `/api/devolucao/get-notas-by-data/${dataInicio}/${dataFim}/${centerId}`,
+  ] as const;
+};
+
+export const getGetNotasByDataDevolucaoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getGetNotasByDataDevolucaoQueryKey(dataInicio, dataFim, centerId);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getNotasByDataDevolucao>>
+  > = ({ signal }) =>
+    getNotasByDataDevolucao(
+      dataInicio,
+      dataFim,
+      centerId,
+      requestOptions,
+      signal,
+    );
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(dataInicio && dataFim && centerId),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetNotasByDataDevolucaoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getNotasByDataDevolucao>>
+>;
+export type GetNotasByDataDevolucaoQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+export function useGetNotasByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getNotasByDataDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetNotasByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getNotasByDataDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetNotasByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar notas de devolução por data
+ */
+
+export function useGetNotasByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getNotasByDataDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetNotasByDataDevolucaoQueryOptions(
+    dataInicio,
+    dataFim,
+    centerId,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * @summary Buscar contagem física de devolução por data
+ */
+export const getContagemFisicaByDataDevolucao = (
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<GetContagemFisicaDto[]>(
+    {
+      url: `/api/devolucao/get-contagem-fisica-by-data/${dataInicio}/${dataFim}/${centerId}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getGetContagemFisicaByDataDevolucaoQueryKey = (
+  dataInicio?: string,
+  dataFim?: string,
+  centerId?: string,
+) => {
+  return [
+    `/api/devolucao/get-contagem-fisica-by-data/${dataInicio}/${dataFim}/${centerId}`,
+  ] as const;
+};
+
+export const getGetContagemFisicaByDataDevolucaoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getGetContagemFisicaByDataDevolucaoQueryKey(dataInicio, dataFim, centerId);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>
+  > = ({ signal }) =>
+    getContagemFisicaByDataDevolucao(
+      dataInicio,
+      dataFim,
+      centerId,
+      requestOptions,
+      signal,
+    );
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(dataInicio && dataFim && centerId),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetContagemFisicaByDataDevolucaoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>
+>;
+export type GetContagemFisicaByDataDevolucaoQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+export function useGetContagemFisicaByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetContagemFisicaByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetContagemFisicaByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar contagem física de devolução por data
+ */
+
+export function useGetContagemFisicaByDataDevolucao<
+  TData = Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicio: string,
+  dataFim: string,
+  centerId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getContagemFisicaByDataDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetContagemFisicaByDataDevolucaoQueryOptions(
+    dataInicio,
+    dataFim,
+    centerId,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * @summary Buscar fotos do checklist de devolução por ID da demanda
+ */
+export const getFotosCheckListDevolucao = (
+  demandaId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<string[]>(
+    {
+      url: `/api/devolucao/get-fotos-check-list/${demandaId}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getGetFotosCheckListDevolucaoQueryKey = (demandaId?: string) => {
+  return [`/api/devolucao/get-fotos-check-list/${demandaId}`] as const;
+};
+
+export const getGetFotosCheckListDevolucaoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  demandaId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetFotosCheckListDevolucaoQueryKey(demandaId);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getFotosCheckListDevolucao>>
+  > = ({ signal }) =>
+    getFotosCheckListDevolucao(demandaId, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!demandaId,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetFotosCheckListDevolucaoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getFotosCheckListDevolucao>>
+>;
+export type GetFotosCheckListDevolucaoQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+export function useGetFotosCheckListDevolucao<
+  TData = Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  demandaId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getFotosCheckListDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetFotosCheckListDevolucao<
+  TData = Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  demandaId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getFotosCheckListDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetFotosCheckListDevolucao<
+  TData = Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  demandaId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar fotos do checklist de devolução por ID da demanda
+ */
+
+export function useGetFotosCheckListDevolucao<
+  TData = Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  demandaId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFotosCheckListDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetFotosCheckListDevolucaoQueryOptions(
+    demandaId,
+    options,
+  );
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<
     TData,

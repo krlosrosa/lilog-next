@@ -1,11 +1,15 @@
 'use client';
+
+import { useState } from "react";
 import { Button } from "@/_shared/_components/ui/button";
+import { Input } from "@/_shared/_components/ui/input";
 import ListarCortePendentesAdm from "../listarCortePendentesAdm";
-import { Plus } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function PendenciasCortes() {
   const router = useRouter();
+  const [filter, setFilter] = useState("");
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-6 max-w-7xl">
@@ -26,9 +30,20 @@ export default function PendenciasCortes() {
             </Button>
           </div>
 
+          {/* Filtro */}
+          <div className="relative max-w-sm">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Filtrar por transporte ou SKU"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              className="pl-9"
+            />
+          </div>
+
           {/* Conteúdo */}
           <div className="transition-all duration-300 ease-in-out">
-            <ListarCortePendentesAdm />
+            <ListarCortePendentesAdm filter={filter} />
           </div>
         </div>
       </div>

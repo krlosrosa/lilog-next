@@ -13,6 +13,7 @@ import { Loader2, CheckCircle2, Printer, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/_shared/_components/ui/card";
 import { AssinaturasFinalizacao } from "../components/AssinaturasFinalizacao";
+import CheckListRecuperacao from "./checkListRecuperacao";
 
 export default function FinalizarDemandaView() {
   const router = useRouter();
@@ -30,7 +31,14 @@ export default function FinalizarDemandaView() {
   const { handleFinalizarDemanda, isFinalizandoDemanda } = useFinalizarDemandaReturn();
   const handlePrint = usePrintDevolucao({ printRef });
 
+  const isFinalizado = demanda?.status === 'FINALIZADO';
+
   const handleFinalizar = () => {
+    // Se já estiver finalizado, não faz nada (apenas navegação)
+    if (isFinalizado) {
+      return;
+    }
+    
     if (demandaId) {
       handleFinalizarDemanda(demandaId);
     }
@@ -68,8 +76,9 @@ export default function FinalizarDemandaView() {
           </Button>
           <Button
             onClick={handleFinalizar}
-            disabled={isFinalizandoDemanda || !demandaId}
+            disabled={isFinalizandoDemanda || !demandaId || isFinalizado}
             className="gap-2"
+            variant={isFinalizado ? "outline" : "default"}
           >
             {isFinalizandoDemanda ? (
               <>
@@ -79,7 +88,7 @@ export default function FinalizarDemandaView() {
             ) : (
               <>
                 <CheckCircle2 className="h-4 w-4" />
-                Finalizar Demanda
+                {isFinalizado ? 'Demanda Finalizada' : 'Finalizar Demanda'}
               </>
             )}
           </Button>
@@ -99,34 +108,49 @@ export default function FinalizarDemandaView() {
       )}
 
       {/* Conteúdo Principal - Área de Impressão */}
-      {resultadoConferencia && !isLoadingResultado && (
+      {demandaId && !isLoadingDemanda && (
         <div ref={printRef} className="print:p-0 print:m-0">
           <Tabs defaultValue="conferencia" className="w-full print:m-0 print:p-0">
-            <TabsList className="grid w-full max-w-md grid-cols-2 no-print">
+            <TabsList className="grid w-full max-w-2xl grid-cols-3 no-print">
               <TabsTrigger value="conferencia">Conferência</TabsTrigger>
               <TabsTrigger value="anomalias">Anomalias</TabsTrigger>
+              <TabsTrigger value="checkListRecuperacao">Check List de Recuperação</TabsTrigger>
             </TabsList>
 
             {/* Tab Conferência */}
-            <TabsContent value="conferencia" className="space-y-6 mt-6 print:mt-0 print:space-y-4 print:p-0 print:m-0">
-              {/* Container para Header e Tabela - Sempre juntos na impressão */}
-              <div className="print:break-inside-avoid print:mb-0">
-                {/* Header com Informações */}
-                <HeaderResultadoReturn 
-                  resultadoConferencia={resultadoConferencia}
-                  statusConferencia={statusConferencia}
-                />
+            {resultadoConferencia && !isLoadingResultado ? (
+              <TabsContent value="conferencia" className="space-y-6 mt-6 print:mt-0 print:space-y-4 print:p-0 print:m-0">
+                {/* Container para Header e Tabela - Sempre juntos na impressão */}
+                <div className="print:break-inside-avoid print:mb-0">
+                  {/* Header com Informações */}
+                  <HeaderResultadoReturn 
+                    resultadoConferencia={resultadoConferencia}
+                    statusConferencia={statusConferencia}
+                  />
 
-                {/* Tabela de Itens */}
-                <DataTableItensResultReturn 
-                  columns={columnsItensResultReturn} 
-                  data={resultadoConferencia?.itens ?? []} 
-                />
-              </div>
+                  {/* Tabela de Itens */}
+                  <DataTableItensResultReturn 
+                    columns={columnsItensResultReturn} 
+                    data={resultadoConferencia?.itens ?? []} 
+                  />
+                </div>
 
-              {/* Assinaturas */}
-              <AssinaturasFinalizacao />
-            </TabsContent>
+                {/* Assinaturas */}
+                <AssinaturasFinalizacao />
+              </TabsContent>
+            ) : (
+              <TabsContent value="conferencia" className="space-y-6 mt-6 no-print">
+                <Card>
+                  <CardContent className="flex items-center justify-center py-12">
+                    <div className="text-center space-y-2">
+                      <p className="text-muted-foreground">
+                        Nenhum resultado de conferência encontrado
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            )}
 
             {/* Tab Anomalias */}
             <TabsContent value="anomalias" className="space-y-6 mt-6 no-print">
@@ -151,22 +175,15 @@ export default function FinalizarDemandaView() {
                 </CardContent>
               </Card>
             </TabsContent>
+
+            {/* Tab Check List de Recuperação */}
+            <TabsContent value="checkListRecuperacao" className="space-y-6 mt-6 print:mt-0 print:space-y-4 print:p-0 print:m-0">
+              <CheckListRecuperacao />
+            </TabsContent>
           </Tabs>
         </div>
       )}
 
-      {/* Estado quando não há resultado */}
-      {!resultadoConferencia && !isLoadingResultado && !isLoadingDemanda && (
-        <Card className="no-print">
-          <CardContent className="flex items-center justify-center py-12">
-            <div className="text-center space-y-2">
-              <p className="text-muted-foreground">
-                Nenhum resultado de conferência encontrado
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 }

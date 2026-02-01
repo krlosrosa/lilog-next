@@ -17,6 +17,7 @@ import type { ListarDemandasDtoInicioConferenciaEm } from './listarDemandasDtoIn
 import type { ListarDemandasDtoFimConferenciaEm } from './listarDemandasDtoFimConferenciaEm';
 import type { ListarDemandasDtoFinalizadoEm } from './listarDemandasDtoFinalizadoEm';
 import type { ListarDemandasDtoViagemId } from './listarDemandasDtoViagemId';
+import type { ListarDemandasDtoTransporte } from './listarDemandasDtoTransporte';
 
 export interface ListarDemandasDto {
   /**
@@ -44,4 +45,5 @@ export interface ListarDemandasDto {
   finalizadoEm: ListarDemandasDtoFinalizadoEm;
   senha: string;
   viagemId: ListarDemandasDtoViagemId;
+  transporte: ListarDemandasDtoTransporte;
 }

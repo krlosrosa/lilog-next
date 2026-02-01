@@ -23,4 +23,6 @@ export interface AddDemandaDto {
   paletesRetorno: number;
   /** Qual doca o carro vai ser descarregado */
   doca: string;
+  /** Qual transporte o carro vai ser descarregado */
+  transporte: string;
 }

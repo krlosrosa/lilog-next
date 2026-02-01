@@ -28,6 +28,7 @@ export function useCadastroDemandaDevolucao() {
       telefone: '',
       cargaSegregada: false,
       paletesRetorno: 0,
+      transporte: '',
       doca: '',
     },
   });
@@ -38,6 +39,7 @@ export function useCadastroDemandaDevolucao() {
       form.setValue('placa', infoViagem.placa);
       form.setValue('motorista', infoViagem.motorista);
       form.setValue('idTransportadora', infoViagem.transportadora);
+      form.setValue('transporte', infoViagem.transporte);
       form.setValue('viagemId', infoViagem.idViagem);
     }
   }, [infoViagem, form]);

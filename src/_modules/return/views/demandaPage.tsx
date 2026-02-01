@@ -2,7 +2,7 @@
 
 import { useDemandaReturn } from "../hooks/useDemandaReturn";
 import { DemandaHeader } from "../components/DemandaHeader";
-import { DemandaActions } from "../components/DemandaActions";
+
 import { ViagemInfo } from "../components/ViagemInfo";
 import { NotasFiscaisList } from "../components/NotasFiscaisList";
 import { ModalRemoverNota } from "../components/ModalRemoverNota";
@@ -12,6 +12,7 @@ import { Button } from "@/_shared/_components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { GetNotasDto } from "@/_services/api/model";
+import AcoesDemanda from "../components/acoesDemanda";
 
 export default function DemandaReturnPage() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function DemandaReturnPage() {
     demanda,
     isLoadingDemanda,
     notasCadastradas,
+    
     isLoadingNotas,
     infoViagem,
     isLoadingViagem,
@@ -81,11 +83,7 @@ export default function DemandaReturnPage() {
         <>
           {/* Ações da Demanda - No topo */}
           <div className="flex items-center justify-end">
-            <DemandaActions 
-              demandaId={demanda.id?.toString() || ''} 
-              demanda={demanda}
-              notasCadastradas={notasCadastradas}
-            />
+            <AcoesDemanda demandaId={demanda.id.toString()} demanda={demanda} />
           </div>
 
           <DemandaHeader demanda={demanda} />

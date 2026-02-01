@@ -16,6 +16,8 @@ export interface ResultadoDemandaDto {
   doca: string;
   criadoPor: string;
   conferente: string;
+  temperaturaBau: number;
+  temperaturaProduto: number;
   criadoEm: string;
   LiberadoParaConferenciaEm: string;
   InicioConferenciaEm: string;
@@ -23,6 +25,7 @@ export interface ResultadoDemandaDto {
   FinalizadoEm: string;
   Status: string;
   FechouComAnomalia: boolean;
+  transporte: string;
   notas: ResultadoDemandaDtoNotasItem[];
   itens: ResultadoDemandaDtoItensItem[];
 }

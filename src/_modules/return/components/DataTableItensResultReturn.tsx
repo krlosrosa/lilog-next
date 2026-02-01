@@ -25,6 +25,8 @@ interface DataTableProps<TData, TValue> {
 interface ResultadoDemandaDtoItensItem {
   saldoCaixas?: number;
   saldoUnidades?: number;
+  avariaCaixas?: number;
+  avariaUnidades?: number;
 }
 
 export function DataTableItensResultReturn<TData, TValue>({  
@@ -70,9 +72,25 @@ export function DataTableItensResultReturn<TData, TValue>({
   if (totalSobraUnidades > 0) partesSobra.push(`+${totalSobraUnidades}un`);
   const textoSobra = partesSobra.length > 0 ? partesSobra.join(' | ') : '-';
 
+  // Calcular total de avaria
+  const totalAvariaCaixas = (data as ResultadoDemandaDtoItensItem[]).reduce((acc, item) => {
+    return acc + (item.avariaCaixas ?? 0);
+  }, 0);
+
+  const totalAvariaUnidades = (data as ResultadoDemandaDtoItensItem[]).reduce((acc, item) => {
+    return acc + (item.avariaUnidades ?? 0);
+  }, 0);
+
+  // Formatar avaria
+  const partesAvaria: string[] = [];
+  if (totalAvariaCaixas > 0) partesAvaria.push(`${totalAvariaCaixas}cx`);
+  if (totalAvariaUnidades > 0) partesAvaria.push(`${totalAvariaUnidades}un`);
+  const textoAvaria = partesAvaria.length > 0 ? partesAvaria.join(' | ') : '-';
+
   const temFalta = totalFaltaCaixas > 0 || totalFaltaUnidades > 0;
   const temSobra = totalSobraCaixas > 0 || totalSobraUnidades > 0;
-  const temDivergencia = temFalta || temSobra;
+  const temAvaria = totalAvariaCaixas > 0 || totalAvariaUnidades > 0;
+  const temDivergencia = temFalta || temSobra || temAvaria;
 
   return (
     <div className="border-2 border-slate-800">
@@ -146,6 +164,22 @@ export function DataTableItensResultReturn<TData, TValue>({
                     </div>
                   </TableCell>
                   <TableCell className="py-1.5 px-2 text-[10px] text-center"></TableCell>
+                </TableRow>
+              )}
+              {/* Linha de Total - Avaria */}
+              {(temFalta || temSobra || temAvaria) && (
+                <TableRow className="bg-slate-100 font-bold">
+                  <TableCell colSpan={6} className="py-1.5 px-2 text-[10px] text-right border-r border-slate-300 font-bold">
+                    TOTAL AVARIA:
+                  </TableCell>
+                  <TableCell className="py-1.5 px-2 text-[10px] text-center border-r border-slate-300"></TableCell>
+                  <TableCell className="py-1.5 px-2 text-[10px] text-center">
+                    <div className={`font-bold ${
+                      temAvaria ? 'text-orange-600' : 'text-gray-400'
+                    }`}>
+                      {textoAvaria}
+                    </div>
+                  </TableCell>
                 </TableRow>
               )}
             </>

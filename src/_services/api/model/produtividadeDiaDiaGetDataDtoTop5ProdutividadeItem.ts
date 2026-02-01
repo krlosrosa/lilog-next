@@ -9,6 +9,7 @@ import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemFuncionarioid } 
 import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemFuncionarionome } from './produtividadeDiaDiaGetDataDtoTop5ProdutividadeItemFuncionarionome';
 import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemProcesso } from './produtividadeDiaDiaGetDataDtoTop5ProdutividadeItemProcesso';
 import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemCenterid } from './produtividadeDiaDiaGetDataDtoTop5ProdutividadeItemCenterid';
+import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemDataregistro } from './produtividadeDiaDiaGetDataDtoTop5ProdutividadeItemDataregistro';
 import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemPeriodoInicio } from './produtividadeDiaDiaGetDataDtoTop5ProdutividadeItemPeriodoInicio';
 import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemPeriodoFim } from './produtividadeDiaDiaGetDataDtoTop5ProdutividadeItemPeriodoFim';
 import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemTotalTempoPausa } from './produtividadeDiaDiaGetDataDtoTop5ProdutividadeItemTotalTempoPausa';
@@ -19,12 +20,14 @@ import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemTotalEnderecosVi
 import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemTempoTrabalhado } from './produtividadeDiaDiaGetDataDtoTop5ProdutividadeItemTempoTrabalhado';
 import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemProdutividadeCaixaPorHora } from './produtividadeDiaDiaGetDataDtoTop5ProdutividadeItemProdutividadeCaixaPorHora';
 import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemMediaEnderecosPorDemanda } from './produtividadeDiaDiaGetDataDtoTop5ProdutividadeItemMediaEnderecosPorDemanda';
+import type { ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemSegmento } from './produtividadeDiaDiaGetDataDtoTop5ProdutividadeItemSegmento';
 
 export type ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItem = {
   funcionarioid: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemFuncionarioid;
   funcionarionome: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemFuncionarionome;
   processo: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemProcesso;
   centerid: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemCenterid;
+  dataregistro: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemDataregistro;
   periodoInicio: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemPeriodoInicio;
   periodoFim: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemPeriodoFim;
   totalTempoPausa: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemTotalTempoPausa;
@@ -35,4 +38,5 @@ export type ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItem = {
   tempoTrabalhado: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemTempoTrabalhado;
   produtividadeCaixaPorHora: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemProdutividadeCaixaPorHora;
   mediaEnderecosPorDemanda: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemMediaEnderecosPorDemanda;
+  segmento: ProdutividadeDiaDiaGetDataDtoTop5ProdutividadeItemSegmento;
 };

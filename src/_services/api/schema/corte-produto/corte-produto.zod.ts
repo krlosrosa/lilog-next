@@ -115,6 +115,13 @@ export const confirmarCorteDeProdutoParams = zod.object({
 })
 
 /**
+ * @summary Deletar corte de produto
+ */
+export const deletarCorteDeProdutoParams = zod.object({
+  "id": zod.string()
+})
+
+/**
  * @summary Confirmar corte de produto por transporte
  */
 export const confirmarCorteDeProdutoPorTransporteParams = zod.object({

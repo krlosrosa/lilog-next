@@ -24,6 +24,7 @@ export const getInfoByViagemIdResponse = zod.object({
   "placa": zod.string().min(getInfoByViagemIdResponsePlacaMin).max(getInfoByViagemIdResponsePlacaMax),
   "motorista": zod.string(),
   "transportadora": zod.string(),
+  "transporte": zod.string(),
   "notas": zod.array(zod.object({
   "tipo": zod.enum(['DEVOLUCAO', 'DEVOLUCAO_PARCIAL', 'REENTREGA']),
   "notaFiscal": zod.string(),
@@ -61,7 +62,8 @@ export const addDemandaDevolucaoBody = zod.object({
   "telefone": zod.string().describe('Telefone Motorista'),
   "cargaSegregada": zod.boolean().describe('Existe carga segregada'),
   "paletesRetorno": zod.number().describe('Quantos paletes estão sendo retornados'),
-  "doca": zod.string().describe('Qual doca o carro vai ser descarregado')
+  "doca": zod.string().describe('Qual doca o carro vai ser descarregado'),
+  "transporte": zod.string().describe('Qual transporte o carro vai ser descarregado')
 })
 
 export const addDemandaDevolucaoResponse = zod.string()
@@ -99,7 +101,8 @@ export const listarDemandasDevolucaoResponseItem = zod.object({
   "fimConferenciaEm": zod.union([zod.string(),zod.null()]),
   "finalizadoEm": zod.union([zod.string(),zod.null()]),
   "senha": zod.string(),
-  "viagemId": zod.union([zod.string(),zod.null()])
+  "viagemId": zod.union([zod.string(),zod.null()]),
+  "transporte": zod.union([zod.string(),zod.null()])
 })
 export const listarDemandasDevolucaoResponse = zod.array(listarDemandasDevolucaoResponseItem)
 
@@ -135,7 +138,8 @@ export const getDemandaByIdDevolucaoResponse = zod.object({
   "fimConferenciaEm": zod.union([zod.string(),zod.null()]),
   "finalizadoEm": zod.union([zod.string(),zod.null()]),
   "senha": zod.string(),
-  "viagemId": zod.union([zod.string(),zod.null()])
+  "viagemId": zod.union([zod.string(),zod.null()]),
+  "transporte": zod.union([zod.string(),zod.null()])
 })
 
 /**
@@ -262,6 +266,8 @@ export const getResultadoDemandaDevolucaoResponse = zod.object({
   "doca": zod.string(),
   "criadoPor": zod.string(),
   "conferente": zod.string(),
+  "temperaturaBau": zod.number(),
+  "temperaturaProduto": zod.number(),
   "criadoEm": zod.string(),
   "LiberadoParaConferenciaEm": zod.string(),
   "InicioConferenciaEm": zod.string(),
@@ -269,6 +275,7 @@ export const getResultadoDemandaDevolucaoResponse = zod.object({
   "FinalizadoEm": zod.string(),
   "Status": zod.string(),
   "FechouComAnomalia": zod.boolean(),
+  "transporte": zod.string(),
   "notas": zod.array(zod.object({
   "notaFiscal": zod.string(),
   "notaFiscalParcial": zod.string(),
@@ -289,4 +296,132 @@ export const getResultadoDemandaDevolucaoResponse = zod.object({
   "avariaUnidades": zod.number()
 }))
 })
+
+/**
+ * @summary Buscar anomalias de devolução por data
+ */
+export const getAnomaliasByDataDevolucaoParams = zod.object({
+  "dataInicio": zod.string(),
+  "dataFim": zod.string(),
+  "centerId": zod.string()
+})
+
+export const getAnomaliasByDataDevolucaoResponseItem = zod.object({
+  "data": zod.string(),
+  "id": zod.number(),
+  "nfs": zod.string(),
+  "placa": zod.string(),
+  "transportadora": zod.string(),
+  "sku": zod.string(),
+  "descricao": zod.string(),
+  "caixas": zod.number(),
+  "unidades": zod.number(),
+  "status": zod.enum(['SOBRA', 'FALTA', 'AVARIA']),
+  "obs": zod.string()
+})
+export const getAnomaliasByDataDevolucaoResponse = zod.array(getAnomaliasByDataDevolucaoResponseItem)
+
+/**
+ * @summary Buscar físico de devolução por data
+ */
+export const getFisicoByDataDevolucaoParams = zod.object({
+  "dataInicio": zod.string(),
+  "dataFim": zod.string(),
+  "centerId": zod.string()
+})
+
+export const getFisicoByDataDevolucaoResponseItem = zod.object({
+  "data": zod.string(),
+  "id": zod.number(),
+  "sku": zod.string(),
+  "lote": zod.string(),
+  "descricao": zod.string(),
+  "caixas": zod.number(),
+  "unidades": zod.number(),
+  "avariaCaixas": zod.number(),
+  "avariaUnidades": zod.number(),
+  "saldoCaixas": zod.number(),
+  "saldoUnidades": zod.number()
+})
+export const getFisicoByDataDevolucaoResponse = zod.array(getFisicoByDataDevolucaoResponseItem)
+
+/**
+ * @summary Buscar avarias de devolução por ID
+ */
+export const getAvariasByIdDevolucaoParams = zod.object({
+  "id": zod.string()
+})
+
+export const getAvariasByIdDevolucaoResponseItem = zod.object({
+  "data": zod.string(),
+  "id": zod.number(),
+  "demandaId": zod.number(),
+  "placa": zod.string(),
+  "transportadora": zod.string(),
+  "sku": zod.string(),
+  "lote": zod.string(),
+  "descricao": zod.string(),
+  "avaria": zod.string(),
+  "quantidadeCaixas": zod.number(),
+  "quantidadeUnidades": zod.number(),
+  "urls": zod.union([zod.array(zod.string()),zod.null()]).optional()
+})
+export const getAvariasByIdDevolucaoResponse = zod.array(getAvariasByIdDevolucaoResponseItem)
+
+/**
+ * @summary Buscar notas de devolução por data
+ */
+export const getNotasByDataDevolucaoParams = zod.object({
+  "dataInicio": zod.string(),
+  "dataFim": zod.string(),
+  "centerId": zod.string()
+})
+
+export const getNotasByDataDevolucaoResponseItem = zod.object({
+  "data": zod.string(),
+  "demandaId": zod.number(),
+  "notaFiscal": zod.string(),
+  "notaFiscalParcial": zod.string(),
+  "motivoDevolucao": zod.string(),
+  "statusDemanda": zod.string(),
+  "placa": zod.string(),
+  "transportadora": zod.string(),
+  "conferente": zod.string()
+})
+export const getNotasByDataDevolucaoResponse = zod.array(getNotasByDataDevolucaoResponseItem)
+
+/**
+ * @summary Buscar contagem física de devolução por data
+ */
+export const getContagemFisicaByDataDevolucaoParams = zod.object({
+  "dataInicio": zod.string(),
+  "dataFim": zod.string(),
+  "centerId": zod.string()
+})
+
+export const getContagemFisicaByDataDevolucaoResponseItem = zod.object({
+  "idemanda": zod.number(),
+  "sku": zod.string(),
+  "descricao": zod.string(),
+  "lote": zod.union([zod.string(),zod.null()]).optional(),
+  "centerId": zod.union([zod.number(),zod.string()]),
+  "quantidadeCaixas": zod.number(),
+  "quantidadeUnidades": zod.number(),
+  "quantidadeCaixasAvariadas": zod.number(),
+  "quantidadeUnidadesAvariadas": zod.number(),
+  "diferencaCaixas": zod.number(),
+  "diferencaUnidades": zod.number(),
+  "data_criacao": zod.string()
+})
+export const getContagemFisicaByDataDevolucaoResponse = zod.array(getContagemFisicaByDataDevolucaoResponseItem)
+
+/**
+ * @summary Buscar fotos do checklist de devolução por ID da demanda
+ */
+export const getFotosCheckListDevolucaoParams = zod.object({
+  "demandaId": zod.string()
+})
+
+export const getFotosCheckListDevolucaoResponseItem = zod.string()
+export const getFotosCheckListDevolucaoResponse = zod.array(getFotosCheckListDevolucaoResponseItem)
 

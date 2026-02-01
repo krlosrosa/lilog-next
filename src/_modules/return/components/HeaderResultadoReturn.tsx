@@ -5,11 +5,15 @@ import { AlertTriangle, Calendar, CheckCircle2, Clock, FileText, Package, Truck,
 import { Badge } from "@/_shared/_components/ui/badge";
 
 interface HeaderResultadoReturnProps {
-  resultadoConferencia: ResultadoDemandaDto;
+  resultadoConferencia?: ResultadoDemandaDto | null;
   statusConferencia: string;
 }
 
 export function HeaderResultadoReturn({ resultadoConferencia, statusConferencia }: HeaderResultadoReturnProps) {
+  // Verificação de segurança
+  if (!resultadoConferencia) {
+    return null;
+  }
   const formatDate = (dateString?: string) => {
     if (!dateString) return '-';
     return new Date(dateString).toLocaleString('pt-BR', {
@@ -32,6 +36,11 @@ export function HeaderResultadoReturn({ resultadoConferencia, statusConferencia 
       default:
         return 'outline';
     }
+  };
+
+  const formatTemperature = (temp?: number | null): string => {
+    if (temp === null || temp === undefined) return '-';
+    return `${temp}°C`;
   };
 
   return (
@@ -76,6 +85,8 @@ export function HeaderResultadoReturn({ resultadoConferencia, statusConferencia 
             <InfoItem label="Motorista" value={resultadoConferencia.motorista} />
             <InfoItem label="Transportadora" value={resultadoConferencia.transportadora} />
             <InfoItem label="Doca" value={resultadoConferencia.doca} />
+            <InfoItem label="Temperatura do Baú" value={formatTemperature(resultadoConferencia.temperaturaBau)} />
+            <InfoItem label="Temperatura do Produto" value={formatTemperature(resultadoConferencia.temperaturaProduto)} />
           </div>
         </div>
 

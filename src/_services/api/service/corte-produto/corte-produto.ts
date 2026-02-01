@@ -591,6 +591,92 @@ export const useConfirmarCorteDeProduto = <
   return useMutation(mutationOptions, queryClient);
 };
 /**
+ * @summary Deletar corte de produto
+ */
+export const deletarCorteDeProduto = (
+  id: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+) => {
+  return axiosFetcher<void>(
+    { url: `/api/corte-produto/${id}`, method: 'DELETE' },
+    options,
+  );
+};
+
+export const getDeletarCorteDeProdutoMutationOptions = <
+  TError = ErrorType<void | void | void | void | void | void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deletarCorteDeProduto>>,
+    TError,
+    { id: string },
+    TContext
+  >;
+  request?: SecondParameter<typeof axiosFetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deletarCorteDeProduto>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationKey = ['deletarCorteDeProduto'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deletarCorteDeProduto>>,
+    { id: string }
+  > = (props) => {
+    const { id } = props ?? {};
+
+    return deletarCorteDeProduto(id, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type DeletarCorteDeProdutoMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deletarCorteDeProduto>>
+>;
+
+export type DeletarCorteDeProdutoMutationError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+/**
+ * @summary Deletar corte de produto
+ */
+export const useDeletarCorteDeProduto = <
+  TError = ErrorType<void | void | void | void | void | void>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof deletarCorteDeProduto>>,
+      TError,
+      { id: string },
+      TContext
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof deletarCorteDeProduto>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationOptions = getDeletarCorteDeProdutoMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
  * @summary Confirmar corte de produto por transporte
  */
 export const confirmarCorteDeProdutoPorTransporte = (

@@ -2,9 +2,11 @@ import {
   AlertCircle,
   ArrowLeftRight,
   Calendar,
+  FileSpreadsheet,
   FileText,
   Home,
   Inbox,
+  Info,
   LayoutDashboardIcon,
   List,
   LogOut,
@@ -141,8 +143,20 @@ export const itemsSideBar = [
     child: [
       {
         title: 'Devolucao',
-        url: '/devolucao',
+        url: '/return',
         icon: ArrowLeftRight,
+        recurso: 'devolucao',
+      },
+      {
+        title: 'Relatórios',
+        url: '/return/relatorios',
+        icon: FileSpreadsheet,
+        recurso: 'devolucao',
+      },
+      {
+        title: 'Info Demanda',
+        url: '/return/info',
+        icon: Info,
         recurso: 'devolucao',
       },
     ],

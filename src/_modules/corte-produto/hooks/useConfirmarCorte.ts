@@ -12,7 +12,7 @@ export default function useConfirmarCorte() {
     mutation: {
       onSuccess: () => {
         setOpen(false);
-        queryClient.invalidateQueries({ queryKey: ['buscarCortesAberto'] });
+        queryClient.invalidateQueries({ queryKey: ['cortes-produto'] });
       },
     },
   });

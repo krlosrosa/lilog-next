@@ -1,14 +1,16 @@
 'use client';
 
-import FloatButton from "@/_shared/_components/ui/floatButton";
 import { useOverViewDevolucao } from "../hooks/useOverViewDevolucao";
 import { DateSelector } from "../components/DateSelector";
 import { StatsCards } from "../components/StatsCards";
 import { DemandasFilters } from "../components/DemandasFilters";
 import { DemandasTable } from "../components/DemandasTable";
-import Link from "next/link";
+import { Button } from "@/_shared/_components/ui/button";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function OverViewDevolucao() {
+  const router = useRouter();
   const {
     demandas,
     isLoadingDemandas,
@@ -16,6 +18,8 @@ export default function OverViewDevolucao() {
     setDataRef,
     searchQuery,
     setSearchQuery,
+    statusFilter,
+    setStatusFilter,
   } = useOverViewDevolucao();
 
   return (
@@ -23,12 +27,21 @@ export default function OverViewDevolucao() {
       {/* Seletor de Data */}
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Visão Geral de Devoluções</h1>
-        <DateSelector
-          data={dataRef}
-          setData={setDataRef}
-          label=""
-          className="w-[280px]"
-        />
+        <div className="flex items-center gap-3">
+          <DateSelector
+            data={dataRef}
+            setData={setDataRef}
+            label=""
+            className="w-[280px]"
+          />
+          <Button
+            onClick={() => router.push('/return/cadastrar-demanda')}
+            className="gap-2"
+          >
+            <Plus className="h-4 w-4" />
+            Adicionar Demanda
+          </Button>
+        </div>
       </div>
 
       {/* Cards de Estatísticas */}
@@ -41,6 +54,8 @@ export default function OverViewDevolucao() {
       <DemandasFilters
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
+        statusFilter={statusFilter}
+        onStatusChange={setStatusFilter}
       />
 
       {/* Tabela de Demandas */}
@@ -49,10 +64,6 @@ export default function OverViewDevolucao() {
         isLoading={isLoadingDemandas}
         searchQuery={searchQuery}
       />
-
-      <Link href="/return/cadastrar-demanda">
-        <FloatButton />
-      </Link>
     </div>
   )
 }
