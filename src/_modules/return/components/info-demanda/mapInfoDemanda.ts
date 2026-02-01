@@ -9,7 +9,7 @@ export type AnomalyTableItem = {
   codigo: string;
   descricao: string;
   tipoAnomalia: string;
-  quantidade: number;
+  quantidade: string;
   photos: { id: string; url: string; description: string }[];
 };
 
@@ -128,7 +128,7 @@ export function mapAvariasToAnomalies(avarias: GetAvariaDto[] | undefined): Anom
     codigo: avaria.sku ?? "—",
     descricao: avaria.descricao ?? "—",
     tipoAnomalia: avaria.avaria ?? "—",
-    quantidade: avaria.quantidadeUnidades ?? 0,
+    quantidade: `${avaria.quantidadeCaixas} cx | ${avaria.quantidadeUnidades} un`,
     photos: (avaria.urls ?? []).map((url, i) => ({
       id: `${avaria.id}-${i}`,
       url,

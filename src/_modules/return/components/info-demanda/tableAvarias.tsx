@@ -26,7 +26,7 @@ interface Anomaly {
   codigo: string;
   descricao: string;
   tipoAnomalia: string;
-  quantidade: number;
+  quantidade: string;
   photos: AnomalyPhoto[];
 }
 
