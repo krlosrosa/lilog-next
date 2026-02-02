@@ -96,6 +96,13 @@ export function DemandaHeader({ demanda }: DemandaHeaderProps) {
                 </div>
               </div>
               <div className="flex items-center gap-3">
+                <User className="h-4 w-4 text-muted-foreground shrink-0" />
+                <div>
+                  <p className="text-xs text-muted-foreground">ConferenteId</p>
+                  <p className="text-sm font-semibold">{demanda.conferenteId}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
                 <Building className="h-4 w-4 text-muted-foreground shrink-0" />
                 <div>
                   <p className="text-xs text-muted-foreground">Transportadora</p>

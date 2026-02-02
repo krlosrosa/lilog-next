@@ -239,6 +239,8 @@ export * from './getTransporteDtoSeparacao';
 export * from './getTransporteDtoStatus';
 export * from './infoMeDtoOutput';
 export * from './infoMeDtoOutputEmpresa';
+export * from './inventarioDto';
+export * from './inventarioDtoDescricao';
 export * from './itensContabilDto';
 export * from './itensContabilDtoTipo';
 export * from './itensContabilDtoTipoDevolucao';

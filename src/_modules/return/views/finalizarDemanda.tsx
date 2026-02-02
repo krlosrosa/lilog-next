@@ -31,7 +31,7 @@ export default function FinalizarDemandaView() {
   const { handleFinalizarDemanda, isFinalizandoDemanda } = useFinalizarDemandaReturn();
   const handlePrint = usePrintDevolucao({ printRef });
 
-  const isFinalizado = demanda?.status === 'FINALIZADO';
+  const isFinalizado = demanda?.status !== 'CONFERENCIA_FINALIZADA' ;
 
   const handleFinalizar = () => {
     // Se já estiver finalizado, não faz nada (apenas navegação)
