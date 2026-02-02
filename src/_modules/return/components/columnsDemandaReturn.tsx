@@ -6,6 +6,8 @@ import { ColumnDef } from '@tanstack/react-table';
 import { Eye } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Badge } from '@/_shared/_components/ui/badge';
+import { format } from "date-fns";
+
 
 const getStatusBadgeVariant = (status: string) => {
   switch (status) {
@@ -142,16 +144,10 @@ export const columnsDemandaReturn: ColumnDef<ListarDemandasDto>[] = [
     cell: ({ row }) => {
       const criadoEm = row.getValue('criadoEm') as string;
       if (!criadoEm) return <span className="text-muted-foreground">-</span>;
-      const date = new Date(criadoEm);
+      const dateString = criadoEm.endsWith('Z') ? criadoEm : `${criadoEm}Z`;
       return (
         <div className="text-sm text-muted-foreground">
-          {date.toLocaleDateString('pt-BR', { 
-            day: '2-digit', 
-            month: '2-digit', 
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-          })}
+          {format(dateString, "dd/MM/yyyy HH:mm")}
         </div>
       );
     },

@@ -51,7 +51,7 @@ export default function AcoesDemanda({ demandaId, demanda }: AcoesDemandaProps) 
 
   const canLiberar = status === 'AGUARDANDO_LIBERACAO';
   const canReabrir =
-    status === 'CONFERENCIA_FINALIZADA' || status === 'FINALIZADO';
+    status === 'CONFERENCIA_FINALIZADA';
 
   return (
     <>
