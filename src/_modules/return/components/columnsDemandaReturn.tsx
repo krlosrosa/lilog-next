@@ -69,10 +69,10 @@ export const columnsDemandaReturn: ColumnDef<ListarDemandasDto>[] = [
     },
   },
   {
-    accessorKey: 'motorista',
-    header: 'Motorista',
+    accessorKey: 'conferenteId',          
+    header: 'Conferente',
     cell: ({ row }) => {
-      return <div className="font-medium">{row.getValue('motorista')}</div>;
+      return <div className="font-medium">{row.getValue('conferenteId')}</div>;
     },
   },
   {
