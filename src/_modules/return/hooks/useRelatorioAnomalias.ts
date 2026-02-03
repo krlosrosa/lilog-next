@@ -26,7 +26,9 @@ export function useRelatorioAnomalias() {
       const rows = data.map((item: GetAnomaliasDto) => ({
         Data: item.data ? new Date(item.data).toLocaleDateString('pt-BR') : '-',
         ID: item.id ?? '-',
+        Empresa: item.empresa ?? '-',
         NFs: item.nfs ?? '-',
+        NFsParciais: item.nfsParciais ?? '-',
         Placa: item.placa ?? '-',
         Transportadora: item.transportadora ?? '-',
         SKU: item.sku ?? '-',

@@ -6,6 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 import type { GetAnomaliasDtoStatus } from './getAnomaliasDtoStatus';
+import type { GetAnomaliasDtoNfsParciais } from './getAnomaliasDtoNfsParciais';
 
 export interface GetAnomaliasDto {
   data: string;
@@ -18,5 +19,7 @@ export interface GetAnomaliasDto {
   caixas: number;
   unidades: number;
   status: GetAnomaliasDtoStatus;
+  empresa: string;
+  nfsParciais?: GetAnomaliasDtoNfsParciais;
   obs: string;
 }

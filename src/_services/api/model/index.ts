@@ -187,6 +187,7 @@ export * from './getAnomaliaContagemDtoPeso';
 export * from './getAnomaliaContagemDtoQuantidade';
 export * from './getAnomaliaContagemDtoSku';
 export * from './getAnomaliasDto';
+export * from './getAnomaliasDtoNfsParciais';
 export * from './getAnomaliasDtoStatus';
 export * from './getAnomaliasParams';
 export * from './getAvariaDto';
