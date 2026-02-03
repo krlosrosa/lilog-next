@@ -11,7 +11,7 @@ export const columnsCheckListRecuperacao: ColumnDef<GetAvariaDto & {
     accessorKey: 'sku',
     header: 'SKU',
     cell: ({ row }) => (
-      <div className="font-mono text-[8px] font-semibold text-gray-800">
+      <div className="font-mono  font-semibold text-gray-800">
         {row.getValue('sku') as string}
       </div>
     ),
@@ -21,7 +21,7 @@ export const columnsCheckListRecuperacao: ColumnDef<GetAvariaDto & {
     accessorKey: 'descricao',
     header: 'Descrição',
     cell: ({ row }) => (
-      <div className="text-[8px] text-gray-700 text-left break-words whitespace-normal">
+      <div className=" text-gray-700 text-left w-64 wrap-break-word whitespace-normal">
         {row.getValue('descricao') as string}
       </div>
     ),
@@ -31,7 +31,7 @@ export const columnsCheckListRecuperacao: ColumnDef<GetAvariaDto & {
     accessorKey: 'lote',
     header: 'Lote',
     cell: ({ row }) => (
-      <div className="text-[8px] text-gray-700 font-mono">
+      <div className=" text-gray-700 font-mono">
         {row.getValue('lote') as string || '-'}
       </div>
     ),
@@ -41,7 +41,7 @@ export const columnsCheckListRecuperacao: ColumnDef<GetAvariaDto & {
     accessorKey: 'avaria',
     header: 'Avaria',
     cell: ({ row }) => (
-      <div className="text-[8px] text-gray-700 break-words whitespace-normal">
+      <div className=" text-gray-700 w-96 wrap-break-word whitespace-normal">
         {row.getValue('avaria') as string || '-'}
       </div>
     ),
@@ -53,7 +53,7 @@ export const columnsCheckListRecuperacao: ColumnDef<GetAvariaDto & {
     cell: ({ row }) => {
       const value = row.getValue('quantidadeCaixas') as number;
       return (
-        <div className="text-[8px] text-gray-800 font-bold text-center">
+        <div className=" text-gray-800 font-bold text-center">
           {value ?? 0}
         </div>
       );
@@ -66,7 +66,7 @@ export const columnsCheckListRecuperacao: ColumnDef<GetAvariaDto & {
     cell: ({ row }) => {
       const value = row.getValue('quantidadeUnidades') as number;
       return (
-        <div className="text-[8px] text-gray-800 font-bold text-center">
+        <div className=" text-gray-800 font-bold text-center">
           {value ?? 0}
         </div>
       );
@@ -78,7 +78,7 @@ export const columnsCheckListRecuperacao: ColumnDef<GetAvariaDto & {
     header: 'Cx. Recuperadas',
     cell: ({ row }) => {
       return (
-        <div className="text-[8px] text-gray-600 text-center min-h-[15px]">
+        <div className=" text-gray-600 text-center min-h-[15px]">
           {/* Campo em branco para preenchimento manual */}
         </div>
       );
@@ -90,7 +90,7 @@ export const columnsCheckListRecuperacao: ColumnDef<GetAvariaDto & {
     header: 'Un. Recuperadas',
     cell: ({ row }) => {
       return (
-        <div className="text-[8px] text-gray-600 text-center min-h-[15px]">
+        <div className=" text-gray-600 text-center min-h-[15px]">
           {/* Campo em branco para preenchimento manual */}
         </div>
       );
@@ -105,7 +105,7 @@ export const columnsCheckListRecuperacao: ColumnDef<GetAvariaDto & {
       const caixasRecuperadas = (row.original as any).caixasRecuperadas ?? 0;
       const saldo = quantidadeCaixas - caixasRecuperadas;
       return (
-        <div className={`text-[8px] font-bold text-center ${saldo !== 0 ? 'text-red-600' : 'text-gray-500'}`}>
+        <div className={` font-bold text-center ${saldo !== 0 ? 'text-red-600' : 'text-gray-500'}`}>
       
         </div>
       );
@@ -120,7 +120,7 @@ export const columnsCheckListRecuperacao: ColumnDef<GetAvariaDto & {
       const unidadesRecuperadas = (row.original as any).unidadesRecuperadas ?? 0;
       const saldo = quantidadeUnidades - unidadesRecuperadas;
       return (
-        <div className={`text-[8px] font-bold text-center ${saldo !== 0 ? 'text-red-600' : 'text-gray-500'}`}>
+        <div className={` font-bold text-center ${saldo !== 0 ? 'text-red-600' : 'text-gray-500'}`}>
 
         </div>
       );

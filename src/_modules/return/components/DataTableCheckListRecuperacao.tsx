@@ -42,7 +42,7 @@ export function DataTableCheckListRecuperacao<TData, TValue>({
               {headerGroup.headers.map((header) => (
                 <TableHead 
                   key={header.id} 
-                  className="text-white h-6 font-bold text-[10px] uppercase tracking-wide px-1 py-0.5 text-center border-r border-slate-600 last:border-r-0"
+                  className="text-white h-6 font-bold text-[12px] uppercase tracking-wide px-1 py-0.5 text-center border-r border-slate-600 last:border-r-0"
                   style={{ width: header.getSize() !== 150 ? header.getSize() : undefined }}
                 >
                   {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
@@ -63,7 +63,7 @@ export function DataTableCheckListRecuperacao<TData, TValue>({
                   {row.getVisibleCells().map((cell) => (
                     <TableCell 
                       key={cell.id} 
-                      className="py-2 px-1 text-[8px] border-r border-slate-200 last:border-r-0 align-top"
+                      className="py-2 px-1 text-[12px] border-r border-slate-200 last:border-r-0 align-top"
                     >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>

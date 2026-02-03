@@ -12,6 +12,8 @@ export interface GetAvariaDto {
   id: number;
   demandaId: number;
   placa: string;
+  idConferente: string;
+  conferente: string;
   transportadora: string;
   sku: string;
   lote: string;

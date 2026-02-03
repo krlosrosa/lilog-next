@@ -4,7 +4,7 @@ import { useRef, useMemo } from "react";
 import { useCheckListRecuperacao } from "../hooks/useCheckListRecuperacao";
 import { DataTableCheckListRecuperacao } from "../components/DataTableCheckListRecuperacao";
 import { columnsCheckListRecuperacao } from "../components/columnsCheckListRecuperacao";
-import { Loader2, Printer } from "lucide-react";
+import { Loader2, Printer, Truck, UserCheck, FileText, Package, ClipboardCheck } from "lucide-react";
 import { Card, CardContent } from "@/_shared/_components/ui/card";
 import { Button } from "@/_shared/_components/ui/button";
 import { GetAvariaDto } from "@/_services/api/model";
@@ -68,7 +68,7 @@ export default function CheckListRecuperacao() {
   }
 
   return (
-    <div className="space-y-4 print:p-0 print:m-0 print:space-y-1">
+    <div className="space-y-6 print:p-0 print:m-0 print:space-y-2">
       {/* Botão de Impressão - Não imprime */}
       <div className="flex justify-end no-print">
         <Button
@@ -83,16 +83,98 @@ export default function CheckListRecuperacao() {
 
       {/* Conteúdo para Impressão */}
       <div ref={printRef} className="print:p-0 print:m-0">
-        {/* Header do Checklist */}
-        <div className="border-2 border-slate-800 bg-white print:break-inside-avoid">
-          <div className="bg-slate-800 px-2 py-1 border-b-2 border-slate-800">
+        {/* Header do Checklist - Redesign completo */}
+        <div className="border border-border bg-card print:break-inside-avoid shadow-sm print:shadow-none">
+          {/* Cabeçalho principal */}
+          <div className="bg-primary px-6 py-4 print:px-4 print:py-3">
             <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="bg-primary-foreground/10 p-2 rounded-lg">
+                  <ClipboardCheck className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <div>
+                  <h1 className="text-primary-foreground text-xl font-bold tracking-tight print:text-lg">
+                    CHECKLIST DE RECUPERAÇÃO DE AVARIAS
+                  </h1>
+                  <p className="text-primary-foreground/80 text-sm mt-1 print:text-xs">
+                    Controle de produtos avariados - Processo de recuperação
+                  </p>
+                </div>
+              </div>
+              <div className="bg-primary-foreground/10 px-3 py-2 rounded-lg border border-primary-foreground/20">
+                <div className="text-center">
+                  <p className="text-primary-foreground text-xs font-medium print:text-[10px]">DEMANDA</p>
+                  <p className="text-primary-foreground text-2xl font-bold print:text-xl">#{demandaId}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Informações detalhadas */}
+          <div className="px-6 py-4 print:px-4 print:py-3 border-b border-border">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 print:grid-cols-3 print:gap-2">
+              {/* Placa */}
+              <div className="flex items-center gap-2">
+                <div className="bg-muted p-2 rounded-md">
+                  <Truck className="h-4 w-4 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground font-medium print:text-[10px]">PLACA DO VEÍCULO</p>
+                  <p className="text-sm font-semibold text-foreground print:text-xs">
+                    {avarias[0]?.placa || 'N/A'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Conferente Original */}
+              <div className="flex items-center gap-2">
+                <div className="bg-muted p-2 rounded-md">
+                  <UserCheck className="h-4 w-4 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground font-medium print:text-[10px]">CONFERENTE (RECEPÇÃO)</p>
+                  <p className="text-sm font-semibold text-foreground print:text-xs">
+                    {avarias[0]?.conferente || 'N/A'}
+                    <span className="text-xs text-muted-foreground ml-2 font-normal print:text-[10px]">
+                      ID: {avarias[0]?.idConferente || 'N/A'}
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              {/* Data/Hora */}
+              <div className="flex items-center gap-2">
+                <div className="bg-muted p-2 rounded-md">
+                  <FileText className="h-4 w-4 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground font-medium print:text-[10px]">DATA DE IMPRESSÃO</p>
+                  <p className="text-sm font-semibold text-foreground print:text-xs">
+                    {new Date().toLocaleDateString('pt-BR')}
+                    <span className="text-xs text-muted-foreground ml-2 font-normal print:text-[10px]">
+                      {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Instruções */}
+          <div className="px-6 py-3 print:px-4 print:py-2 bg-muted border-b border-border">
+            <div className="flex items-start gap-2">
+              <div className="mt-0.5">
+                <div className="bg-muted-foreground/10 p-1 rounded">
+                  <Package className="h-3 w-3 text-primary" />
+                </div>
+              </div>
               <div>
-                <h1 className="text-white text-[10px] font-bold uppercase tracking-wide">
-                  Checklist de Recuperação
-                </h1>
-                <p className="text-slate-300 text-[8px] mt-0.5">
-                  Demanda #{demandaId}
+                <p className="text-xs font-medium text-foreground print:text-[10px]">
+                  ATENÇÃO CONFERENTE DE RECUPERAÇÃO:
+                </p>
+                <p className="text-xs text-muted-foreground print:text-[10px]">
+                  • Informe as quantidades que foram recuperadas de cada item avariado<br />
+                  • Ao concluir, assine no espaço abaixo e entregue este documento ao setor de controle
                 </p>
               </div>
             </div>
@@ -100,11 +182,59 @@ export default function CheckListRecuperacao() {
         </div>
 
         {/* Tabela de Avaria */}
-        <div className="print:break-inside-avoid">
-          <DataTableCheckListRecuperacao 
-            columns={columnsCheckListRecuperacao} 
-            data={dataWithRecuperacao} 
+        <div className="mt-4 print:mt-2 print:break-inside-avoid">
+          <DataTableCheckListRecuperacao
+            columns={columnsCheckListRecuperacao}
+            data={dataWithRecuperacao}
           />
+        </div>
+
+        {/* Rodapé para assinaturas - APENAS DO CONFERENTE DE RECUPERAÇÃO */}
+        <div className="mt-6 print:mt-4 print:break-inside-avoid">
+          <div className="border border-border bg-card p-6 print:p-4">
+            {/* Título da seção */}
+            <div className="mb-6 print:mb-4">
+              <div className="flex items-center gap-2">
+                <UserCheck className="h-4 w-4 text-primary" />
+                <h3 className="text-sm font-bold text-foreground print:text-xs">
+                  DECLARAÇÃO DE RECUPERAÇÃO
+                </h3>
+              </div>
+              <p className="text-xs text-muted-foreground mt-1 print:text-[10px]">
+                A ser preenchida pelo conferente responsável pela recuperação dos itens avariados
+              </p>
+            </div>
+
+            {/* Assinatura Conferente de Recuperação */}
+            <div className="gap-8 flex w-full mt-8">
+              <div className="">
+                <div className="border-b border-dashed border-border pb-3 print:pb-2">
+                </div>
+                <p className="text-xs mt-2 font-medium text-foreground mb-2 print:text-[10px]">
+                  ID DO COLABORADOR
+                </p>
+              </div>
+              <div className="flex-1">
+                <div className="border-b border-dashed border-border pb-3 print:pb-2">
+
+                </div>
+                <p className="text-xs mt-2 font-medium text-foreground mb-2 print:text-[10px]">
+                  NOME DO CONFERENTE DE RECUPERAÇÃO
+                </p>
+              </div>
+              {/* Observações */}
+            </div>
+            <div className="mt-6 print:mt-4">
+              <p className="text-xs font-medium text-foreground mb-2 print:text-[10px]">
+                OBSERVAÇÕES (opcional)
+              </p>
+              <div className="border border-dashed border-border rounded p-3 print:p-2 min-h-[60px]">
+                <p className="text-xs text-muted-foreground print:text-[10px]">
+                  Espaço para observações sobre a recuperação realizada...
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

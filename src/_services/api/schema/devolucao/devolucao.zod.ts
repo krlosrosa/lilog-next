@@ -359,6 +359,8 @@ export const getAvariasByIdDevolucaoResponseItem = zod.object({
   "id": zod.number(),
   "demandaId": zod.number(),
   "placa": zod.string(),
+  "idConferente": zod.string(),
+  "conferente": zod.string(),
   "transportadora": zod.string(),
   "sku": zod.string(),
   "lote": zod.string(),
