@@ -317,6 +317,8 @@ export const getAnomaliasByDataDevolucaoResponseItem = zod.object({
   "caixas": zod.number(),
   "unidades": zod.number(),
   "status": zod.enum(['SOBRA', 'FALTA', 'AVARIA']),
+  "empresa": zod.string(),
+  "nfsParciais": zod.union([zod.string(),zod.null()]).optional(),
   "obs": zod.string()
 })
 export const getAnomaliasByDataDevolucaoResponse = zod.array(getAnomaliasByDataDevolucaoResponseItem)
