@@ -5,6 +5,8 @@ import { ColumnDef } from '@tanstack/react-table';
 import { Button } from "@/_shared/_components/ui/button";
 import { Trash2 } from "lucide-react";
 import { Badge } from "@/_shared/_components/ui/badge";
+import { format } from 'date-fns';
+import { formatarDataUTC } from '@/_shared/utils/convertHourUtc';
 
 export const createColumnsNfsCadastradasReturn = (
   onRemoveNota: (nota: GetNotasDto) => void
@@ -98,16 +100,9 @@ export const createColumnsNfsCadastradasReturn = (
     cell: ({ row }) => {
       const criadoEm = row.getValue('criadoEm') as string;
       if (!criadoEm) return <span className="text-muted-foreground">—</span>;
-      const date = new Date(criadoEm);
       return (
         <div className="text-sm text-muted-foreground">
-          {date.toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-          })}
+          {format(new Date(formatarDataUTC(criadoEm)), "dd/MM/yyyy - HH:mm")}
         </div>
       );
     },
