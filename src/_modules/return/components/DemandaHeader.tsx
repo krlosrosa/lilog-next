@@ -15,6 +15,7 @@ import {
 import { GetDemandaByIdDevolucaoQueryResult } from "@/_services/api/service/devolucao/devolucao";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { formatarDataUTC } from "@/_shared/utils/convertHourUtc";
 
 interface DemandaHeaderProps {
   demanda?: GetDemandaByIdDevolucaoQueryResult;
@@ -46,7 +47,7 @@ export function DemandaHeader({ demanda }: DemandaHeaderProps) {
   const formatDate = (dateString?: string | null) => {
     if (!dateString) return "—";
     try {
-      return format(new Date(dateString), "dd/MM/yyyy HH:mm", { locale: ptBR });
+      return format(new Date(formatarDataUTC(dateString)), "dd/MM/yyyy HH:mm", { locale: ptBR });
     } catch {
       return dateString;
     }

@@ -1,5 +1,7 @@
 import { ClipboardPlus, PlayCircle, CheckCircle, Flag } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/_shared/_components/ui/card";
+import { formatarDataUTC } from "@/_shared/utils/convertHourUtc";
+import { format } from "date-fns";
 
 interface TimelineStep {
   id: string;
@@ -60,8 +62,8 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
                     <p className={`text-sm font-medium ${step.completed ? "text-foreground" : "text-muted-foreground"}`}>
                       {step.label}
                     </p>
-                    {step.date && (
-                      <p className="mt-1 text-xs text-muted-foreground">{step.date}</p>
+                      {step.date && (
+                      <p className="mt-1 text-xs text-muted-foreground">{format(formatarDataUTC(step?.date), "dd/MM/yyyy 'às' HH:mm")}</p>
                     )}
                   </div>
                 </div>

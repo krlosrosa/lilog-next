@@ -60,6 +60,7 @@ export function ChecklistPhotos({ photos }: ChecklistPhotosProps) {
                         onClick={() => setSelectedPhoto({ url: photo.url, title: photo.title })}
                         className="group relative aspect-video overflow-hidden rounded-lg border bg-muted transition-all hover:border-primary hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                       >
+                        <pre>{JSON.stringify(photo.url)}</pre>
                         <img
                           src={photo.url}
                           alt={photo.title}
