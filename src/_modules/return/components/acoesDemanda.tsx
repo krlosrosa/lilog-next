@@ -59,6 +59,7 @@ export default function AcoesDemanda({ demandaId, demanda }: AcoesDemandaProps) 
   } = useCadastrarDemandaFaltaReturn();
 
   const canLiberar = status === 'AGUARDANDO_LIBERACAO';
+  const canDemandaFalta = status === 'AGUARDANDO_LIBERACAO';
   const canReabrir =
     status === 'CONFERENCIA_FINALIZADA';
 
@@ -97,7 +98,7 @@ export default function AcoesDemanda({ demandaId, demanda }: AcoesDemandaProps) 
           variant="outline"
           size="sm"
           onClick={() => setOpenDemandaFalta(true)}
-          disabled={isCadastrandoDemandaFalta}
+          disabled={!canDemandaFalta || isCadastrandoDemandaFalta}
           className="gap-2"
         >
           <FileWarning className="h-4 w-4" />
