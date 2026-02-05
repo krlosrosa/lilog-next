@@ -2,13 +2,15 @@
 
 import { useRouter } from 'next/navigation';
 import { Button } from '@/_shared/_components/ui/button';
-import { Lock, Trash2, RotateCcw, Plus, CheckCircle2 } from 'lucide-react';
+import { Lock, Trash2, RotateCcw, Plus, CheckCircle2, FileWarning } from 'lucide-react';
 import { useLiberarDemandaReturn } from '../hooks/useLiberarDemandaReturn';
 import { useDeletarDemandaReturn } from '../hooks/useDeletarDemandaReturn';
 import { useReabrirDemandaReturn } from '../hooks/useReabrirDemandaReturn';
+import { useCadastrarDemandaFaltaReturn } from '../hooks/useCadastrarDemandaFaltaReturn';
 import { ModalLiberarDemanda } from './ModalLiberarDemanda';
 import { ModalDeletarDemanda } from './ModalDeletarDemanda';
 import { ModalReabrirDemanda } from './ModalReabrirDemanda';
+import { ModalDemandaFalta } from './ModalDemandaFalta';
 import type { GetDemandaByIdDevolucaoQueryResult } from '@/_services/api/service/devolucao/devolucao';
 
 interface AcoesDemandaProps {
@@ -49,6 +51,13 @@ export default function AcoesDemanda({ demandaId, demanda }: AcoesDemandaProps) 
     isReabrindoDemanda,
   } = useReabrirDemandaReturn();
 
+  const {
+    open: openDemandaFalta,
+    setOpen: setOpenDemandaFalta,
+    handleCadastrarDemandaFalta,
+    isCadastrandoDemandaFalta,
+  } = useCadastrarDemandaFaltaReturn();
+
   const canLiberar = status === 'AGUARDANDO_LIBERACAO';
   const canReabrir =
     status === 'CONFERENCIA_FINALIZADA';
@@ -83,6 +92,16 @@ export default function AcoesDemanda({ demandaId, demanda }: AcoesDemandaProps) 
         >
           <CheckCircle2 className="h-4 w-4" />
           Finalizar Processo
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setOpenDemandaFalta(true)}
+          disabled={isCadastrandoDemandaFalta}
+          className="gap-2"
+        >
+          <FileWarning className="h-4 w-4" />
+          Adicionar Demanda de Falta
         </Button>
         <Button
           variant="outline"
@@ -126,6 +145,13 @@ export default function AcoesDemanda({ demandaId, demanda }: AcoesDemandaProps) 
         onOpenChange={setOpenReabrir}
         onConfirm={() => handleReabrirDemanda(demandaId)}
         isLoading={isReabrindoDemanda}
+      />
+
+      <ModalDemandaFalta
+        open={openDemandaFalta}
+        onOpenChange={setOpenDemandaFalta}
+        onConfirm={() => handleCadastrarDemandaFalta(demandaId)}
+        isLoading={isCadastrandoDemandaFalta}
       />
     </>
   );
