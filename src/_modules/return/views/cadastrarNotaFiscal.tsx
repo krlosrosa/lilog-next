@@ -1,13 +1,15 @@
 'use client';
 
 import { useParams, useRouter } from "next/navigation";
+import { useMemo } from "react";
 import { useCadastrarNotaFiscal } from "../hooks/useCadastrarNotaFiscal";
 import { ModalViagemSearch } from "../components/ModalViagemSearch";
 import { DemandaInfoCards } from "../components/DemandaInfoCards";
 import { NotaFiscalCard } from "../components/NotaFiscalCard";
-import { ModalConfirmacaoNota } from "../components/ModalConfirmacaoNota";
+import { ModalConfirmacaoNota, type ItemDivergencia } from "../components/ModalConfirmacaoNota";
 import { Button } from "@/_shared/_components/ui/button";
 import { Loader2, FileText, ArrowLeft } from "lucide-react";
+import type { ReturnInfoGeralRavexNotasItemItensItem } from "@/_services/api/model";
 
 export default function CadastrarNotaFiscal() {
   const { id } = useParams();
@@ -25,11 +27,27 @@ export default function CadastrarNotaFiscal() {
     isConfirmModalOpen,
     setIsConfirmModalOpen,
     selectedNota,
+    selectedItens,
     nfParcial,
     setNfParcial,
     handleConfirmAddNota,
     isAddingNota,
   } = useCadastrarNotaFiscal();
+
+  const hasDivergence = (item: ReturnInfoGeralRavexNotasItemItensItem) => {
+    const qtdRavex = Number(item.quantidadeRavex ?? 0);
+    const qtdCaixas = Number(item.quantidadeCaixas ?? 0);
+    const decimal = Number(item.decimal ?? 0);
+    const tol = 1e-6;
+    return qtdRavex !== qtdCaixas && qtdRavex !== decimal;
+  };
+
+  const itensComDivergencia = useMemo((): ItemDivergencia[] => {
+    if (!selectedItens.length) return [];
+    return selectedItens
+      .filter(hasDivergence)
+      .map((item) => ({ sku: item.sku, descricao: item.descricao ?? '' }));
+  }, [selectedItens]);
 
   return (
     <div className="w-full px-4 md:px-6 lg:px-8 space-y-6">
@@ -155,6 +173,8 @@ export default function CadastrarNotaFiscal() {
           nfParcial={nfParcial}
           onNfParcialChange={setNfParcial}
           isLoading={isAddingNota}
+          numeroNota={selectedNota.notaFiscal}
+          itensComDivergencia={itensComDivergencia}
         />
       )}
     </div>

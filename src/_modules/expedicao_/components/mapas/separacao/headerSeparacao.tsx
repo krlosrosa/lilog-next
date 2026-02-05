@@ -137,11 +137,9 @@ export const HeaderSeparacaoMapa = memo(
             </div>
 
             {/* QR CODE */}
-            {mapa.tipo !== "palete" && (
               <div className="col-span-1 flex items-center justify-center">
                 <QRCodeSVG value={mapa.paleteId} size={100} />
               </div>
-            )}
           </div>
 
           {/* Lista de Clientes */}

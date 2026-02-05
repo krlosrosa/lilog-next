@@ -49,12 +49,9 @@ export const HeaderCarregamento = memo(({ mapa }: HeaderCarregamentoProps) => {
       <div className="p-3">
         <div className="grid grid-cols-8 gap-2">
           {/* QR Code à esquerda */}
-          {mapa.tipo !== 'palete' && (
             <div className="col-span-1 flex flex-col items-center justify-center p-2 text-center">
               <QRCodeSVG value={mapa.paleteId} size={100} />
             </div>
-          )}
-
           {/* Informações Principais */}
           <div className="col-span-7 ml-4 space-y-2">
             {/* Linha única com Placa, Transportadora, Transporte, Rota */}

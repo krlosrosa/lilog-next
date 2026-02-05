@@ -29,6 +29,8 @@ export interface UpdateProdutoDto {
   segmento?: string;
   /** Empresa do produto */
   empresa?: string;
+  /** Tipo de peso */
+  tipoPeso?: string;
   /** Criado em */
   criadoEm?: string;
 }

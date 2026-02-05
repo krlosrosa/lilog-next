@@ -10,7 +10,9 @@ import { Button } from "@/_shared/_components/ui/button";
 import { Input } from "@/_shared/_components/ui/input";
 import { Label } from "@/_shared/_components/ui/label";
 import { Alert, AlertDescription } from "@/_shared/_components/ui/alert";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, AlertTriangle } from "lucide-react";
+
+export type ItemDivergencia = { sku: string; descricao: string };
 
 interface ModalConfirmacaoNotaProps {
   open: boolean;
@@ -20,6 +22,10 @@ interface ModalConfirmacaoNotaProps {
   nfParcial: string;
   onNfParcialChange: (value: string) => void;
   isLoading?: boolean;
+  /** Número da nota que está sendo confirmada (ex.: "12345") */
+  numeroNota?: string;
+  /** Itens com divergência (Qtd. Ravex ≠ Qtd. Caixas ou ≠ Decimal) para exibir aviso */
+  itensComDivergencia?: ItemDivergencia[];
 }
 
 export function ModalConfirmacaoNota({
@@ -30,9 +36,12 @@ export function ModalConfirmacaoNota({
   nfParcial,
   onNfParcialChange,
   isLoading = false,
+  numeroNota,
+  itensComDivergencia = [],
 }: ModalConfirmacaoNotaProps) {
   const isParcial = tipo === 'DEVOLUCAO_PARCIAL';
   const canConfirm = !isParcial || (isParcial && nfParcial.trim() !== '');
+  const temDivergencia = itensComDivergencia.length > 0;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -41,6 +50,31 @@ export function ModalConfirmacaoNota({
           <DialogTitle>Confirmar Adição de Nota Fiscal</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
+          {temDivergencia && (
+            <Alert variant="destructive" className="border-destructive/50">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertDescription>
+                <div className="text-sm">
+                  <p className="font-medium mb-1">
+                    Existem {itensComDivergencia.length} item(ns) com divergência
+                    {numeroNota ? ` na Nota #${numeroNota}` : ''}.
+                  </p>
+                  <p className="text-muted-foreground mb-2">
+                    Verifique se as quantidades (Qtd. Caixas, Qtd. Unidades ou Decimal) estão corretas antes de confirmar.
+                  </p>
+                  <ul className="list-disc list-inside text-xs mt-1 space-y-0.5">
+                    {itensComDivergencia.map((item) => (
+                      <li key={item.sku}>
+                        <span className="font-mono">{item.sku}</span>
+                        {item.descricao ? ` — ${item.descricao}` : ''}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </AlertDescription>
+            </Alert>
+          )}
+
           {isParcial && (
             <div className="space-y-2">
               <Label htmlFor="nf-parcial">

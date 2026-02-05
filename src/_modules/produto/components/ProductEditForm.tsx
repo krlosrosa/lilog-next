@@ -25,6 +25,7 @@ import {
   type ProdutoFormValues,
   SEGMENTO_OPTIONS,
   EMPRESA_OPTIONS,
+  TIPO_PESO_OPTIONS,
 } from "../schemas/produto-form.schema";
 import { useProductEdit } from "../hooks/useProductEdit";
 
@@ -40,6 +41,7 @@ const emptyValues: ProdutoFormValues = {
   caixaPorPallet: 1,
   segmento: "",
   empresa: "",
+  tipoPeso: "PPAR",
 };
 
 interface ProductEditFormProps {
@@ -166,6 +168,30 @@ export function ProductEditForm({ sku, onSuccess }: ProductEditFormProps) {
                   </FormControl>
                   <SelectContent>
                     {EMPRESA_OPTIONS.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+                    <FormField
+            control={form.control}
+            name="tipoPeso"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Tipo de peso</FormLabel>
+                <Select onValueChange={field.onChange} value={field.value || undefined}>
+                  <FormControl>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Selecione PVAR ou PPAR" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {TIPO_PESO_OPTIONS.map((opt) => (
                       <SelectItem key={opt.value} value={opt.value}>
                         {opt.label}
                       </SelectItem>
