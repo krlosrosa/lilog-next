@@ -1222,6 +1222,98 @@ export const useLiberarDemandaDevolucao = <
   return useMutation(mutationOptions, queryClient);
 };
 /**
+ * @summary Finalizar demanda
+ */
+export const cadastrarDemandaFaltaDevolucao = (
+  demandaId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<void>(
+    {
+      url: `/api/devolucao/cadastrar-demanda-falta/${demandaId}`,
+      method: 'POST',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getCadastrarDemandaFaltaDevolucaoMutationOptions = <
+  TError = ErrorType<void | void | void | void | void | void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof cadastrarDemandaFaltaDevolucao>>,
+    TError,
+    { demandaId: string },
+    TContext
+  >;
+  request?: SecondParameter<typeof axiosFetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof cadastrarDemandaFaltaDevolucao>>,
+  TError,
+  { demandaId: string },
+  TContext
+> => {
+  const mutationKey = ['cadastrarDemandaFaltaDevolucao'];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof cadastrarDemandaFaltaDevolucao>>,
+    { demandaId: string }
+  > = (props) => {
+    const { demandaId } = props ?? {};
+
+    return cadastrarDemandaFaltaDevolucao(demandaId, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CadastrarDemandaFaltaDevolucaoMutationResult = NonNullable<
+  Awaited<ReturnType<typeof cadastrarDemandaFaltaDevolucao>>
+>;
+
+export type CadastrarDemandaFaltaDevolucaoMutationError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+/**
+ * @summary Finalizar demanda
+ */
+export const useCadastrarDemandaFaltaDevolucao = <
+  TError = ErrorType<void | void | void | void | void | void>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof cadastrarDemandaFaltaDevolucao>>,
+      TError,
+      { demandaId: string },
+      TContext
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof cadastrarDemandaFaltaDevolucao>>,
+  TError,
+  { demandaId: string },
+  TContext
+> => {
+  const mutationOptions =
+    getCadastrarDemandaFaltaDevolucaoMutationOptions(options);
+
+  return useMutation(mutationOptions, queryClient);
+};
+/**
  * @summary Remover nota de devolução
  */
 export const removerNotaDevolucao = (

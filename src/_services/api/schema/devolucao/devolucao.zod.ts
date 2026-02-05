@@ -216,6 +216,13 @@ export const liberarDemandaDevolucaoParams = zod.object({
 export const liberarDemandaDevolucaoResponse = zod.string()
 
 /**
+ * @summary Finalizar demanda
+ */
+export const cadastrarDemandaFaltaDevolucaoParams = zod.object({
+  "demandaId": zod.string()
+})
+
+/**
  * @summary Remover nota de devolução
  */
 export const removerNotaDevolucaoParams = zod.object({
