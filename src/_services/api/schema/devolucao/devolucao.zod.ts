@@ -259,6 +259,45 @@ export const finalizarDemandaDevolucaoParams = zod.object({
 export const finalizarDemandaDevolucaoResponse = zod.string()
 
 /**
+ * @summary Buscar informações da viagem
+ */
+export const getInfoApenasViagemDevolucaoParams = zod.object({
+  "viagemId": zod.string()
+})
+
+export const getInfoApenasViagemDevolucaoResponsePlacaMin = 7;
+export const getInfoApenasViagemDevolucaoResponsePlacaMax = 7;export const getInfoApenasViagemDevolucaoResponseNotasItemItensItemDescricaoRegExp = new RegExp('^(?!produto não encontrado$).*$');
+
+
+export const getInfoApenasViagemDevolucaoResponse = zod.object({
+  "idViagem": zod.string(),
+  "placa": zod.string().min(getInfoApenasViagemDevolucaoResponsePlacaMin).max(getInfoApenasViagemDevolucaoResponsePlacaMax),
+  "motorista": zod.string(),
+  "transportadora": zod.string(),
+  "transporte": zod.string(),
+  "notas": zod.array(zod.object({
+  "tipo": zod.enum(['DEVOLUCAO', 'DEVOLUCAO_PARCIAL', 'REENTREGA']),
+  "notaFiscal": zod.string(),
+  "notaFiscalParcial": zod.union([zod.string(),zod.null()]).optional(),
+  "motivoDevolucao": zod.string(),
+  "descMotivoDevolucao": zod.union([zod.string(),zod.null()]),
+  "operador": zod.union([zod.string(),zod.null()]).optional(),
+  "empresa": zod.string(),
+  "itens": zod.array(zod.object({
+  "sku": zod.string(),
+  "descricao": zod.string().regex(getInfoApenasViagemDevolucaoResponseNotasItemItensItemDescricaoRegExp),
+  "pesoLiquido": zod.number(),
+  "quantidadeRavex": zod.number(),
+  "quantidadeCaixas": zod.number(),
+  "quantidadeUnidades": zod.number(),
+  "fatorConversao": zod.number(),
+  "unPorCaixa": zod.number(),
+  "decimal": zod.number()
+}))
+}))
+})
+
+/**
  * @summary Buscar resultado de demanda de devolução
  */
 export const getResultadoDemandaDevolucaoParams = zod.object({

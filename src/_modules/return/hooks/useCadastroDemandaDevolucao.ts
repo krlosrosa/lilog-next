@@ -6,16 +6,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { addDemandaDevolucaoBody } from "@/_services/api/schema/devolucao/devolucao.zod";
 import { AddDemandaDto } from "@/_services/api/model";
-import { useGetInfoViagemRavex } from "@/_modules/devolucao/hooks/queries/getInfoViagemRavex";
 import useAddDemanda from "@/_modules/devolucao/hooks/mutation/addDemanda";
 import { getAxiosErrorMessage } from "@/_shared/utils/axios.error";
 import toast from "react-hot-toast";
+import { useGetInfoApenasViagemRavex } from "@/_modules/devolucao/hooks/queries/getInfoApenasViagemRavex";
 
 export function useCadastroDemandaDevolucao() {
   const { user } = useUser();
   const router = useRouter();
   const [viagemId, setViagemId] = useState<string>('');
-  const { data: infoViagem, isLoading, error } = useGetInfoViagemRavex(viagemId);
+  const { data: infoViagem, isLoading, error } = useGetInfoApenasViagemRavex(viagemId);
   const { criarDemandaMutation, isCriandoDemanda } = useAddDemanda();
 
   const form = useForm<z.infer<typeof addDemandaDevolucaoBody>>({

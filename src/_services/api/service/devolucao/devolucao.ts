@@ -1661,6 +1661,184 @@ export const useFinalizarDemandaDevolucao = <
   return useMutation(mutationOptions, queryClient);
 };
 /**
+ * @summary Buscar informações da viagem
+ */
+export const getInfoApenasViagemDevolucao = (
+  viagemId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<ReturnInfoGeralRavex>(
+    {
+      url: `/api/devolucao/get-info-apenas-viagem/${viagemId}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getGetInfoApenasViagemDevolucaoQueryKey = (viagemId?: string) => {
+  return [`/api/devolucao/get-info-apenas-viagem/${viagemId}`] as const;
+};
+
+export const getGetInfoApenasViagemDevolucaoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  viagemId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetInfoApenasViagemDevolucaoQueryKey(viagemId);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>
+  > = ({ signal }) =>
+    getInfoApenasViagemDevolucao(viagemId, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!viagemId,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetInfoApenasViagemDevolucaoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>
+>;
+export type GetInfoApenasViagemDevolucaoQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+export function useGetInfoApenasViagemDevolucao<
+  TData = Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  viagemId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetInfoApenasViagemDevolucao<
+  TData = Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  viagemId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetInfoApenasViagemDevolucao<
+  TData = Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  viagemId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar informações da viagem
+ */
+
+export function useGetInfoApenasViagemDevolucao<
+  TData = Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  viagemId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getInfoApenasViagemDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetInfoApenasViagemDevolucaoQueryOptions(
+    viagemId,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
  * @summary Buscar resultado de demanda de devolução
  */
 export const getResultadoDemandaDevolucao = (
