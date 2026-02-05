@@ -54,6 +54,14 @@ export function NotaFiscalCard({
     setItens(itens.map((i) => i.sku === item.sku ? item : i));
   };
 
+  const hasDivergence = (item: ReturnInfoGeralRavexNotasItemItensItem) => {
+    const qtdRavex = Number(item.quantidadeRavex ?? 0);
+    const qtdCaixas = Number(item.quantidadeCaixas ?? 0);
+    const decimal = Number(item.decimal ?? 0);
+    const tol = 1e-6;
+    return qtdRavex !== qtdCaixas && qtdRavex !== decimal;
+  };
+
   const getTipoBadgeVariant = (tipo: string) => {
     switch (tipo) {
       case 'DEVOLUCAO':
@@ -154,51 +162,83 @@ export function NotaFiscalCard({
                       <TableRow>
                         <TableHead className="w-[100px]">SKU</TableHead>
                         <TableHead>Descrição</TableHead>
-                        <TableHead className="w-[120px]">Peso Líq.</TableHead>
-                        <TableHead className="w-[120px]">Qtd. Ravex</TableHead>
-                        <TableHead className="w-[120px]">Qtd. Caixas</TableHead>
-                        <TableHead className="w-[130px]">Qtd. Unidades</TableHead>
-                        <TableHead className="w-[100px]">Fator</TableHead>
+                        <TableHead className="w-[100px]">Peso Líq.</TableHead>
+                        <TableHead className="w-[100px]">Qtd. Ravex</TableHead>
+                        <TableHead className="w-[100px]">Qtd. Caixas</TableHead>
+                        <TableHead className="w-[100px]">Qtd. Unidades</TableHead>
+                        <TableHead className="w-[100px]">Decimal</TableHead>
+                        <TableHead className="w-[80px]">Fator</TableHead>
+                        <TableHead className="w-[80px]">Divergência</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {itens.map((item) => (
-                        <TableRow key={item.sku}>
-                          <TableCell className="font-mono text-xs">{item.sku}</TableCell>
-                          <TableCell className="text-sm">{item.descricao}</TableCell>
-                          <TableCell className="text-sm">{item.pesoLiquido}</TableCell>
-                          <TableCell className="text-sm">{item.quantidadeRavex}</TableCell>
-                          <TableCell>
-                            <Input
-                              type="number"
-                              value={item.quantidadeCaixas ?? 0}
-                              onChange={(e) => {
-                                handleItemChange({
-                                  ...item,
-                                  quantidadeCaixas: parseInt(e.target.value) || 0,
-                                });
-                              }}
-                              className="h-8 w-full"
-                              disabled={isAlreadyAdded}
-                            />
-                          </TableCell>
-                          <TableCell>
-                            <Input
-                              type="number"
-                              value={item.quantidadeUnidades ?? 0}
-                              onChange={(e) => {
-                                handleItemChange({
-                                  ...item,
-                                  quantidadeUnidades: parseInt(e.target.value) || 0,
-                                });
-                              }}
-                              className="h-8 w-full"
-                              disabled={isAlreadyAdded}
-                            />
-                          </TableCell>
-                          <TableCell className="text-sm">{item.fatorConversao}</TableCell>
-                        </TableRow>
-                      ))}
+                      {itens.map((item) => {
+                        const divergencia = hasDivergence(item);
+                        return (
+                          <TableRow
+                            key={item.sku}
+                            className={divergencia ? "bg-destructive/5" : undefined}
+                          >
+                            <TableCell className="font-mono text-xs">{item.sku}</TableCell>
+                            <TableCell className="text-sm">{item.descricao}</TableCell>
+                            <TableCell className="text-sm">{item.pesoLiquido}</TableCell>
+                            <TableCell className="text-sm">{item.quantidadeRavex}</TableCell>
+                            <TableCell>
+                              <Input
+                                type="number"
+                                value={item.quantidadeCaixas ?? 0}
+                                onChange={(e) => {
+                                  handleItemChange({
+                                    ...item,
+                                    quantidadeCaixas: parseInt(e.target.value) || 0,
+                                  });
+                                }}
+                                className="h-8 w-full"
+                                disabled={isAlreadyAdded}
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <Input
+                                type="number"
+                                value={item.quantidadeUnidades ?? 0}
+                                onChange={(e) => {
+                                  handleItemChange({
+                                    ...item,
+                                    quantidadeUnidades: parseInt(e.target.value) || 0,
+                                  });
+                                }}
+                                className="h-8 w-full"
+                                disabled={isAlreadyAdded}
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <Input
+                                type="number"
+                                value={item.decimal ?? 0}
+                                onChange={(e) => {
+                                  const v = parseFloat(e.target.value);
+                                  handleItemChange({
+                                    ...item,
+                                    decimal: Number.isNaN(v) ? 0 : v,
+                                  });
+                                }}
+                                className="h-8 w-full"
+                                disabled={isAlreadyAdded}
+                              />
+                            </TableCell>
+                            <TableCell className="text-sm">{item.fatorConversao}</TableCell>
+                            <TableCell>
+                              {divergencia ? (
+                                <Badge variant="destructive" className="text-xs">
+                                  Sim
+                                </Badge>
+                              ) : (
+                                <span className="text-muted-foreground text-xs">—</span>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
                     </TableBody>
                   </Table>
                 </div>

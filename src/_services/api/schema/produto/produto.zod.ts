@@ -23,6 +23,7 @@ export const createProdutoBody = zod.object({
   "caixaPorPallet": zod.number().describe('Caixas por pallet'),
   "segmento": zod.string().describe('Segmento do produto'),
   "empresa": zod.string().describe('Empresa do produto'),
+  "tipoPeso": zod.string().describe('Tipo de peso'),
   "criadoEm": zod.string().describe('Criado em')
 })
 
@@ -41,6 +42,7 @@ export const findAllProdutosResponseItem = zod.object({
   "caixaPorPallet": zod.number().describe('Caixas por pallet'),
   "segmento": zod.string().describe('Segmento do produto'),
   "empresa": zod.string().describe('Empresa do produto'),
+  "tipoPeso": zod.string().describe('Tipo de peso'),
   "criadoEm": zod.string().describe('Criado em')
 })
 export const findAllProdutosResponse = zod.array(findAllProdutosResponseItem)
@@ -60,6 +62,7 @@ export const createManyProdutosBodyItem = zod.object({
   "caixaPorPallet": zod.number().describe('Caixas por pallet'),
   "segmento": zod.string().describe('Segmento do produto'),
   "empresa": zod.string().describe('Empresa do produto'),
+  "tipoPeso": zod.string().describe('Tipo de peso'),
   "criadoEm": zod.string().describe('Criado em')
 })
 export const createManyProdutosBody = zod.array(createManyProdutosBodyItem)
@@ -90,6 +93,7 @@ export const updateProdutoBySkuBody = zod.object({
   "caixaPorPallet": zod.number().optional().describe('Caixas por pallet'),
   "segmento": zod.string().optional().describe('Segmento do produto'),
   "empresa": zod.string().optional().describe('Empresa do produto'),
+  "tipoPeso": zod.string().optional().describe('Tipo de peso'),
   "criadoEm": zod.string().optional().describe('Criado em')
 })
 

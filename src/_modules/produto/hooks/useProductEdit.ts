@@ -15,9 +15,12 @@ function produtoToFormValues(produto: CreateProdutoDto): ProdutoFormValues {
     shelf: produto.shelf ?? 0,
     pesoLiquidoCaixa: produto.pesoLiquidoCaixa ?? "",
     pesoLiquidoUnidade: produto.pesoLiquidoUnidade ?? "",
+    tipoPeso: (produto.tipoPeso === "PVAR" || produto.tipoPeso === "PPAR"
+      ? produto.tipoPeso
+      : "") as ProdutoFormValues["tipoPeso"],
     unPorCaixa: produto.unPorCaixa ?? 1,
     caixaPorPallet: produto.caixaPorPallet ?? 1,
-    segmento: (produto.segmento === "SEC" || produto.segmento === "REF"
+    segmento: (produto.segmento === "SECO" || produto.segmento === "REFR"
       ? produto.segmento
       : "") as ProdutoFormValues["segmento"],
     empresa: (produto.empresa === "LDB" || produto.empresa === "ITB" || produto.empresa === "DPA"
