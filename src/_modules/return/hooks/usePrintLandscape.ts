@@ -50,6 +50,10 @@ export function usePrintLandscape({ printRef, handleBeforePrint }: Props) {
        margin: 0 !important;
        padding: 0 !important;
      }
+     [data-slot="table-container"] {
+       overflow: hidden !important;
+       max-width: 100% !important;
+     }
      .no-print {
        display: none !important;
      }
