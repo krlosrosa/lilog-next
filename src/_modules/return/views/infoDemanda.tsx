@@ -19,6 +19,7 @@ import { Search, AlertCircle, FileQuestion } from "lucide-react";
 import { ConferenceTable } from "../components/info-demanda/conferenciaTable";
 import { AnomaliesTable } from "../components/info-demanda/tableAvarias";
 import { ChecklistPhotos } from "../components/info-demanda/check-list.fotos";
+import { FotosFimProcesso } from "../components/info-demanda/fotos-fim-processo";
 
 export default function InfoDemanda() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -33,7 +34,9 @@ export default function InfoDemanda() {
     isLoadingAvarias,
     errorInfoDemanda,
     fotosCheckList,
+    fotosFimProcesso,
     isLoadingFotosCheckList,
+    isLoadingFotosFimProcesso,
     hasSearched,
   } = useInfoDemanda();
 
@@ -44,8 +47,19 @@ export default function InfoDemanda() {
     if (!value) inputRef.current?.focus();
   };
 
-  const showEmptyState = !hasSearched && !isLoadingInfoDemanda && !isLoadingAvarias && !isLoadingFotosCheckList;
-  const showContent = hasSearched && infoDemanda && !isLoadingInfoDemanda && !isLoadingAvarias && !isLoadingFotosCheckList;
+  const showEmptyState =
+    !hasSearched &&
+    !isLoadingInfoDemanda &&
+    !isLoadingAvarias &&
+    !isLoadingFotosCheckList &&
+    !isLoadingFotosFimProcesso;
+  const showContent =
+    hasSearched &&
+    infoDemanda &&
+    !isLoadingInfoDemanda &&
+    !isLoadingAvarias &&
+    !isLoadingFotosCheckList &&
+    !isLoadingFotosFimProcesso;
   const showError = hasSearched && isErrorInfoDemanda && !isLoadingInfoDemanda;
 
   const infoCardsData = infoDemanda ? mapResultadoToInfoCards(infoDemanda) : null;
@@ -204,6 +218,7 @@ export default function InfoDemanda() {
           <ChecklistPhotos photos={fotosCheckList ?? []} />
           <ConferenceTable items={conferenceItems} />
           <AnomaliesTable anomalies={anomalies} />
+          <FotosFimProcesso photos={fotosFimProcesso ?? []} />
         </div>
       )}
     </div>
