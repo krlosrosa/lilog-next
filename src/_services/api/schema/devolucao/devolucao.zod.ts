@@ -475,3 +475,13 @@ export const getFotosCheckListDevolucaoParams = zod.object({
 export const getFotosCheckListDevolucaoResponseItem = zod.string()
 export const getFotosCheckListDevolucaoResponse = zod.array(getFotosCheckListDevolucaoResponseItem)
 
+/**
+ * @summary Buscar fotos do fim de processos de devolução por ID da demanda
+ */
+export const getFotosFimProcessosDevolucaoParams = zod.object({
+  "demandaId": zod.string()
+})
+
+export const getFotosFimProcessosDevolucaoResponseItem = zod.string()
+export const getFotosFimProcessosDevolucaoResponse = zod.array(getFotosFimProcessosDevolucaoResponseItem)
+

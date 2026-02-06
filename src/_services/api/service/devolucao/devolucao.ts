@@ -3179,3 +3179,184 @@ export function useGetFotosCheckListDevolucao<
 
   return query;
 }
+
+/**
+ * @summary Buscar fotos do fim de processos de devolução por ID da demanda
+ */
+export const getFotosFimProcessosDevolucao = (
+  demandaId: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<string[]>(
+    {
+      url: `/api/devolucao/get-fotos-fim-processos/${demandaId}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getGetFotosFimProcessosDevolucaoQueryKey = (
+  demandaId?: string,
+) => {
+  return [`/api/devolucao/get-fotos-fim-processos/${demandaId}`] as const;
+};
+
+export const getGetFotosFimProcessosDevolucaoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  demandaId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getGetFotosFimProcessosDevolucaoQueryKey(demandaId);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>
+  > = ({ signal }) =>
+    getFotosFimProcessosDevolucao(demandaId, requestOptions, signal);
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!demandaId,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetFotosFimProcessosDevolucaoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>
+>;
+export type GetFotosFimProcessosDevolucaoQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+export function useGetFotosFimProcessosDevolucao<
+  TData = Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  demandaId: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetFotosFimProcessosDevolucao<
+  TData = Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  demandaId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+          TError,
+          Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetFotosFimProcessosDevolucao<
+  TData = Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  demandaId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar fotos do fim de processos de devolução por ID da demanda
+ */
+
+export function useGetFotosFimProcessosDevolucao<
+  TData = Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  demandaId: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getFotosFimProcessosDevolucao>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetFotosFimProcessosDevolucaoQueryOptions(
+    demandaId,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
