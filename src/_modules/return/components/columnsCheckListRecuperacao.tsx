@@ -21,7 +21,7 @@ export const columnsCheckListRecuperacao: ColumnDef<GetAvariaDto & {
     accessorKey: 'descricao',
     header: 'Descrição',
     cell: ({ row }) => (
-      <div className=" text-gray-700 text-left w-64 wrap-break-word whitespace-normal">
+      <div className="text-gray-700 text-left min-w-0 max-w-full overflow-hidden break-words whitespace-normal">
         {row.getValue('descricao') as string}
       </div>
     ),
@@ -41,7 +41,7 @@ export const columnsCheckListRecuperacao: ColumnDef<GetAvariaDto & {
     accessorKey: 'avaria',
     header: 'Avaria',
     cell: ({ row }) => (
-      <div className=" text-gray-700 w-96 wrap-break-word whitespace-normal">
+      <div className="text-gray-700 min-w-0 max-w-full overflow-hidden break-words whitespace-normal">
         {row.getValue('avaria') as string || '-'}
       </div>
     ),

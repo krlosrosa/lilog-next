@@ -81,11 +81,9 @@ export default function CheckListRecuperacao() {
         </Button>
       </div>
 
-      {/* Conteúdo para Impressão - A4 paisagem: cabe em uma página */}
-      <div
-        ref={printRef}
-        className="print:p-0 print:m-0 print:max-h-[180mm] print:flex print:flex-col print:*:shrink-0"
-      >
+      {/* Conteúdo para Impressão - A4 paisagem: escala para caber em uma página */}
+      <div ref={printRef} className="print-fit-a4-landscape">
+        <div className="print-fit-a4-landscape-inner">
         {/* Header do Checklist - Redesign completo */}
         <div className="border border-border bg-card print:break-inside-avoid shadow-sm print:shadow-none">
           {/* Cabeçalho principal */}
@@ -238,6 +236,7 @@ export default function CheckListRecuperacao() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
