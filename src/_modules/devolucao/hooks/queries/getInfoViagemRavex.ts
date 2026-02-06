@@ -4,7 +4,7 @@ export function useGetInfoViagemRavex(viagemId: string) {
   const { data, isLoading, error } = useGetInfoByViagemId(viagemId, {
     query: {
       enabled: !!viagemId,
-      queryKey: ['getInfoViagemRavex','demandas', viagemId],
+      queryKey: ['getInfoViagemRavexByNf','demandasByNf', viagemId],
     }
   });
   return { data, isLoading, error };
