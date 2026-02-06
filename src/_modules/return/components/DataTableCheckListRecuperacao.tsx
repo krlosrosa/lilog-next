@@ -34,15 +34,15 @@ export function DataTableCheckListRecuperacao<TData, TValue>({
   });
 
   return (
-    <div className="border-2 border-slate-800">
-      <Table>
+    <div className="border-2 border-slate-800 print:border print:border-border print:max-w-full print:overflow-hidden">
+      <Table className="print:table-fixed print:w-full">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id} className="bg-slate-800 hover:bg-slate-800 border-b-2 border-slate-800">
+            <TableRow key={headerGroup.id} className="bg-slate-800 hover:bg-slate-800 border-b-2 border-slate-800 print:border-b print:border-border">
               {headerGroup.headers.map((header) => (
-                <TableHead 
-                  key={header.id} 
-                  className="text-white h-6 font-bold text-[12px] uppercase tracking-wide px-1 py-0.5 text-center border-r border-slate-600 last:border-r-0"
+                <TableHead
+                  key={header.id}
+                  className="text-white h-6 font-bold text-[12px] uppercase tracking-wide px-1 py-0.5 text-center border-r border-slate-600 last:border-r-0 overflow-hidden print:h-auto print:py-1 print:px-1 print:text-[9px] print:font-semibold"
                   style={{ width: header.getSize() !== 150 ? header.getSize() : undefined }}
                 >
                   {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
@@ -55,15 +55,15 @@ export function DataTableCheckListRecuperacao<TData, TValue>({
           {table.getRowModel().rows?.length ? (
             <>
               {table.getRowModel().rows.map((row, index) => (
-                <TableRow 
-                  key={row.id} 
-                  data-state={row.getIsSelected() && 'selected'} 
-                  className={`hover:bg-transparent border-b border-slate-300 ${index % 2 === 0 ? 'bg-white' : 'bg-slate-50'}`}
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                  className={`hover:bg-transparent border-b border-slate-300 ${index % 2 === 0 ? 'bg-white' : 'bg-slate-50'} print:border-b print:border-border`}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell 
-                      key={cell.id} 
-                      className="py-2 px-1 text-[12px] border-r border-slate-200 last:border-r-0 align-top"
+                    <TableCell
+                      key={cell.id}
+                      className="py-2 px-1 text-[12px] border-r border-slate-200 last:border-r-0 align-top overflow-hidden print:py-0.5 print:px-1 print:text-[9px]"
                     >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>

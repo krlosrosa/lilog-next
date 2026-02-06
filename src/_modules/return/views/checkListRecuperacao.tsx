@@ -81,8 +81,9 @@ export default function CheckListRecuperacao() {
         </Button>
       </div>
 
-      {/* Conteúdo para Impressão */}
-      <div ref={printRef} className="print:p-0 print:m-0">
+      {/* Conteúdo para Impressão - A4 paisagem: escala para caber em uma página */}
+      <div ref={printRef} className="print-fit-a4-landscape">
+        <div className="print-fit-a4-landscape-inner">
         {/* Header do Checklist - Redesign completo */}
         <div className="border border-border bg-card print:break-inside-avoid shadow-sm print:shadow-none">
           {/* Cabeçalho principal */}
@@ -181,8 +182,8 @@ export default function CheckListRecuperacao() {
           </div>
         </div>
 
-        {/* Tabela de Avaria */}
-        <div className="mt-4 print:mt-2 print:break-inside-avoid">
+        {/* Tabela de Avaria - compacta na impressão para caber em A4 paisagem */}
+        <div className="mt-4 print:mt-1 print:break-inside-avoid print:min-h-0 print:flex-1 print:overflow-hidden">
           <DataTableCheckListRecuperacao
             columns={columnsCheckListRecuperacao}
             data={dataWithRecuperacao}
@@ -235,6 +236,7 @@ export default function CheckListRecuperacao() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>

@@ -50,6 +50,31 @@ export function usePrintLandscape({ printRef, handleBeforePrint }: Props) {
        margin: 0 !important;
        padding: 0 !important;
      }
+     /* Força o checklist a caber em uma única A4 paisagem e ocupar toda a largura (287x180mm) */
+     .print-fit-a4-landscape {
+       position: relative !important;
+       width: 287mm !important;
+       max-width: 287mm !important;
+       height: 180mm !important;
+       overflow: hidden !important;
+       margin: 0 !important;
+       padding: 0 !important;
+       box-sizing: border-box !important;
+     }
+     .print-fit-a4-landscape-inner {
+       position: absolute !important;
+       top: 0 !important;
+       left: 0 !important;
+       width: 297mm !important;
+       height: 210mm !important;
+       transform: scale(0.966, 0.857) !important; /* scaleX=287/297 (largura total), scaleY=180/210 (altura) */
+       transform-origin: top left !important;
+       box-sizing: border-box !important;
+     }
+     [data-slot="table-container"] {
+       overflow: hidden !important;
+       max-width: 100% !important;
+     }
      .no-print {
        display: none !important;
      }
