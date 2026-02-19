@@ -25,6 +25,7 @@ import type {
   BuscarPausasAtivasParams,
   DemandaCreateDataComPaletesIds,
   DemandaDto,
+  GetProdutividadeMelhoriaDto,
   OverViewProdutividadeDataDto,
   PausaCreateDataDto,
   PausaGeralCreateDataDto,
@@ -783,6 +784,202 @@ export function useBuscarPausasAtivas<
   const queryOptions = getBuscarPausasAtivasQueryOptions(
     centerId,
     params,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * @summary Buscar a produtividade melhoria continua
+ */
+export const getProdutividadeMelhoriaContinua = (
+  dataInicial: string,
+  dataFinal: string,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<GetProdutividadeMelhoriaDto[]>(
+    {
+      url: `/api/gestao-produtividade/get-produtividade-melhoria-continua/${dataInicial}/${dataFinal}`,
+      method: 'GET',
+      signal,
+    },
+    options,
+  );
+};
+
+export const getGetProdutividadeMelhoriaContinuaQueryKey = (
+  dataInicial?: string,
+  dataFinal?: string,
+) => {
+  return [
+    `/api/gestao-produtividade/get-produtividade-melhoria-continua/${dataInicial}/${dataFinal}`,
+  ] as const;
+};
+
+export const getGetProdutividadeMelhoriaContinuaQueryOptions = <
+  TData = Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicial: string,
+  dataFinal: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getGetProdutividadeMelhoriaContinuaQueryKey(dataInicial, dataFinal);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>
+  > = ({ signal }) =>
+    getProdutividadeMelhoriaContinua(
+      dataInicial,
+      dataFinal,
+      requestOptions,
+      signal,
+    );
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(dataInicial && dataFinal),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetProdutividadeMelhoriaContinuaQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>
+>;
+export type GetProdutividadeMelhoriaContinuaQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+export function useGetProdutividadeMelhoriaContinua<
+  TData = Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicial: string,
+  dataFinal: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+          TError,
+          Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetProdutividadeMelhoriaContinua<
+  TData = Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicial: string,
+  dataFinal: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+          TError,
+          Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetProdutividadeMelhoriaContinua<
+  TData = Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicial: string,
+  dataFinal: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Buscar a produtividade melhoria continua
+ */
+
+export function useGetProdutividadeMelhoriaContinua<
+  TData = Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  dataInicial: string,
+  dataFinal: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getProdutividadeMelhoriaContinua>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetProdutividadeMelhoriaContinuaQueryOptions(
+    dataInicial,
+    dataFinal,
     options,
   );
 

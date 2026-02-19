@@ -128,6 +128,24 @@ export const buscarPausasAtivasResponseItem = zod.object({
 export const buscarPausasAtivasResponse = zod.array(buscarPausasAtivasResponseItem)
 
 /**
+ * @summary Buscar a produtividade melhoria continua
+ */
+export const getProdutividadeMelhoriaContinuaParams = zod.object({
+  "dataInicial": zod.string(),
+  "dataFinal": zod.string()
+})
+
+export const getProdutividadeMelhoriaContinuaResponseItem = zod.object({
+  "data": zod.string(),
+  "id_funcionario": zod.string(),
+  "unidade": zod.string(),
+  "nome_funcionario": zod.string(),
+  "turno": zod.string(),
+  "caixas": zod.number()
+})
+export const getProdutividadeMelhoriaContinuaResponse = zod.array(getProdutividadeMelhoriaContinuaResponseItem)
+
+/**
  * @summary Buscar a produtividade de uma demanda de produtividade
  */
 export const getProdutividadeParams = zod.object({

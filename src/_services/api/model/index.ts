@@ -230,6 +230,7 @@ export * from './getNotasDtoEmpresa';
 export * from './getNotasDtoIdViagemRavex';
 export * from './getNotasDtoNfParcial';
 export * from './getNotasDtoTipo';
+export * from './getProdutividadeMelhoriaDto';
 export * from './getProdutividadeParams';
 export * from './getTransporteDto';
 export * from './getTransporteDtoCargaParada';
