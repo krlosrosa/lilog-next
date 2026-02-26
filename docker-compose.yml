@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  vitepwa:
+    build:
+      context: .
+      args:
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+        - AUTH_KEYCLOAK_ID=${AUTH_KEYCLOAK_ID}
+        - AUTH_KEYCLOAK_SECRET=${AUTH_KEYCLOAK_SECRET}
+        - AUTH_KEYCLOAK_ISSUER=${AUTH_KEYCLOAK_ISSUER}
+        - AUTH_KEYCLOAK_ADMIN=${AUTH_KEYCLOAK_ADMIN}
+        - NEXT_PUBLIC_TARGET_URL=${NEXT_PUBLIC_TARGET_URL}
+        - PUBLIC_KEY=${PUBLIC_KEY}
+        - NEXT_HOSTNAME=${NEXT_HOSTNAME}
+      dockerfile: Dockerfile
+    container_name: vitepwa
+    restart: unless-stopped
+    
+    # Porta interna que seu app expõe (ajuste se necessário)
+    expose:
+      - "3000"
+
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - AUTH_KEYCLOAK_ID=${AUTH_KEYCLOAK_ID}
+      - AUTH_KEYCLOAK_SECRET=${AUTH_KEYCLOAK_SECRET}
+      - AUTH_KEYCLOAK_ISSUER=${AUTH_KEYCLOAK_ISSUER}
+      - AUTH_KEYCLOAK_ADMIN=${AUTH_KEYCLOAK_ADMIN}
+      - NEXT_PUBLIC_TARGET_URL=${NEXT_PUBLIC_TARGET_URL}
+      - PUBLIC_KEY=${PUBLIC_KEY}
+      - NEXT_HOSTNAME=${NEXT_HOSTNAME}
+
+    labels:
+      # Habilita o Traefik
+      - "traefik.enable=true"
+
+      # Router
+      - "traefik.http.routers.vitepwa.rule=Host(`${NEXT_HOSTNAME}`)"
+      - "traefik.http.routers.vitepwa.entrypoints=websecure"
+      - "traefik.http.routers.vitepwa.service=vitepwa-service"
+
+      # TLS
+      - "traefik.http.routers.vitepwa.tls=true"
+      - "traefik.http.routers.vitepwa.tls.certresolver=letsencrypt"
+
+      # Load balancer → porta interna
+      - "traefik.http.services.vitepwa-service.loadbalancer.server.port=3000"
+
+    networks:
+      - proxy
+
+# Redes externas
+networks:
+  proxy:
+    external: true
