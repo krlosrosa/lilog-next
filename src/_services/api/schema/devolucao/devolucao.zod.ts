@@ -78,7 +78,8 @@ export const listarDemandasDevolucaoParams = zod.object({
 
 export const listarDemandasDevolucaoResponseIdMin = -2147483648;
 export const listarDemandasDevolucaoResponseIdMax = 2147483647;export const listarDemandasDevolucaoResponseQuantidadePaletesMinOne = -2147483648;
-export const listarDemandasDevolucaoResponseQuantidadePaletesMaxOne = 2147483647;
+export const listarDemandasDevolucaoResponseQuantidadePaletesMaxOne = 2147483647;export const listarDemandasDevolucaoResponsePaletesRecebidosMinOne = -2147483648;
+export const listarDemandasDevolucaoResponsePaletesRecebidosMaxOne = 2147483647;
 
 export const listarDemandasDevolucaoResponseItem = zod.object({
   "id": zod.number().min(listarDemandasDevolucaoResponseIdMin).max(listarDemandasDevolucaoResponseIdMax),
@@ -102,7 +103,8 @@ export const listarDemandasDevolucaoResponseItem = zod.object({
   "finalizadoEm": zod.union([zod.string(),zod.null()]),
   "senha": zod.string(),
   "viagemId": zod.union([zod.string(),zod.null()]),
-  "transporte": zod.union([zod.string(),zod.null()])
+  "transporte": zod.union([zod.string(),zod.null()]),
+  "paletesRecebidos": zod.union([zod.number().min(listarDemandasDevolucaoResponsePaletesRecebidosMinOne).max(listarDemandasDevolucaoResponsePaletesRecebidosMaxOne),zod.null()])
 })
 export const listarDemandasDevolucaoResponse = zod.array(listarDemandasDevolucaoResponseItem)
 
@@ -115,7 +117,8 @@ export const getDemandaByIdDevolucaoParams = zod.object({
 
 export const getDemandaByIdDevolucaoResponseIdMin = -2147483648;
 export const getDemandaByIdDevolucaoResponseIdMax = 2147483647;export const getDemandaByIdDevolucaoResponseQuantidadePaletesMinOne = -2147483648;
-export const getDemandaByIdDevolucaoResponseQuantidadePaletesMaxOne = 2147483647;
+export const getDemandaByIdDevolucaoResponseQuantidadePaletesMaxOne = 2147483647;export const getDemandaByIdDevolucaoResponsePaletesRecebidosMinOne = -2147483648;
+export const getDemandaByIdDevolucaoResponsePaletesRecebidosMaxOne = 2147483647;
 
 export const getDemandaByIdDevolucaoResponse = zod.object({
   "id": zod.number().min(getDemandaByIdDevolucaoResponseIdMin).max(getDemandaByIdDevolucaoResponseIdMax),
@@ -139,7 +142,8 @@ export const getDemandaByIdDevolucaoResponse = zod.object({
   "finalizadoEm": zod.union([zod.string(),zod.null()]),
   "senha": zod.string(),
   "viagemId": zod.union([zod.string(),zod.null()]),
-  "transporte": zod.union([zod.string(),zod.null()])
+  "transporte": zod.union([zod.string(),zod.null()]),
+  "paletesRecebidos": zod.union([zod.number().min(getDemandaByIdDevolucaoResponsePaletesRecebidosMinOne).max(getDemandaByIdDevolucaoResponsePaletesRecebidosMaxOne),zod.null()])
 })
 
 /**

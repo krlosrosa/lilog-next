@@ -18,6 +18,7 @@ import type { ListarDemandasDtoFimConferenciaEm } from './listarDemandasDtoFimCo
 import type { ListarDemandasDtoFinalizadoEm } from './listarDemandasDtoFinalizadoEm';
 import type { ListarDemandasDtoViagemId } from './listarDemandasDtoViagemId';
 import type { ListarDemandasDtoTransporte } from './listarDemandasDtoTransporte';
+import type { ListarDemandasDtoPaletesRecebidos } from './listarDemandasDtoPaletesRecebidos';
 
 export interface ListarDemandasDto {
   /**
@@ -46,4 +47,5 @@ export interface ListarDemandasDto {
   senha: string;
   viagemId: ListarDemandasDtoViagemId;
   transporte: ListarDemandasDtoTransporte;
+  paletesRecebidos: ListarDemandasDtoPaletesRecebidos;
 }

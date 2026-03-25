@@ -134,3 +134,16 @@ export const getPaletesEmAbertoResponseItem = zod.object({
 })
 export const getPaletesEmAbertoResponse = zod.array(getPaletesEmAbertoResponseItem)
 
+/**
+ * @summary Listar linhas da view vw_produtividade_dash por centro e período
+ */
+export const listVwProdutividadeDashQueryDataInicialRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const listVwProdutividadeDashQueryDataFinalRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+
+
+export const listVwProdutividadeDashQueryParams = zod.object({
+  "centerId": zod.string().min(1),
+  "dataInicial": zod.string().regex(listVwProdutividadeDashQueryDataInicialRegExp),
+  "dataFinal": zod.string().regex(listVwProdutividadeDashQueryDataFinalRegExp)
+})
+

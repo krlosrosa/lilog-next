@@ -19,6 +19,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  ListVwProdutividadeDashParams,
   PaleteGetDataTransporteDto,
   ProdutividadeDiaDiaGetDataDto,
 } from '../../model';
@@ -348,6 +349,179 @@ export function useGetPaletesEmAberto<
     processo,
     options,
   );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
+
+/**
+ * @summary Listar linhas da view vw_produtividade_dash por centro e período
+ */
+export const listVwProdutividadeDash = (
+  params: ListVwProdutividadeDashParams,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<void>(
+    {
+      url: `/api/produtividade-dash/vw-produtividade-dash`,
+      method: 'GET',
+      params,
+      signal,
+    },
+    options,
+  );
+};
+
+export const getListVwProdutividadeDashQueryKey = (
+  params?: ListVwProdutividadeDashParams,
+) => {
+  return [
+    `/api/produtividade-dash/vw-produtividade-dash`,
+    ...(params ? [params] : []),
+  ] as const;
+};
+
+export const getListVwProdutividadeDashQueryOptions = <
+  TData = Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+  TError = ErrorType<unknown>,
+>(
+  params: ListVwProdutividadeDashParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getListVwProdutividadeDashQueryKey(params);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof listVwProdutividadeDash>>
+  > = ({ signal }) => listVwProdutividadeDash(params, requestOptions, signal);
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type ListVwProdutividadeDashQueryResult = NonNullable<
+  Awaited<ReturnType<typeof listVwProdutividadeDash>>
+>;
+export type ListVwProdutividadeDashQueryError = ErrorType<unknown>;
+
+export function useListVwProdutividadeDash<
+  TData = Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+  TError = ErrorType<unknown>,
+>(
+  params: ListVwProdutividadeDashParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+          TError,
+          Awaited<ReturnType<typeof listVwProdutividadeDash>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useListVwProdutividadeDash<
+  TData = Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+  TError = ErrorType<unknown>,
+>(
+  params: ListVwProdutividadeDashParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+          TError,
+          Awaited<ReturnType<typeof listVwProdutividadeDash>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useListVwProdutividadeDash<
+  TData = Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+  TError = ErrorType<unknown>,
+>(
+  params: ListVwProdutividadeDashParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Listar linhas da view vw_produtividade_dash por centro e período
+ */
+
+export function useListVwProdutividadeDash<
+  TData = Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+  TError = ErrorType<unknown>,
+>(
+  params: ListVwProdutividadeDashParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof listVwProdutividadeDash>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getListVwProdutividadeDashQueryOptions(params, options);
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<
     TData,

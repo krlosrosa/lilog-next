@@ -35,7 +35,8 @@ export const listarDemandasEmAbertoDevolucaoMobileParams = zod.object({
 
 export const listarDemandasEmAbertoDevolucaoMobileResponseIdMin = -2147483648;
 export const listarDemandasEmAbertoDevolucaoMobileResponseIdMax = 2147483647;export const listarDemandasEmAbertoDevolucaoMobileResponseQuantidadePaletesMinOne = -2147483648;
-export const listarDemandasEmAbertoDevolucaoMobileResponseQuantidadePaletesMaxOne = 2147483647;
+export const listarDemandasEmAbertoDevolucaoMobileResponseQuantidadePaletesMaxOne = 2147483647;export const listarDemandasEmAbertoDevolucaoMobileResponsePaletesRecebidosMinOne = -2147483648;
+export const listarDemandasEmAbertoDevolucaoMobileResponsePaletesRecebidosMaxOne = 2147483647;
 
 export const listarDemandasEmAbertoDevolucaoMobileResponseItem = zod.object({
   "id": zod.number().min(listarDemandasEmAbertoDevolucaoMobileResponseIdMin).max(listarDemandasEmAbertoDevolucaoMobileResponseIdMax),
@@ -59,7 +60,8 @@ export const listarDemandasEmAbertoDevolucaoMobileResponseItem = zod.object({
   "finalizadoEm": zod.union([zod.string(),zod.null()]),
   "senha": zod.string(),
   "viagemId": zod.union([zod.string(),zod.null()]),
-  "transporte": zod.union([zod.string(),zod.null()])
+  "transporte": zod.union([zod.string(),zod.null()]),
+  "paletesRecebidos": zod.union([zod.number().min(listarDemandasEmAbertoDevolucaoMobileResponsePaletesRecebidosMinOne).max(listarDemandasEmAbertoDevolucaoMobileResponsePaletesRecebidosMaxOne),zod.null()])
 })
 export const listarDemandasEmAbertoDevolucaoMobileResponse = zod.array(listarDemandasEmAbertoDevolucaoMobileResponseItem)
 

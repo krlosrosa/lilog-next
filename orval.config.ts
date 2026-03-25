@@ -5,7 +5,7 @@ export default defineConfig({
   // Bloco 1: Gera o cliente React Query e os tipos TypeScript normais
   unnoqApi: {
     input: {
-      target: 'http://localhost:4000/docs-json',
+      target: 'http://localhost:4002/docs-json',
     },
     output: {
       headers: true,
@@ -26,7 +26,7 @@ export default defineConfig({
   // Bloco 2: Gera APENAS os schemas Zod
   unnoqApiZod: {
     input: {
-      target: 'http://localhost:4000/docs-json',
+      target: 'http://localhost:4002/docs-json',
     },
     output: {
       client: 'zod',

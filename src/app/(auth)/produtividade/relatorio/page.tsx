@@ -1,9 +1,9 @@
-import { TableRelatorioProdutividade } from "@/_modules/produtividade/components/relatorioProdutividade/tableRelatorioProdutividade";
+import DashboardXlsxView from "@/_modules/produtividade/views/dashboard-xlsx";
 
 export default function RelatorioProdutividadePage() { 
   return (
     <div className="p-2" >
-      <TableRelatorioProdutividade />
+      <DashboardXlsxView />
     </div>
   )
 }
