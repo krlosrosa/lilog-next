@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import {
   ColumnDef,
@@ -38,13 +38,63 @@ import {
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
+/** Data-only (YYYY-MM-DD) como meia-noite local; demais valores como Date em hora local. */
+const parseDataExpedicao = (value: string): Date | null => {
+  const trimmed = value.trim();
+  if (DATE_RE.test(trimmed)) {
+    return parseISO(trimmed);
+  }
+  const d = new Date(trimmed);
+  return Number.isNaN(d.getTime()) ? null : d;
+};
+
 const formatDataExpedicao = (value: string | null | undefined) => {
   if (!value) return '—';
   try {
-    return format(new Date(value), 'dd/MM/yyyy', { locale: ptBR });
+    const d = parseDataExpedicao(value);
+    if (!d) return value;
+    return format(d, 'dd/MM/yyyy', { locale: ptBR });
   } catch {
     return value;
   }
+};
+
+/** Converte instante ISO (ex.: UTC) para hora local; mantém strings só de hora. */
+const formatHorarioLocal = (value: string | null | undefined) => {
+  if (value == null || value === '') return '—';
+  const trimmed = value.trim();
+  const d = new Date(trimmed);
+  if (!Number.isNaN(d.getTime())) {
+    return format(d, 'HH:mm:ss');
+  }
+  if (/^\d{1,2}:\d{2}(:\d{2})?$/.test(trimmed)) {
+    return trimmed;
+  }
+  return value;
+};
+
+const formatDataExpedicaoExport = (value: string | null | undefined) => {
+  if (!value) return '';
+  try {
+    const d = parseDataExpedicao(value);
+    if (!d) return value;
+    return format(d, 'dd/MM/yyyy', { locale: ptBR });
+  } catch {
+    return value ?? '';
+  }
+};
+
+const formatHorarioLocalExport = (value: string | null | undefined) => {
+  if (value == null || value === '') return '';
+  const trimmed = value.trim();
+  const d = new Date(trimmed);
+  if (!Number.isNaN(d.getTime())) {
+    return format(d, 'HH:mm:ss');
+  }
+  if (/^\d{1,2}:\d{2}(:\d{2})?$/.test(trimmed)) {
+    return trimmed;
+  }
+  return value;
 };
 
 const columns: ColumnDef<TerminoCarregamentoGetDto>[] = [
@@ -71,7 +121,7 @@ const columns: ColumnDef<TerminoCarregamentoGetDto>[] = [
     header: 'Horário de Largada',
     cell: ({ row }) => (
       <div className="font-medium">
-        {row.original.horarioTerminoCarregamento ?? '—'}
+        {formatHorarioLocal(row.original.horarioTerminoCarregamento)}
       </div>
     ),
   },
@@ -91,8 +141,8 @@ const buildExcelRows = (
 ): Record<string, unknown>[] =>
   rows.map((row) => ({
     'Nº Transporte': row.numeroTransporte ?? '',
-    'Data Expedição': row.dataExpedicao ?? '',
-    'Horário de Largada': row.horarioTerminoCarregamento ?? '',
+    'Data Expedição': formatDataExpedicaoExport(row.dataExpedicao),
+    'Horário de Largada': formatHorarioLocalExport(row.horarioTerminoCarregamento),
     Centro: row.centerId ?? '',
   }));
 
