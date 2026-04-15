@@ -348,3 +348,24 @@ export const trocarDataExpedicaoTransportesParams = zod.object({
 export const trocarDataExpedicaoTransportesBodyItem = zod.string()
 export const trocarDataExpedicaoTransportesBody = zod.array(trocarDataExpedicaoTransportesBodyItem)
 
+/**
+ * @summary Listar registros da view_termino_carregamento por centro e período
+ */
+export const getViewTerminoCarregamentoQueryDataInicialRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+export const getViewTerminoCarregamentoQueryDataFinalRegExp = new RegExp('^\\d{4}-\\d{2}-\\d{2}$');
+
+
+export const getViewTerminoCarregamentoQueryParams = zod.object({
+  "centerId": zod.string().min(1),
+  "dataInicial": zod.string().regex(getViewTerminoCarregamentoQueryDataInicialRegExp),
+  "dataFinal": zod.string().regex(getViewTerminoCarregamentoQueryDataFinalRegExp)
+})
+
+export const getViewTerminoCarregamentoResponseItem = zod.object({
+  "horarioTerminoCarregamento": zod.union([zod.string(),zod.null()]),
+  "numeroTransporte": zod.union([zod.string(),zod.null()]),
+  "dataExpedicao": zod.union([zod.string(),zod.null()]),
+  "centerId": zod.union([zod.string(),zod.null()])
+})
+export const getViewTerminoCarregamentoResponse = zod.array(getViewTerminoCarregamentoResponseItem)
+

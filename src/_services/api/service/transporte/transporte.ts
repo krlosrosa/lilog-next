@@ -29,9 +29,11 @@ import type {
   CreateTransporteItemDto,
   GetAllTransportesDto,
   GetTransporteDto,
+  GetViewTerminoCarregamentoParams,
   PaleteCreateDataDto,
   ResultTransporteDtoOutput,
   ResultadoHoraHoraDtoOutput,
+  TerminoCarregamentoGetDto,
   TransporteComRelacionamentosGetDto,
 } from '../../model';
 
@@ -1397,3 +1399,181 @@ export const useTrocarDataExpedicaoTransportes = <
 
   return useMutation(mutationOptions, queryClient);
 };
+/**
+ * @summary Listar registros da view_termino_carregamento por centro e período
+ */
+export const getViewTerminoCarregamento = (
+  params: GetViewTerminoCarregamentoParams,
+  options?: SecondParameter<typeof axiosFetcher>,
+  signal?: AbortSignal,
+) => {
+  return axiosFetcher<TerminoCarregamentoGetDto[]>(
+    {
+      url: `/api/transporte/view-termino-carregamento`,
+      method: 'GET',
+      params,
+      signal,
+    },
+    options,
+  );
+};
+
+export const getGetViewTerminoCarregamentoQueryKey = (
+  params?: GetViewTerminoCarregamentoParams,
+) => {
+  return [
+    `/api/transporte/view-termino-carregamento`,
+    ...(params ? [params] : []),
+  ] as const;
+};
+
+export const getGetViewTerminoCarregamentoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  params: GetViewTerminoCarregamentoParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetViewTerminoCarregamentoQueryKey(params);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getViewTerminoCarregamento>>
+  > = ({ signal }) =>
+    getViewTerminoCarregamento(params, requestOptions, signal);
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
+
+export type GetViewTerminoCarregamentoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getViewTerminoCarregamento>>
+>;
+export type GetViewTerminoCarregamentoQueryError = ErrorType<
+  void | void | void | void | void | void
+>;
+
+export function useGetViewTerminoCarregamento<
+  TData = Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  params: GetViewTerminoCarregamentoParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+          TError,
+          Awaited<ReturnType<typeof getViewTerminoCarregamento>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetViewTerminoCarregamento<
+  TData = Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  params: GetViewTerminoCarregamentoParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+          TError,
+          Awaited<ReturnType<typeof getViewTerminoCarregamento>>
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useGetViewTerminoCarregamento<
+  TData = Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  params: GetViewTerminoCarregamentoParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+/**
+ * @summary Listar registros da view_termino_carregamento por centro e período
+ */
+
+export function useGetViewTerminoCarregamento<
+  TData = Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+  TError = ErrorType<void | void | void | void | void | void>,
+>(
+  params: GetViewTerminoCarregamentoParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof getViewTerminoCarregamento>>,
+        TError,
+        TData
+      >
+    >;
+    request?: SecondParameter<typeof axiosFetcher>;
+  },
+  queryClient?: QueryClient,
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getGetViewTerminoCarregamentoQueryOptions(
+    params,
+    options,
+  );
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey;
+
+  return query;
+}
