@@ -1,7 +1,9 @@
 import { useCriarCorteDeProduto } from "@/_services/api/service/corte-produto/corte-produto";
 import { useCorte } from "../context/corte.provider";
-import { TipoCorteEnum } from "../enums/tipor-corte";
-import { CorteMercadoriaDto, CorteMercadoriaDtoDirecao } from "@/_services/api/model";
+import {
+  CorteMercadoriaDtoDirecao,
+  type CorteMercadoriaDtoMotivo,
+} from "@/_services/api/model";
 import toast from "react-hot-toast";
 import { useUser } from "@/_shared/providers/UserContext";
 import { useQueryClient } from "@tanstack/react-query";
@@ -22,7 +24,7 @@ export const useAddCorteProduto = () => {
     const corte = selectedProdutos.map((produto) => ({
       produto: produto.sku,
       lote: produto.lote,
-      motivo: motivoCorte as TipoCorteEnum,
+      motivo: motivoCorte as CorteMercadoriaDtoMotivo,
       transporteId: produto.transporte,
       unidades: produto.quantidade || 0,
       descricao: produto.descricao || null,

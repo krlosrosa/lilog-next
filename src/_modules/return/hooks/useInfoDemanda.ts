@@ -4,7 +4,8 @@ import {
   useGetFotosFimProcessosDevolucao,
   useGetResultadoDemandaDevolucao,
 } from "@/_services/api/service/devolucao/devolucao";
-import { useCallback, useState } from "react";
+import { sanitizeMinioUrls } from "@/_shared/utils/sanitizeMinioUrl";
+import { useCallback, useMemo, useState } from "react";
 
 export default function useInfoDemanda() {
   const [demandaId, setDemandaId] = useState<string | null>(null);
@@ -22,6 +23,16 @@ export default function useInfoDemanda() {
   const { data: fotosFimProcesso, isLoading: isLoadingFotosFimProcesso } =
     useGetFotosFimProcessosDevolucao(effectiveId);
 
+  const fotosCheckListSanitized = useMemo(
+    () => (fotosCheckList?.length ? sanitizeMinioUrls(fotosCheckList) : fotosCheckList),
+    [fotosCheckList],
+  );
+  const fotosFimProcessoSanitized = useMemo(
+    () =>
+      fotosFimProcesso?.length ? sanitizeMinioUrls(fotosFimProcesso) : fotosFimProcesso,
+    [fotosFimProcesso],
+  );
+
   const setDemandaIdSafe = useCallback((value: string | null) => {
     setDemandaId(value?.trim() || null);
   }, []);
@@ -31,8 +42,8 @@ export default function useInfoDemanda() {
     setDemandaId: setDemandaIdSafe,
     infoDemanda,
     avarias,
-    fotosCheckList,
-    fotosFimProcesso,
+    fotosCheckList: fotosCheckListSanitized,
+    fotosFimProcesso: fotosFimProcessoSanitized,
     isLoadingInfoDemanda,
     isLoadingFotosCheckList,
     isLoadingFotosFimProcesso,

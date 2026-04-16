@@ -28,6 +28,9 @@ export default function ConfirmarCorte({ children }: ConfirmarCorteProps) {
     { value: TipoCorteEnum.FALTA_MERCADORIA, label: 'Falta de Mercadoria' },
     { value: TipoCorteEnum.FALTA_ESPACO, label: 'Falta de Espaço' },
     { value: TipoCorteEnum.RECUSA_SEFAZ, label: 'Recusa SEFAZ' },
+    { value: TipoCorteEnum.DATA_VENCIMENTO, label: 'Data Vencimento' },
+    { value: TipoCorteEnum.QUALIDADE, label: 'Qualidade' },
+
   ];
 
   const motivoPreenchido = !!motivoCorte;

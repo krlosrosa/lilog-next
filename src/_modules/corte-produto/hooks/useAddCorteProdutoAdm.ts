@@ -1,8 +1,11 @@
 import { useBuscarProdutosPorTransporte, useCriarCorteDeProduto } from "@/_services/api/service/corte-produto/corte-produto";
 import { useDebounce } from "@/_shared/hooks/useDebounce";
 import { useEffect, useState } from "react";
-import { AugmentedZodDto, CorteMercadoriaDtoDirecao } from "@/_services/api/model";
-import { TipoCorteEnum } from "../enums/tipor-corte";
+import {
+  AugmentedZodDto,
+  CorteMercadoriaDtoDirecao,
+  CorteMercadoriaDtoMotivo,
+} from "@/_services/api/model";
 import { useUser } from "@/_shared/providers/UserContext";
 import toast from "react-hot-toast";
 import { reduceForAdmin } from "../utils/reduceForAdmin";
@@ -45,7 +48,7 @@ export const  useAddCorteProdutoAdm = () => {
     const corte = reduceOperation.map((item) => ({
       produto: item.sku,
       lote: item.lote,
-      motivo: TipoCorteEnum.RECUSA_SEFAZ,
+      motivo: CorteMercadoriaDtoMotivo.RECUSA_SEFAZ,
       transporteId: item.transporte,
       unidades: item.quantidade || 0,
       descricao: item.descricao,

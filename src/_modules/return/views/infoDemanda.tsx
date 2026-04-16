@@ -80,7 +80,7 @@ export default function InfoDemanda() {
           Consulte o resultado e o andamento de uma demanda de devolução pelo ID.
         </p>
       </header>
-
+      <pre>{JSON.stringify(fotosCheckList, null, 2)}</pre>
       {/* Busca */}
       <Card className="shadow-sm border-border/50">
         <CardHeader className="pb-3">
