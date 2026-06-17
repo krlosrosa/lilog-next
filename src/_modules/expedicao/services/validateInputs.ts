@@ -3,6 +3,7 @@ import {
   DivergenciaConversao,
   ErrorField,
   ErrorFiles,
+  InconsistenciaBaseCadastral,
   ProdutoNaoEncontrado,
   UnidadeMedidaDesconhecida,
 } from '../others/types/uploadErro';
@@ -146,6 +147,43 @@ function validarUnidadesMedida(
   return Array.from(unidadesDesconhecidas.values());
 }
 
+function validarBaseCadastralProdutos(
+  products: ProductsPickingMapItem[],
+): InconsistenciaBaseCadastral[] {
+  const TOLERANCIA_PERCENTUAL_BASE = 0.01; // 1%
+  const TOLERANCIA_ABSOLUTA_BASE = 0.5; // 0,5 unidade (arredondamento de peso)
+
+  const inconsistencias: InconsistenciaBaseCadastral[] = [];
+
+  for (const product of products) {
+    if (!product.pesoUnidade || product.pesoUnidade <= 0) {
+      continue;
+    }
+
+    const unPorCaixaEsperado = product.pesoCaixa / product.pesoUnidade;
+    const diferenca = Math.abs(unPorCaixaEsperado - product.unPorCaixa);
+    const percentual =
+      unPorCaixaEsperado > 0 ? diferenca / unPorCaixaEsperado : 0;
+
+    const dentroDaTolerancia =
+      diferenca <= TOLERANCIA_ABSOLUTA_BASE ||
+      percentual <= TOLERANCIA_PERCENTUAL_BASE;
+
+    if (!dentroDaTolerancia) {
+      inconsistencias.push({
+        codItem: product.codItem,
+        descricao: product.descricao,
+        unPorCaixaCadastrado: product.unPorCaixa,
+        unPorCaixaEsperado: Math.round(unPorCaixaEsperado * 100) / 100,
+        pesoCaixa: product.pesoCaixa,
+        pesoUnidade: product.pesoUnidade,
+      });
+    }
+  }
+
+  return inconsistencias;
+}
+
 function extrairTransportesUnicos(
   shipments: ShipmentPickingMapItem[],
 ): string[] {
@@ -201,6 +239,8 @@ export async function ValidarInputs(
   // Responsabilidade: Garantir a consistência *entre* os arquivos.
   const produtosNaoEncontrados = validarProdutosExistem(shipments, products);
 
+  const inconsistenciasBaseCadastral = validarBaseCadastralProdutos(products);
+
   const unidadesMedidaDesconhecidas = validarUnidadesMedida(shipments);
 
   const divergenciaConversao = validarDivergenciaConversao(shipments, products);
@@ -208,12 +248,14 @@ export async function ValidarInputs(
   // 4. COMPILAR RESULTADO
   const hasSchemaErrors = errors.length > 0;
   const hasMissingProducts = produtosNaoEncontrados.length > 0;
+  const hasInconsistenciasBase = inconsistenciasBaseCadastral.length > 0;
   const hasUnidadesMedidaDesconhecidas = unidadesMedidaDesconhecidas.length > 0;
   const hasDivergenciaConversao = divergenciaConversao.length > 0;
 
   if (
     hasSchemaErrors ||
     hasMissingProducts ||
+    hasInconsistenciasBase ||
     hasUnidadesMedidaDesconhecidas ||
     hasDivergenciaConversao
   ) {
@@ -224,6 +266,7 @@ export async function ValidarInputs(
       produtosNaoEncontrados,
       divergenciaConversao,
       unidadesMedidaDesconhecidas,
+      inconsistenciasBaseCadastral,
     };
   }
 

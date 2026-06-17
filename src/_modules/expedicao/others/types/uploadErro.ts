@@ -5,12 +5,22 @@ export type UnidadeMedidaDesconhecida = {
   transportId: string;
 };
 
+export type InconsistenciaBaseCadastral = {
+  codItem: string;
+  descricao: string;
+  unPorCaixaCadastrado: number;
+  unPorCaixaEsperado: number;
+  pesoCaixa: number;
+  pesoUnidade: number;
+};
+
 export type ErrorFiles = {
   error: boolean;
   errors: ErrorField[];
   produtosNaoEncontrados: ProdutoNaoEncontrado[];
   divergenciaConversao: DivergenciaConversao[];
   unidadesMedidaDesconhecidas: UnidadeMedidaDesconhecida[];
+  inconsistenciasBaseCadastral: InconsistenciaBaseCadastral[];
 };
 
 export type ErrorField = {

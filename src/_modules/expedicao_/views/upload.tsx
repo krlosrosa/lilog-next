@@ -7,6 +7,7 @@ import { useUpload } from "../hooks/useUpload";
 import { Loader2, Upload } from "lucide-react";
 import { ProdNaoEncontrado } from "../components/upload/produtoNaoEncontrado";
 import { TitleTabs } from "../components/title";
+import { ErroBaseCadastral } from "../components/upload/erroBaseCadastral";
 import { ErroDivergenciaConversao } from "../components/upload/erroDivergenciaConversao";
 import { ErroUnidadeMedidaDesconhecida } from "../components/upload/erroUnidadeMedidaDesconhecida";
 
@@ -34,6 +35,18 @@ export function UploadTab({ setValueTab }: UploadTabProps) {
       {validationFailure?.produtosNaoEncontrados
         && validationFailure.produtosNaoEncontrados.length > 0
         && <ProdNaoEncontrado produto={validationFailure.produtosNaoEncontrados} />}
+      {validationFailure?.inconsistenciasBaseCadastral
+        && validationFailure.inconsistenciasBaseCadastral.length > 0
+        &&
+        <div className=" mt-4">
+          <h2 className="text-lg font-semibold">Inconsistências na Base Cadastral</h2>
+          <div className="space-y-2">
+            {validationFailure.inconsistenciasBaseCadastral.map((item) => (
+              <ErroBaseCadastral key={item.codItem} item={item} />
+            ))}
+          </div>
+        </div>
+      }
       {validationFailure?.unidadesMedidaDesconhecidas
         && validationFailure.unidadesMedidaDesconhecidas.length > 0
         &&
