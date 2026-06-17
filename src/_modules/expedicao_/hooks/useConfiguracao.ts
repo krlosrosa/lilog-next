@@ -15,6 +15,8 @@ export function useConfiguracao() {
 
   const setClassificarProduto = useConfiguracoesStore((state) => state.setClassificarProduto)
   const classificarProduto = useConfiguracoesStore((state) => state.classificarProduto)
+  const setAgruparConferenciaPorEmpresa = useConfiguracoesStore((state) => state.setAgruparConferenciaPorEmpresa)
+  const agruparConferenciaPorEmpresa = useConfiguracoesStore((state) => state.agruparConferenciaPorEmpresa)
 
   useEffect(() => {
     if (configuracaoImpressaoFromDB && !isLoadingConfiguracaoImpressao) {
@@ -38,6 +40,8 @@ export function useConfiguracao() {
     setReplicar,
     replicar,
     setClassificarProduto,
-    classificarProduto
+    classificarProduto,
+    setAgruparConferenciaPorEmpresa,
+    agruparConferenciaPorEmpresa,
   }
 }

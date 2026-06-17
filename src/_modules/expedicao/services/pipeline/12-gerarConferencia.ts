@@ -8,12 +8,14 @@ import type {
 // Processo: CONFERENCIA
 export function gerarConferencia(
   items: EnrichedPickingMapItem[],
+  agruparPorEmpresa: boolean = false,
 ): ImpressaoMapa[] {
   const mapaPorChave = new Map<string, EnrichedPickingMapItem[]>();
 
   // Agrupa os itens por chave composta (diferente da separação)
   for (const item of items) {
-    const chave = `${item.id}|${item.tipo}|${item.produto?.segmento}`; // Chave deste processo
+    const empresa = agruparPorEmpresa ? `|${item.produto?.empresa ?? ''}` : '';
+    const chave = `${item.id}|${item.tipo}${empresa}|${item.produto?.segmento}`;
     if (!mapaPorChave.has(chave)) {
       mapaPorChave.set(chave, []);
     }

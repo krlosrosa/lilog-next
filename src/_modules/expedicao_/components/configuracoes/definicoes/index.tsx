@@ -20,9 +20,11 @@ type ConfiguracaoGeralProps = {
   replicar: boolean;
   setClassificarProduto: (classificarProduto: boolean) => void;
   classificarProduto: boolean;
+  setAgruparConferenciaPorEmpresa: (agruparConferenciaPorEmpresa: boolean) => void;
+  agruparConferenciaPorEmpresa: boolean;
 }
 
-export function ConfiguracaoGeral({ setEmpresa, empresa, setReplicar, replicar, setClassificarProduto, classificarProduto }: ConfiguracaoGeralProps) {
+export function ConfiguracaoGeral({ setEmpresa, empresa, setReplicar, replicar, setClassificarProduto, classificarProduto, setAgruparConferenciaPorEmpresa, agruparConferenciaPorEmpresa }: ConfiguracaoGeralProps) {
   const [isOpen, setIsOpen] = useState(false);
   const sincronizado = useConfiguracoesStore((state) => state.sincronizado)
 
@@ -35,6 +37,8 @@ export function ConfiguracaoGeral({ setEmpresa, empresa, setReplicar, replicar, 
         replicar={replicar}
         setClassificarProduto={setClassificarProduto}
         classificarProduto={classificarProduto}
+        setAgruparConferenciaPorEmpresa={setAgruparConferenciaPorEmpresa}
+        agruparConferenciaPorEmpresa={agruparConferenciaPorEmpresa}
       />
       <Separator />
       {sincronizado ? <Collapsible>

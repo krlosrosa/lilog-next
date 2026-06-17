@@ -1,6 +1,7 @@
 import { QRCodeSVG } from 'qrcode.react';
 import { memo } from 'react';
 import { ImpressaoMapaHeader } from '@/_modules/expedicao_/others/types/items';
+import { useConfiguracoesStore } from '@/_modules/expedicao_/others/stores/configuracoes.store';
 
 interface HeaderCarregamentoProps {
   mapa: ImpressaoMapaHeader;
@@ -22,6 +23,9 @@ const InfoItem = ({
 );
 
 export const HeaderCarregamento = memo(({ mapa }: HeaderCarregamentoProps) => {
+  const agruparConferenciaPorEmpresa = useConfiguracoesStore(
+    (state) => state.agruparConferenciaPorEmpresa,
+  );
   const pesoTotal =
     (mapa.pesoCaixa || 0) + (mapa.pesoPalete || 0) + (mapa.pesoUnidade || 0);
 
@@ -39,6 +43,9 @@ export const HeaderCarregamento = memo(({ mapa }: HeaderCarregamentoProps) => {
       <div className="flex items-center justify-between bg-slate-50 px-3 py-1.5">
         <h1 className="text-xl font-bold tracking-wide text-black">
           MAPA DE CONFERENCIA
+          {agruparConferenciaPorEmpresa && mapa.empresa
+            ? ` - ${mapa.empresa}`
+            : ''}
         </h1>
         <h1 className="text-xl font-bold tracking-wide text-black">
           {mapa.segmento}

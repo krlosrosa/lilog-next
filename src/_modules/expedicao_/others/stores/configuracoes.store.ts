@@ -27,11 +27,13 @@ interface ConfiguracoesStore {
   configuracaoImpressao: ConfiguracaoImpressa;
   replicar: boolean;
   classificarProduto: boolean;
+  agruparConferenciaPorEmpresa: boolean;
   setConfiguracaoImpressao: (config: ConfiguracaoImpressa) => void;
   setSincronizado: (sincronizado: boolean) => void;
   resetConfiguracao: () => void;
   setReplicar: (replicar: boolean) => void;
   setClassificarProduto: (classificarProduto: boolean) => void;
+  setAgruparConferenciaPorEmpresa: (agruparConferenciaPorEmpresa: boolean) => void;
 }
 
 export const useConfiguracoesStore = create<ConfiguracoesStore>((set) => ({
@@ -39,10 +41,13 @@ export const useConfiguracoesStore = create<ConfiguracoesStore>((set) => ({
   configuracaoImpressao: initialConfiguracaoImpressao,
   replicar: false,
   classificarProduto: false,
+  agruparConferenciaPorEmpresa: false,
   setConfiguracaoImpressao: (config) => set({ configuracaoImpressao: config }),
   setSincronizado: (sincronizado) => set({ sincronizado }),
   resetConfiguracao: () => initialConfiguracaoImpressao,
   setReplicar: (replicar) => set({ replicar }),
   setClassificarProduto: (classificarProduto) => set({ classificarProduto }),
+  setAgruparConferenciaPorEmpresa: (agruparConferenciaPorEmpresa) =>
+    set({ agruparConferenciaPorEmpresa }),
 }));
 

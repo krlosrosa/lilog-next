@@ -21,9 +21,11 @@ type TipoEmpresaProps = {
   replicar: boolean;
   setClassificarProduto: (classificarProduto: boolean) => void;
   classificarProduto: boolean;
+  setAgruparConferenciaPorEmpresa: (agruparConferenciaPorEmpresa: boolean) => void;
+  agruparConferenciaPorEmpresa: boolean;
 }
 
-export function TipoEmpresa({ setEmpresa, empresa, setReplicar, replicar, setClassificarProduto, classificarProduto }: TipoEmpresaProps) {
+export function TipoEmpresa({ setEmpresa, empresa, setReplicar, replicar, setClassificarProduto, classificarProduto, setAgruparConferenciaPorEmpresa, agruparConferenciaPorEmpresa }: TipoEmpresaProps) {
 
   const configuracaoImpressao = useConfiguracoesStore((state) => state.configuracaoImpressao)
   const setConfiguracaoImpressao = useConfiguracoesStore((state) => state.setConfiguracaoImpressao)
@@ -63,6 +65,16 @@ export function TipoEmpresa({ setEmpresa, empresa, setReplicar, replicar, setCla
             <Switch
               checked={replicar}
               onCheckedChange={setReplicar}
+            />
+          </div>
+          <div className="flex items-center justify-between p-4 border rounded-lg bg-card hover:bg-accent/5 transition-colors">
+            <div className="space-y-1">
+              <Label className="text-base font-medium">Agrupar por Empresa</Label>
+              <p className="text-sm text-muted-foreground">Separar mapas de conferência por empresa</p>
+            </div>
+            <Switch
+              checked={agruparConferenciaPorEmpresa}
+              onCheckedChange={setAgruparConferenciaPorEmpresa}
             />
           </div>
         </div>

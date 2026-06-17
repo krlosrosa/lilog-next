@@ -102,7 +102,7 @@ export function gerarGrupos(
         clientesASegregar,
         remessasAgrupar,
       );
-    } else if (tipo === 'TRANSPORTE') {
+    } else if (tipo === 'CLIENTE') {
       groupKey = getClienteGroupKey(shipment, clientesAgrupar, remessasAgrupar);
     } else if (tipo === 'REMESSA') {
       groupKey = `${shipment.remessa}`;

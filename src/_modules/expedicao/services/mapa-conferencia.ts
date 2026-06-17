@@ -24,7 +24,8 @@ export async function gerarMapaConferencia(
   agruparTransportes?: Groups[],
   agruparRemessas?: Groups[],
   replicar: boolean = false,
-  classificarProduto: boolean = false,  
+  classificarProduto: boolean = false,
+  agruparPorEmpresa: boolean = false,
 ): Promise<ImpressaoMapa[]> {
   const { shipments, products, routes } = input.data;
 
@@ -58,7 +59,7 @@ export async function gerarMapaConferencia(
 
   // --- Etapa 5: Geração do Mapa Final ---
   // (Assumindo que 'gerarSeparacao' é a 'gerarMapa' que corrigimos)
-  const mapas = gerarConferencia(itens);
+  const mapas = gerarConferencia(itens, agruparPorEmpresa);
 
   // MELHORIA: 'async' functions já retornam Promises.
   return mapas;
