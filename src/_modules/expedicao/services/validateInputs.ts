@@ -4,6 +4,7 @@ import {
   ErrorField,
   ErrorFiles,
   ProdutoNaoEncontrado,
+  UnidadeMedidaDesconhecida,
 } from '../others/types/uploadErro';
 import { entregaSchema } from '../others/schemas/entrega.schema';
 import { produtoSchema } from '../others/schemas/product.schema';
@@ -16,6 +17,11 @@ import {
 import { convertShipment } from '../others/utils/remessas.convert';
 import { convertProducts } from '../others/utils/product.convert';
 import { convertRouting } from '../others/utils/rotas.convert';
+import {
+  isUnidadeMedidaCaixa,
+  isUnidadeMedidaConhecida,
+  normalizarUnidadeMedida,
+} from '../others/utils/unidadesMedida';
 
 export interface FilesState {
   shipments: File | null;
@@ -118,6 +124,28 @@ function validarProdutosExistem(
   return Array.from(produtosNaoEncontradosMap.values());
 }
 
+function validarUnidadesMedida(
+  shipments: ShipmentPickingMapItem[],
+): UnidadeMedidaDesconhecida[] {
+  const unidadesDesconhecidas = new Map<string, UnidadeMedidaDesconhecida>();
+
+  for (const shipment of shipments) {
+    const unMedida = normalizarUnidadeMedida(shipment.unMedida);
+    const key = `${shipment.codItem}_${unMedida}`;
+
+    if (!isUnidadeMedidaConhecida(unMedida) && !unidadesDesconhecidas.has(key)) {
+      unidadesDesconhecidas.set(key, {
+        codItem: shipment.codItem,
+        descricao: shipment.descricao,
+        unMedida,
+        transportId: shipment.transportId,
+      });
+    }
+  }
+
+  return Array.from(unidadesDesconhecidas.values());
+}
+
 function extrairTransportesUnicos(
   shipments: ShipmentPickingMapItem[],
 ): string[] {
@@ -173,20 +201,29 @@ export async function ValidarInputs(
   // Responsabilidade: Garantir a consistência *entre* os arquivos.
   const produtosNaoEncontrados = validarProdutosExistem(shipments, products);
 
+  const unidadesMedidaDesconhecidas = validarUnidadesMedida(shipments);
+
   const divergenciaConversao = validarDivergenciaConversao(shipments, products);
 
   // 4. COMPILAR RESULTADO
   const hasSchemaErrors = errors.length > 0;
   const hasMissingProducts = produtosNaoEncontrados.length > 0;
+  const hasUnidadesMedidaDesconhecidas = unidadesMedidaDesconhecidas.length > 0;
   const hasDivergenciaConversao = divergenciaConversao.length > 0;
 
-  if (hasSchemaErrors || hasMissingProducts || hasDivergenciaConversao) {
+  if (
+    hasSchemaErrors ||
+    hasMissingProducts ||
+    hasUnidadesMedidaDesconhecidas ||
+    hasDivergenciaConversao
+  ) {
     // Caso de FALHA: Retorna os erros
     return {
       error: true,
       errors,
       produtosNaoEncontrados,
       divergenciaConversao,
+      unidadesMedidaDesconhecidas,
     };
   }
 
@@ -210,35 +247,34 @@ export function validarDivergenciaConversao(
 ): DivergenciaConversao[] {
   const divergenciaConversao = new Map<string, DivergenciaConversao>();
 
-  const tolerancia: number = 0.01
+  const TOLERANCIA_PERCENTUAL = 0.002; // 0.5%
+  const TOLERANCIA_ABSOLUTA = 1; // 1 unidade
 
   for (const shipment of shipments) {
-    const unMedidasParaCaixa: string[] = ['CX', 'CXC', 'FRD', 'FD', 'SC'];
     const product = products.find((p) => p.codItem === shipment.codItem);
     if (product) {
 
       const pesoPorUnidade = product.pesoUnidade;
       const pesoPedido = shipment.pesoLiquido;
       const quantidade = shipment.quantidade;
-      const unMedida = shipment.unMedida;
+      const unMedida = normalizarUnidadeMedida(shipment.unMedida);
       const conversao = pesoPedido / pesoPorUnidade;
-      const parteDecimal = Math.abs(conversao - Math.round(conversao));
-      let totalUnidadesPostConversao = 0;
 
       const quantidadeUnidade = Math.round(conversao);
-      if (unMedidasParaCaixa.includes(unMedida)) {
-        const caixaParaUnidade = shipment.quantidade * product.unPorCaixa;
-        const validarUnidade = caixaParaUnidade === quantidadeUnidade;
-        totalUnidadesPostConversao = caixaParaUnidade;
-        if (validarUnidade) {
-          continue;
-        }
-      } else {
-        const validarUnidade = shipment.quantidade === quantidadeUnidade;
-        totalUnidadesPostConversao = shipment.quantidade;
-        if (validarUnidade) {
-          continue;
-        }
+      const totalUnidadesPostConversao = isUnidadeMedidaCaixa(unMedida)
+        ? shipment.quantidade * product.unPorCaixa
+        : shipment.quantidade;
+
+      const diferenca = Math.abs(totalUnidadesPostConversao - quantidadeUnidade);
+      const percentualDiferenca =
+        quantidadeUnidade > 0 ? diferenca / quantidadeUnidade : 0;
+
+      const dentroDaTolerancia =
+        diferenca <= TOLERANCIA_ABSOLUTA ||
+        percentualDiferenca <= TOLERANCIA_PERCENTUAL;
+
+      if (dentroDaTolerancia) {
+        continue;
       }
 
       divergenciaConversao.set(shipment.codItem, {
@@ -253,7 +289,7 @@ export function validarDivergenciaConversao(
         quantidade,
         unMedida,
         conversao,
-        diferenca: parteDecimal,
+        diferenca,
         totalUnidadesPostConversao,
       });
     }

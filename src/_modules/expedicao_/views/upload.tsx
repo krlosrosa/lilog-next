@@ -8,6 +8,7 @@ import { Loader2, Upload } from "lucide-react";
 import { ProdNaoEncontrado } from "../components/upload/produtoNaoEncontrado";
 import { TitleTabs } from "../components/title";
 import { ErroDivergenciaConversao } from "../components/upload/erroDivergenciaConversao";
+import { ErroUnidadeMedidaDesconhecida } from "../components/upload/erroUnidadeMedidaDesconhecida";
 
 type UploadTabProps = {
   setValueTab: (value: string) => void;
@@ -33,6 +34,21 @@ export function UploadTab({ setValueTab }: UploadTabProps) {
       {validationFailure?.produtosNaoEncontrados
         && validationFailure.produtosNaoEncontrados.length > 0
         && <ProdNaoEncontrado produto={validationFailure.produtosNaoEncontrados} />}
+      {validationFailure?.unidadesMedidaDesconhecidas
+        && validationFailure.unidadesMedidaDesconhecidas.length > 0
+        &&
+        <div className=" mt-4">
+          <h2 className="text-lg font-semibold">Unidades de Medida Desconhecidas</h2>
+          <div className="space-y-2">
+            {validationFailure.unidadesMedidaDesconhecidas.map((item) => (
+              <ErroUnidadeMedidaDesconhecida
+                key={`${item.codItem}_${item.unMedida}`}
+                item={item}
+              />
+            ))}
+          </div>
+        </div>
+      }
       {validationFailure?.divergenciaConversao
         && validationFailure.divergenciaConversao.length > 0
         &&

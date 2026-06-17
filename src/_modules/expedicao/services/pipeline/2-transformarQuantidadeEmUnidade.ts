@@ -1,24 +1,22 @@
 import type { EnrichedPickingMapItem } from '../../others/types/items';
+import {
+  isUnidadeMedidaBase,
+  isUnidadeMedidaCaixa,
+  normalizarUnidadeMedida,
+} from '../../others/utils/unidadesMedida';
 
 export function transformarQuantidadeEmUnidade(
   enrichedShipments: EnrichedPickingMapItem[],
 ): EnrichedPickingMapItem[] {
 
   return enrichedShipments.map((item) => {
-    const pesoLiquidoProduto = item.produto.pesoUnidade;
-    const pesoTotal = item.pesoLiquido;
+    const unMedida = normalizarUnidadeMedida(item.unMedida);
     let quantidade = 0;
 
-    if (item.produto.variavel === 2) {
-      if (['CX', 'SC', 'FRD', 'FD'].includes(item.unMedida)) {
-        const pesoTotal = item.produto.pesoCaixa * item.quantidade;
-        const qtdUnidade = pesoTotal / item.produto.pesoUnidade;
-        quantidade = Math.round(qtdUnidade * 100) / 100;
-      } else {
-        quantidade = item.quantidade;
-      }
-    } else {
-      quantidade = Math.round((pesoTotal / pesoLiquidoProduto) * 100) / 100;
+    if (isUnidadeMedidaCaixa(unMedida)) {
+      quantidade = item.quantidade * item.produto.unPorCaixa;
+    } else if (isUnidadeMedidaBase(unMedida)) {
+      quantidade = item.quantidade;
     }
 
     return {

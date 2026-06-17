@@ -1,8 +1,16 @@
+export type UnidadeMedidaDesconhecida = {
+  codItem: string;
+  descricao: string;
+  unMedida: string;
+  transportId: string;
+};
+
 export type ErrorFiles = {
   error: boolean;
   errors: ErrorField[];
   produtosNaoEncontrados: ProdutoNaoEncontrado[];
   divergenciaConversao: DivergenciaConversao[];
+  unidadesMedidaDesconhecidas: UnidadeMedidaDesconhecida[];
 };
 
 export type ErrorField = {
