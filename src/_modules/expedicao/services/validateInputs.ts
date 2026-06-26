@@ -296,6 +296,10 @@ export function validarDivergenciaConversao(
   for (const shipment of shipments) {
     const product = products.find((p) => p.codItem === shipment.codItem);
     if (product) {
+      // Peso variavel (variavel === 2): pula a validação de conversão de peso
+      if (product.variavel === 2) {
+        continue;
+      }
 
       const pesoPorUnidade = product.pesoUnidade;
       const pesoPedido = shipment.pesoLiquido;
