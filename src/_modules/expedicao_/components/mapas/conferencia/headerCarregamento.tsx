@@ -69,6 +69,15 @@ export const HeaderCarregamento = memo(({ mapa }: HeaderCarregamentoProps) => {
               <InfoItem label="ROTA" value={mapa.rota} />
             </div>
 
+            {mapa.codClientes.length === 1 && (
+              <div className="grid grid-cols-2 gap-x-2">
+                <InfoItem
+                  label="CLIENTE"
+                  value={`${mapa.codClientes[0]} - ${mapa.nomeClientes[0]}`}
+                />
+              </div>
+            )}
+
             {/* Resumo Quantitativo (onde antes ficava transporte/rota) */}
             <div className="flex flex-wrap justify-center border-t pt-2 text-center text-sm font-semibold">
               {(() => {
